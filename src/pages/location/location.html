@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Location
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <ion-buttons end>
+      <button ion-button (click)="getLocation()"><ion-icon name="locate"></ion-icon>ตำแหน่งคุณ</button>
+      <button ion-button class="button" (click)="saveMap()">บันทึกพิกัด</button>
+    </ion-buttons>
+  </div>
+  <div #map id="map" class="map"></div>
+</ion-content>

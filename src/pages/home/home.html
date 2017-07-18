@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-navbar  hideBackButton="true">
+    <button ion-button menuToggle><ion-icon name="menu"></ion-icon></button>
+    <ion-title text-center></ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only><ion-icon name="compose"></ion-icon></button>
+    </ion-buttons>
+
+  </ion-navbar>
+</ion-header>
+<ion-content class="on-scroll" padding>
+  <div class="User-data">
+    <div text-center>User info</div>
+    <div text-center><img src="assets/if_user_1902268.png" width="100" ></div>
+    <div text-center>User Detail</div>
+  </div>
+  <div></div>
+  <ion-grid class="Menu-data">
+    <ion-row>
+      <ion-col col-6>
+        <button ion-button block outline (click)="goToComplaint()" >ร้องเรื่อน</button>
+      </ion-col>
+      <ion-col col-6>
+        <button ion-button block outline >ผลการดำเนินงาน</button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-6>
+        <button ion-button block outline >รายงาน</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
