@@ -34,3 +34,5 @@ Thumbs.db
 UserInterfaceState.xcuserstate
 !/plugins/
 /plugins/
+package.json
+ionic.config.json
