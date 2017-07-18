@@ -34,39 +34,39 @@
       </ion-item>
       <ion-item>
         <ion-label >วันที่ร้องทุกข์</ion-label>
-        <ion-datetime displayFormat="DD-MM-YYYY" ></ion-datetime>
+        <ion-datetime [(ngModel)]="complain_date" name="complain_date"  displayFormat="DD-MM-YYYY" ></ion-datetime>
       </ion-item>
       <ion-list-header>
         ผู้ร้องทุกข์
       </ion-list-header>
       <ion-item>
         <ion-label >เลขบัตรประจำตัวประชาชน</ion-label>
-        <ion-input type="text"></ion-input>
+        <ion-input [(ngModel)]="id_card" name="id_card" type="text"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label >ผู้รับแจ้ง</ion-label>
-        <ion-input type="text"></ion-input>
+        <ion-input [(ngModel)]="recipient" name="recipient" type="text"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label >หมายเลขโทรศัพท์</ion-label>
-        <ion-input type="text"></ion-input>
+        <ion-input [(ngModel)]="phone_number" name="phone_number"  type="text"></ion-input>
       </ion-item>
       <ion-list-header>
         รายละเอียดการร้องเรียน/ร้องทุกข์
       </ion-list-header>
       <ion-item>
-        <textarea placeholder="รายละเอียดการร้องทุกข์"></textarea>
+        <textarea [(ngModel)]="complaint_detail" name="complaint_detail" placeholder="รายละเอียดการร้องทุกข์"></textarea>
       </ion-item>
       <ion-list-header>
         จุดเกิดเหตุ
       </ion-list-header>
       <ion-item>
         <ion-label >ละติจูด</ion-label>
-        <ion-input type="text"></ion-input>
+        <ion-input  [(ngModel)]="latitude" name="latitude" type="text"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label >ลองจิจูด</ion-label>
-        <ion-input type="text"></ion-input>
+        <ion-input [(ngModel)]="longitude" name="longitude" type="text"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label >หรือ</ion-label>

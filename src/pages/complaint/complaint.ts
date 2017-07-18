@@ -20,6 +20,13 @@ export class Complaint {
   map: any;
   varLat: string = '';
   varLng: string = '';
+  complain_date:any = '' ;
+  id_card:any = '' ;
+  recipient:string = '';
+  phone_number:any ='';
+  complaint_detail:string = '';
+  latitude:any = '';
+  longitude:any = '';
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public geolocation: Geolocation) {
   }
