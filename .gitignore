@@ -34,9 +34,5 @@ Thumbs.db
 UserInterfaceState.xcuserstate
 !/plugins/
 /plugins/
-package.json
-ionic.config.json
-!/package.json
 
-!/src/pages/results/
-!/src/pages/result/
+src/pages/results/
