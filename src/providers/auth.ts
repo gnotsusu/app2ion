@@ -29,8 +29,8 @@ export class User {
 export class Auth {
 
   public host = 'http://122.155.197.104/sysdamrongdham';
-  public auth = '/api/authen/token';
-  public info = '/api/authen/token_infon';
+  public auth = this.host+'/api/authen/token';
+  public info = this.host+'/api/authen/token_infon';
   public token: string;
 
   public userInfo : User;
@@ -41,8 +41,11 @@ export class Auth {
   public isCheck() {
 
     return new Promise((resolve, reject)=> {
-      this.storage.get('token').then( () =>{
-        resolve(true);
+      this.storage.get('token').then( (data) =>{
+        if(data) {
+          console.log('data login : ', data);
+          resolve(true);
+        }
       }).catch( (err) => {
         reject(err.toString());
       })
@@ -83,8 +86,9 @@ export class Auth {
 
   public clearAutherize(){
      return new Promise((resolve, reject) => {
+
        this.storage.clear().then(()=> {
-         resolve(true);
+         setTimeout(resolve(true), 1500);
        }).catch((err) =>{
          reject(err);
        });
@@ -93,7 +97,7 @@ export class Auth {
 
   public getUserInfo() {
     return new Promise((resolve, reject) => {
-      this.http.get(this.http+this.info).map(res => res.json()).subscribe(
+      this.http.get(this.info).map(res => res.json()).subscribe(
         data => {
           resolve(new User(data.id, data.username, data.fullname));
         },
