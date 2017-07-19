@@ -61,7 +61,7 @@ export class Login {
 
   showLoading(){
     this.loading = this.loadCtrl.create({
-      content : 'ยื่นยันตัวตน...'
+      content : 'กำลังยื่นยันตัวตน...'
     });
     this.loading.present();
   }
