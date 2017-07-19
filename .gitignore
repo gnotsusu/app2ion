@@ -37,3 +37,6 @@ UserInterfaceState.xcuserstate
 package.json
 ionic.config.json
 !/package.json
+
+!/src/pages/results/
+!/src/pages/result/
