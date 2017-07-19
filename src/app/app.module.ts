@@ -17,6 +17,9 @@ import { IonicStorageModule } from '@ionic/storage';
 
 /*Provider*/
 import { Auth } from '../providers/auth';
+import {ChartsModule} from "ng2-charts";
+import {Report} from "../pages/report/report";
+import {Result} from "../pages/result/result";
 
 @NgModule({
   declarations: [
@@ -26,11 +29,14 @@ import { Auth } from '../providers/auth';
     Complaint,
     Document,
     Location,
+    Report,
+    Result,
     Tabs
   ],
   imports: [
     BrowserModule,
     HttpModule,
+    ChartsModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot()
   ],
@@ -42,6 +48,8 @@ import { Auth } from '../providers/auth';
     Complaint,
     Document,
     Location,
+    Report,
+    Result,
     Tabs
   ],
   providers: [

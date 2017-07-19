@@ -17,8 +17,20 @@ export class Report {
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
+  public doughnutChartLabels:string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
+  public doughnutChartData:number[] = [350, 450, 100];
+  public doughnutChartType:string = 'doughnut';
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad Report');
+  }
+
+  chartHovered(e:any):void{
+    console.log(e);
+  }
+
+  chartClicked(e:any):void{
+    console.log(e);
   }
 
 }
