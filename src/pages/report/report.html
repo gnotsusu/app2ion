@@ -5,22 +5,19 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>report</ion-title>
+  <ion-navbar  hideBackButton="true">
+    <button ion-button menuToggle><ion-icon name="menu"></ion-icon></button>
+    <ion-title text-center>รายงาน</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only><ion-icon name="compose"></ion-icon></button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
-
 <ion-content padding>
-  <ion-card>
-    <canvas baseChart
-            [data]="doughnutChartData"
-            [labels]="doughnutChartLabels"
-            [chartType]="doughnutChartType"
-            (chartHover)="chartHovered($event)"
-            (chartClick)="chartClicked($event)">
-    </canvas>
-  </ion-card>
+  <ion-list no-lines>
+    <button ion-item *ngFor="let l of list" (click)="OpenReports(l)">
+      {{l.name}}
+    </button>
+  </ion-list>
 </ion-content>

@@ -20,6 +20,8 @@ export class Pages {
 import {Login} from '../pages/login/login';
 import {HomePage} from "../pages/home/home";
 import {Complaint} from "../pages/complaint/complaint";
+import {Report} from "../pages/report/report";
+import {Result} from "../pages/result/result";
 @Component({
   templateUrl: 'app.html'
 })
@@ -42,8 +44,8 @@ export class MyApp {
     this.pages = [
       new Pages('หน้าหลัก', 'home', HomePage),
       new Pages('บันทึกเรื่องราวร้องทุกข์', 'paper-airplane', Complaint),
-      new Pages('ผลการดำเนินงาน', 'email-unread', HomePage),
-      new Pages('รายงาน', 'paper', HomePage)
+      new Pages('ผลการดำเนินงาน', 'email-unread', Result),
+      new Pages('รายงาน', 'paper', Report)
       //new Pages('ออกจากระบบ', 'lock', Login)
     ];
 

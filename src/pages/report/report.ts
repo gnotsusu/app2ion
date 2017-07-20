@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { ReportDataSet, ReportService} from "../../providers/report-service";
 /**
  * Generated class for the Report page.
  *
@@ -14,23 +14,26 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class Report {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  list:ReportDataSet[];
 
-  public doughnutChartLabels:string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
-  public doughnutChartData:number[] = [350, 450, 100];
-  public doughnutChartType:string = 'doughnut';
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public reportSer: ReportService) {
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad Report');
+
+    this.reportSer.getReportList().then((data: ReportDataSet[]) =>{
+      this.list = data;
+    }).catch((err: ErrorEventHandler)=>{
+      console.log(err);
+    })
+
   }
 
-  chartHovered(e:any):void{
-    console.log(e);
-  }
-
-  chartClicked(e:any):void{
-    console.log(e);
+  OpenReports(report:ReportDataSet): void{
+    this.navCtrl.push(report.component);
   }
 
 }

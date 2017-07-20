@@ -20,6 +20,10 @@ import { Auth } from '../providers/auth';
 import {ChartsModule} from "ng2-charts";
 import {Report} from "../pages/report/report";
 import {Result} from "../pages/result/result";
+import {DonusCharts} from "../pages/donus-charts/donus-charts";
+import {ReportService} from "../providers/report-service";
+import {ResultService} from "../providers/result-service";
+import {ResultState} from "../pages/result-state/result-state";
 
 @NgModule({
   declarations: [
@@ -31,6 +35,8 @@ import {Result} from "../pages/result/result";
     Location,
     Report,
     Result,
+    ResultState,
+    DonusCharts,
     Tabs
   ],
   imports: [
@@ -49,7 +55,9 @@ import {Result} from "../pages/result/result";
     Document,
     Location,
     Report,
+    DonusCharts,
     Result,
+    ResultState,
     Tabs
   ],
   providers: [
@@ -57,6 +65,8 @@ import {Result} from "../pages/result/result";
     SplashScreen,
     Auth,
     Geolocation,
+    ReportService,
+    ResultService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

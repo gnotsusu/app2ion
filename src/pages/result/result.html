@@ -5,14 +5,20 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>result</ion-title>
+  <ion-navbar  hideBackButton="true">
+    <button ion-button menuToggle><ion-icon name="menu"></ion-icon></button>
+    <ion-title text-center>รายงาน</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only><ion-icon name="compose"></ion-icon></button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
 
 <ion-content padding>
-
+  <ion-list no-lines>
+    <button ion-item *ngFor="let l of list" (click)="OpenResult(l)">
+      {{l.name}}
+    </button>
+  </ion-list>
 </ion-content>
