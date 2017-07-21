@@ -4,6 +4,7 @@ import {Auth} from '../../providers/auth';
 import {HomePage} from '../home/home';
 import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
+import {Tabs} from "../tabs/tabs";
 /**
  * Generated class for the Login page.
  *
@@ -33,7 +34,7 @@ export class Login {
     this.auth.isCheck()
       .then(data => {
         if(data !== ""){
-          this.navCtrl.push(HomePage);
+          this.navCtrl.push(Tabs);
         }
     }).catch(err => {
       console.log(err.toString());

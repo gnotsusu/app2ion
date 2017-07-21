@@ -11,16 +11,53 @@ import 'rxjs/add/operator/map';
  for more info on providers and Angular DI.
  */
 
+export class UserProfiles{
+  user: User;
+  groups: Groups[];
+
+  constructor(user: User, groups: Groups[]) {
+    this.user = user;
+    this.groups = groups;
+  }
+
+}
+
 export class User {
 
   id : string;
-  fullName: string;
-  userName: string;
+  username: string;
+  email:string;
+  first_name:string;
+  last_name:string;
+  company:string;
+  phone:string;
+  idcard:string;
+  gender:string;
 
-  constructor(id: string, userName: string, fullName : string) {
+  constructor(id: string, username: string, email: string, first_name: string, last_name: string, company: string, phone: string, idcard: string, gender: string) {
     this.id = id;
-    this.userName = userName;
-    this.fullName = fullName;
+    this.username = username;
+    this.email = email;
+    this.first_name = first_name;
+    this.last_name = last_name;
+    this.company = company;
+    this.phone = phone;
+    this.idcard = idcard;
+    this.gender = gender;
+  }
+}
+
+export class Groups {
+  id:string;
+  name:string;
+  description:string;
+  bgColor:string;
+
+  constructor(id: string, name: string, description: string, bgColor: string) {
+    this.id = id;
+    this.name = name;
+    this.description = description;
+    this.bgColor = bgColor;
   }
 
 }
@@ -30,10 +67,11 @@ export class Auth {
 
   public host = 'http://122.155.197.104/sysdamrongdham';
   public auth = this.host+'/api/authen/token';
-  public info = this.host+'/api/authen/token_infon';
+  public info = this.host+'/api/user/user';
   public token: string;
 
   public userInfo : User;
+  public groups : Groups[];
 
   constructor(public http: Http, public storage: Storage) {
   }
@@ -44,6 +82,7 @@ export class Auth {
       this.storage.get('token').then( (data) =>{
         if(data) {
           console.log('data login : ', data);
+          this.token = data;
           resolve(true);
         }
       }).catch( (err) => {
@@ -95,11 +134,23 @@ export class Auth {
      });
   }
 
-  public getUserInfo() {
+  public getUserProfile() {
     return new Promise((resolve, reject) => {
-      this.http.get(this.info).map(res => res.json()).subscribe(
+      let headers = new Headers();
+      headers.append('Authorization', 'Bearer '+this.token);
+      let position = new RequestOptions({headers: headers});
+      this.http.get(this.info, position).map(res => res.json()).subscribe(
         data => {
-          resolve(new User(data.id, data.username, data.fullname));
+          let user = data.user;
+          let groups = data.groups;
+
+          this.userInfo = new User(user.id, user.username,user.email, user.first_name, user.last_name, user.company, user.phone, user.idcard, user.gender);
+
+          for(let group of groups){
+            this.groups.push(new Groups(group.id, group.name, group.description, group.bgcolor))
+          }
+
+          resolve(new UserProfiles(this.userInfo, this.groups));
         },
         err => {
           reject(err);

@@ -22,12 +22,13 @@ import {HomePage} from "../pages/home/home";
 import {Complaint} from "../pages/complaint/complaint";
 import {Report} from "../pages/report/report";
 import {Result} from "../pages/result/result";
+import {Tabs} from "../pages/tabs/tabs";
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  rootPage: any = Login;
+  rootPage: any = Tabs;
   pages: Array<Pages>;
   loading: any;
 

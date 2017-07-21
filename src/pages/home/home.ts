@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Complaint } from '../complaint/complaint';
 import {Result} from "../result/result";
@@ -11,7 +11,6 @@ import {Report} from "../report/report";
 export class HomePage {
 
   constructor(public navCtrl: NavController) {
-
   }
 
   goToComplaint(){
