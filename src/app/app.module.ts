@@ -14,6 +14,12 @@ import { Location } from '../pages/location/location';
 import { Tabs } from '../pages/tabs/tabs';
 import { Geolocation } from '@ionic-native/geolocation';
 import { IonicStorageModule } from '@ionic/storage';
+import { Step1 } from './../pages/step-1/step-1';
+import { Step2 } from './../pages/step-2/step-2';
+import { Step3 } from './../pages/step-3/step-3';
+import { Step4 } from './../pages/step-4/step-4';
+import { Step5 } from './../pages/step-5/step-5';
+
 
 /*Provider*/
 import { Auth } from '../providers/auth';
@@ -37,7 +43,14 @@ import {ResultState} from "../pages/result-state/result-state";
     Result,
     ResultState,
     DonusCharts,
-    Tabs
+    Tabs,
+    Step1,
+    Step2,
+    Step3,
+    Step4,
+    Step5
+
+    
   ],
   imports: [
     BrowserModule,
@@ -58,7 +71,12 @@ import {ResultState} from "../pages/result-state/result-state";
     DonusCharts,
     Result,
     ResultState,
-    Tabs
+    Tabs,
+    Step1,
+    Step2,
+    Step3,
+    Step4,
+    Step5
   ],
   providers: [
     StatusBar,

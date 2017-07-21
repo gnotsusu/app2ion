@@ -1,0 +1,94 @@
+<!--
+  Generated template for the Step2 page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>ความประสงค์ในการดำเนินการ</ion-title>
+    <ion-buttons end>
+      <button ion-button [navPush]="step3Page">save</button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card-content>
+    <ion-list-header>
+        ความประสงค์ในการดำเนินการ
+     </ion-list-header>
+     <ion-item>
+        <ion-label floating>ประเภทเรื่อง</ion-label>
+        <ion-select [(ngModel)]="complain_type_id">
+          <!--<ion-option *ngFor="let employee of employees" [value]="employee"></ion-option>-->
+          <ion-option >test</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>หัวข้อเรื่อง</ion-label>
+        <ion-input [(ngModel)]="complain_name" name="complain_name" type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>ช่องทางรับเรื่อง</ion-label>
+        <ion-select [(ngModel)]="channel_id">
+          <!--<ion-option *ngFor="let employee of employees" [value]="employee"></ion-option>-->
+          <ion-option >test</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>ลักษณะเรื่อง</ion-label>
+        <ion-select [(ngModel)]="subject_id">
+          <!--<ion-option *ngFor="let employee of employees" [value]="employee"></ion-option>-->
+          <ion-option >test</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-list radio-group [(ngModel)]="accused_type_id">
+      <ion-list-header>
+        หน่วยงานหรือผู้ถูกร้องเรียนร้องทุกข์
+      </ion-list-header>
+      <ion-item>
+        <ion-label > หน่วยงานภายใน</ion-label>
+        <ion-radio  value="1"></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label >หน่วยงานภายนอก</ion-label>
+        <ion-radio  value="2"></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label >บุคคล/นิติบุคล</ion-label>
+        <ion-radio  value="3"></ion-radio>
+      </ion-item>
+      </ion-list>
+      <ion-item>
+        <ion-label floating>ชื่อผู้ถูกร้องเรียน</ion-label>
+        <ion-input [(ngModel)]="accused_name" name="accused_name" type="text"></ion-input>
+      </ion-item>
+      <ion-list>
+        <ion-list-header>
+          ความประสงค์
+        </ion-list-header>
+        <ion-item>
+          <ion-label>ขอความช่วยเหลือ</ion-label>
+          <ion-checkbox ></ion-checkbox>
+        </ion-item>
+        <ion-item>
+          <ion-label>ขอความเป็นธรรม</ion-label>
+          <ion-checkbox></ion-checkbox>
+        </ion-item>
+        <ion-item>
+          <ion-label>ขอตรวจสอบข้อเท็จจริง</ion-label>
+          <ion-checkbox ></ion-checkbox>
+        </ion-item>
+      </ion-list>  
+      <ion-item>
+        <ion-label >ความประสงค์เพิ่มเติม</ion-label>        
+      </ion-item>
+      <ion-item>
+        <textarea [(ngModel)]="wish_detail"></textarea>        
+      </ion-item>
+  </ion-card-content>
+</ion-content>

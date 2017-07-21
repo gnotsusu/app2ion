@@ -1,3 +1,10 @@
 page-login {
-
+    .scroll-content {
+        background: url('../../assets/images/login.jpg'); 
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+    
 }

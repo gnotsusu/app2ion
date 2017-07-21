@@ -1,0 +1,82 @@
+<!--
+  Generated template for the Step3 page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>เนื้อหาเรื่องร้องทุกข์ร้องเรียน</ion-title>
+    <ion-buttons end>
+      <button ion-button [navPush]="step4Page">save</button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card-content>
+    <ion-list-header>
+        เนื้อหาเรื่องร้องทุกข์ร้องเรียน
+     </ion-list-header>
+     <ion-item>
+        <ion-label floating>วันเดือนปีที่เกิดเหตุ(ถ้ามี)</ion-label>
+        <ion-datetime [(ngModel)]="scene_date" name="scene_date"  displayFormat="DD-MM-YYYY" ></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>สถานที่เกิดเหตุ</ion-label>
+        <ion-select [(ngModel)]="place_scene">
+          <!--<ion-option *ngFor="let employee of employees" [value]="employee"></ion-option>-->
+          <ion-option >test</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>จังหวัด</ion-label>
+        <ion-select [(ngModel)]="province_id">
+          <!--<ion-option *ngFor="let employee of employees" [value]="employee"></ion-option>-->
+          <ion-option >test</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>อำเภอ</ion-label>
+        <ion-select [(ngModel)]="district_id">
+          <!--<ion-option *ngFor="let employee of employees" [value]="employee"></ion-option>-->
+          <ion-option >test</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>ตำบล</ion-label>
+        <ion-select [(ngModel)]="address_id">
+          <!--<ion-option *ngFor="let employee of employees" [value]="employee"></ion-option>-->
+          <ion-option >test</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label >ความประสงค์เพิ่มเติม</ion-label>        
+      </ion-item>
+      <ion-item>
+        <textarea [(ngModel)]="complaint_detail"></textarea>        
+      </ion-item>
+      <ion-list-header>
+        จุดเกิดเหตุ
+     </ion-list-header>
+     <ion-item>
+        <ion-label floating>ละติจูด</ion-label>
+        <ion-input [(ngModel)]="latitude" name="latitude" type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>ลองติจูด</ion-label>
+        <ion-input [(ngModel)]="longitude" name="longitude" type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <div>
+          <ion-buttons >
+            <button ion-button (click)="goToMap()"><ion-icon name="pin"></ion-icon>&nbsp;&nbsp;จุดเกิดเหตุ</button>            
+          </ion-buttons>
+        </div>
+        <div #map id="map" class="map"></div>
+      </ion-item>
+  </ion-card-content>
+</ion-content>
