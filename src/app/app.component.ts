@@ -28,7 +28,7 @@ import {Tabs} from "../pages/tabs/tabs";
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  rootPage: any = Tabs;
+  rootPage: any = Login;
   pages: Array<Pages>;
   loading: any;
 

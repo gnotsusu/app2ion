@@ -52,7 +52,7 @@ export class Login {
     this.auth.login(credentials).then(res => {
       console.log(res);
       this.loading.dismiss();
-      this.navCtrl.push(HomePage);
+      this.navCtrl.push(Tabs);
     }).catch((err) => {
       this.loading.dismiss();
       alert('username or password failure!');
