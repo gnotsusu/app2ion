@@ -50,7 +50,7 @@ import {ResultState} from "../pages/result-state/result-state";
     Step4,
     Step5
 
-    
+
   ],
   imports: [
     BrowserModule,
