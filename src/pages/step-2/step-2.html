@@ -23,9 +23,9 @@
      </ion-list-header>
      <ion-item>
         <ion-label floating>ประเภทเรื่อง</ion-label>
-        <ion-select [(ngModel)]="complain_type_id">
-          <!--<ion-option *ngFor="let employee of employees" [value]="employee"></ion-option>-->
-          <ion-option >test</ion-option>
+        <ion-select [(ngModel)]="complain_type_id"  >
+          <ion-option *ngFor="let complain of complain_type_id" [value]="complain.id" >{{complain.name}}</ion-option>
+          <!--<ion-option >test</ion-option>-->
         </ion-select>
       </ion-item>
       <ion-item>
