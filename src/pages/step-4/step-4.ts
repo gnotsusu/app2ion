@@ -1,6 +1,8 @@
 import { Step5 } from './../step-5/step-5';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ModalController,IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Camera } from '@ionic-native/camera';
+import { AddPhoto } from '../add-photo/add-photo';
 
 /**
  * Generated class for the Step4 page.
@@ -15,11 +17,26 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class Step4 {
   step5Page = Step5;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  imageURL;
+  base64Image:any;
+  constructor(public modalCtrl: ModalController,public navCtrl: NavController, public navParams: NavParams,public camera:Camera) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad Step4');
   }
+  /*
+  goToAddPhoto(){
+    this.navCtrl.push(AddPhoto);
+  }*/
+
+  openModal() {
+    let myModal = this.modalCtrl.create(AddPhoto);
+    myModal.onDidDismiss(data => {
+     console.log(data);
+    });
+    myModal.present();
+  }
+
 
 }

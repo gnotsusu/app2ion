@@ -1,0 +1,23 @@
+<!--
+  Generated template for the AddPhotoPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>ภาพเอกสารหลักฐาน</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <button  ion-button (click)="takePhoto()" style="width: 47%;">ถ่ายภาพ</button>
+  <button  ion-button (click)="accessGallery()" style="width: 47%;">เลือกจากคลังภาพ</button>
+  <button  ion-button (click)="savePhoto()" style="width: 47%;">บันทึก</button>
+  <button  ion-button (click)="closeModal(base64Image)" style="width: 47%;">ยกเลิก</button>
+  <img class="imageData" [src]="base64Image" *ngIf="base64Image" />
+
+</ion-content>
