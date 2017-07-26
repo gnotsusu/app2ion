@@ -30,6 +30,7 @@ import {DonusCharts} from "../pages/donus-charts/donus-charts";
 import {ReportService} from "../providers/report-service";
 import {ResultService} from "../providers/result-service";
 import {ResultState} from "../pages/result-state/result-state";
+import {SelectorComplaint} from "../providers/selector-complaint";
 
 @NgModule({
   declarations: [
@@ -85,6 +86,7 @@ import {ResultState} from "../pages/result-state/result-state";
     Geolocation,
     ReportService,
     ResultService,
+    SelectorComplaint,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

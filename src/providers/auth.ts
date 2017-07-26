@@ -92,6 +92,23 @@ export class Auth {
 
   }
 
+  public isExpire(token:string){
+    return new Promise((resolve, reject)=>{
+      this.http.get(this.info).map(res=> res.json()).subscribe(
+        data => {
+          if(data){
+            reject();
+          }else{
+            resolve(true);
+          }
+        },
+        err => {
+          reject();
+        }
+      );
+    });
+  }
+
   public login(credentials) {
 
     return new Promise((resolve, reject) => {
