@@ -14,11 +14,11 @@ import { Location } from '../pages/location/location';
 import { Tabs } from '../pages/tabs/tabs';
 import { Geolocation } from '@ionic-native/geolocation';
 import { IonicStorageModule } from '@ionic/storage';
-import { Step1 } from './../pages/step-1/step-1';
-import { Step2 } from './../pages/step-2/step-2';
-import { Step3 } from './../pages/step-3/step-3';
-import { Step4 } from './../pages/step-4/step-4';
-import { Step5 } from './../pages/step-5/step-5';
+import { Step1 } from '../pages/step-1/step-1';
+import { Step2 } from '../pages/step-2/step-2';
+import { Step3 } from '../pages/step-3/step-3';
+import { Step4 } from '../pages/step-4/step-4';
+import { Step5 } from '../pages/step-5/step-5';
 
 
 /*Provider*/
@@ -30,6 +30,7 @@ import {DonusCharts} from "../pages/donus-charts/donus-charts";
 import {ReportService} from "../providers/report-service";
 import {ResultService} from "../providers/result-service";
 import {ResultState} from "../pages/result-state/result-state";
+import {SelectAddress} from "../providers/select-address";
 
 @NgModule({
   declarations: [
@@ -85,6 +86,7 @@ import {ResultState} from "../pages/result-state/result-state";
     Geolocation,
     ReportService,
     ResultService,
+    SelectAddress,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
