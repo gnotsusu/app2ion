@@ -31,6 +31,7 @@ import {ReportService} from "../providers/report-service";
 import {ResultService} from "../providers/result-service";
 import {ResultState} from "../pages/result-state/result-state";
 import {SelectAddress} from "../providers/select-address";
+import {SelectorComplaint} from "../providers/selector-complaint";
 
 @NgModule({
   declarations: [
@@ -86,6 +87,7 @@ import {SelectAddress} from "../providers/select-address";
     Geolocation,
     ReportService,
     ResultService,
+    SelectorComplaint,
     SelectAddress,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
