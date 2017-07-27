@@ -1,9 +1,12 @@
+import { Login } from './../login/login';
+import { Auth } from './../../providers/auth';
 import { SelectorComplaint } from './../../providers/selector-complaint';
 import { Complaint } from './../complaint/complaint';
 import { Step3 } from './../step-3/step-3';
 import { RequestOptions, Http, Headers} from '@angular/http';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+
 
 
 export class ComplaintType{
@@ -43,11 +46,20 @@ export class Step2 {
   public accused_name:string = '' ;
   public wish_detail:string = '';
   public host = 'http://122.155.197.104/sysdamrongdham';
-  public auth = this.host+'/api/complaint/key_in';
+  public api_keyin = this.host+'/api/complaint/key_in';
   public complain_type = this.host+'/api/complaint/key_in';
-  public token: string;
+  public token: any;
   public selectOptions:any;  
-  constructor(public navCtrl: NavController, public navParams: NavParams,public RequestOptions:RequestOptions,public http:Http,public SelectorComplaint:SelectorComplaint) {
+  loading:any;
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    public RequestOptions:RequestOptions,
+    public http:Http,
+    public SelectorComplaint:SelectorComplaint,
+    public auth:Auth,
+    public loadCtrl:LoadingController,
+    ) {
     this.keyin_id = this.navParams.get('param1');; 
   //   this.complain_type_id = [
   //     new ComplaintType(1, 'key1'),
@@ -61,6 +73,7 @@ export class Step2 {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad Step2');
+    this.authen();
     this.SelectorComplaint.getComplaintTypeList().then((data)=>{
       this.complain_type_id_sel = data;
     });
@@ -76,6 +89,36 @@ export class Step2 {
   //      this.complain_type_id = data;
   //   });
 
+}
+
+authen(){
+
+    this.showLoading();
+
+    this.auth.isCheck().then((data) => {
+        this.token = data;
+        
+        return data;
+    }).then( (token:string) => {
+        return this.auth.isExpire(token);
+    }).then((isExpire:Boolean) => {
+      if (isExpire ) {
+        this.loading.dismiss();
+        this.navCtrl.pop(Login);
+      }else{
+        this.loading.dismiss();
+      } 
+    }).catch(err => {
+      this.loading.dismiss();
+      console.error(err.message);
+    });
+  }
+
+  showLoading(){
+    this.loading = this.loadCtrl.create({
+      content : 'กำลังยื่นยันตัวตน...'
+    });
+    this.loading.present();
   }
 
   getComplainType(){
@@ -92,6 +135,7 @@ export class Step2 {
   }
 
   saveData(){
+    let token_data = this.token;
     let keyin_id = this.keyin_id;
     let Complaint_data = {
       complain_type_id:this.complain_type_id ,
@@ -107,13 +151,13 @@ export class Step2 {
     return new Promise((resolve, reject) => {
 
       let headers = new Headers();
-      headers.append('Authorization', 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyaWQiOiIxIiwiZnVsbG5hbWUiOiJcdTBlMTlcdTBlMzJcdTBlMjJBZG1pbiBpc3RyYXRvciIsInVzZXJuYW1lIjoiYWRtaW5pc3RyYXRvciIsInBlcm1pc3Npb24iOlsiMjEiLCIyIiwiNSIsIjciLCIxMCIsIjExIiwiMTMiLCIxNCIsIjE1IiwiMTYiLCIxNyIsIjE4IiwiMjAiLCIxOSIsIjIyIiwiMjMiXSwiaWF0IjoxNTAxMTU1MTA4LCJleHAiOjE1MDEyNDE2MDh9.Lmh2FFzJK8vgHsogI5Uw-geccgfqJ0-ewG4s3vBGoRo');
+      headers.append('Authorization','Bearer '+ token_data);
       headers.append('Content-Type', 'application/x-www-form-urlencoded');
 
       let body = "complain_type_id=" + Complaint_data.complain_type_id + "&complain_name=" + Complaint_data.complain_name + "&channel_id=" + Complaint_data.channel_id + "&subject_id=" + Complaint_data.subject_id + "&accused_type_id=" + Complaint_data.accused_type_id + "&accused_name=" + Complaint_data.accused_name + "&wish_detail=" + Complaint_data.wish_detail + "&step=2&keyin_id="+keyin_id;
       let options = new RequestOptions({headers: headers});
 
-      this.http.put(this.auth, body, options).map(res => res).subscribe(
+      this.http.put(this.api_keyin, body, options).map(res => res).subscribe(
         data => {
           console.log(data['_body']);
           this.navCtrl.push(Step3, {param1: data['_body']});
