@@ -86,7 +86,6 @@ export class Auth {
         reject(err);
       })
     });
-
   }
 
   public isExpire(token:string){
@@ -157,7 +156,7 @@ export class Auth {
      return new Promise((resolve, reject) => {
 
        this.storage.clear().then(()=> {
-         setTimeout(resolve(true), 1500);
+         setTimeout(resolve(true), 2500);
        }).catch((err) =>{
          reject(err);
        });
