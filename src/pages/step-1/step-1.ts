@@ -50,7 +50,7 @@ export class Step1 {
     return new Promise((resolve, reject) => {
 
       let headers = new Headers();
-      headers.append('Authorization', 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyaWQiOiIxIiwiZnVsbG5hbWUiOiJcdTBlMTlcdTBlMzJcdTBlMjJBZG1pbiBpc3RyYXRvciIsInVzZXJuYW1lIjoiYWRtaW5pc3RyYXRvciIsInBlcm1pc3Npb24iOlsiMjEiLCIyIiwiNSIsIjciLCIxMCIsIjExIiwiMTMiLCIxNCIsIjE1IiwiMTYiLCIxNyIsIjE4IiwiMjAiLCIxOSIsIjIyIiwiMjMiXSwiaWF0IjoxNTAwNzI2MDY5LCJleHAiOjE1MDA4MTI1Njl9.ldvVDx0ruP7-PGJrvnCZPCg8oewVqAHZJgHY85Vaw1c');
+      headers.append('Authorization', 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyaWQiOiIxIiwiZnVsbG5hbWUiOiJcdTBlMTlcdTBlMzJcdTBlMjJBZG1pbiBpc3RyYXRvciIsInVzZXJuYW1lIjoiYWRtaW5pc3RyYXRvciIsInBlcm1pc3Npb24iOlsiMjEiLCIyIiwiNSIsIjciLCIxMCIsIjExIiwiMTMiLCIxNCIsIjE1IiwiMTYiLCIxNyIsIjE4IiwiMjAiLCIxOSIsIjIyIiwiMjMiXSwiaWF0IjoxNTAxMTU1MTA4LCJleHAiOjE1MDEyNDE2MDh9.Lmh2FFzJK8vgHsogI5Uw-geccgfqJ0-ewG4s3vBGoRo');
       headers.append('Content-Type', 'application/x-www-form-urlencoded');
 
       let body = "complain_date=" + Complaint_data.complain_date + "&recipient=" + Complaint_data.recipient + "&doc_receive_date=" + Complaint_data.doc_receive_date + "&doc_receive_no=" + Complaint_data.doc_receive_no + "&doc_send_date=" + Complaint_data.doc_send_date + "&doc_send_no=" + Complaint_data.doc_send_no + "&user_complain_type_id=" + Complaint_data.user_complain_type_id + "&step=1";

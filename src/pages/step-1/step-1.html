@@ -9,7 +9,8 @@
   <ion-navbar>
     <ion-title>บันทึกเรื่องราวร้องทุกข์</ion-title>
     <ion-buttons end>
-      <button ion-button [navPush]="step2Page">save</button>
+      <!--<button ion-button [navPush]="step2Page">save</button>-->
+      <button ion-button (click)='saveData()'>save</button>
     </ion-buttons>
   </ion-navbar>
 

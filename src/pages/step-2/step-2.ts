@@ -1,3 +1,4 @@
+import { SelectorComplaint } from './../../providers/selector-complaint';
 import { Complaint } from './../complaint/complaint';
 import { Step3 } from './../step-3/step-3';
 import { RequestOptions, Http, Headers} from '@angular/http';
@@ -31,7 +32,10 @@ export class ComplaintType{
 export class Step2 {
   step3Page = Step3;
   keyin_id: string;
-  public complain_type_id:ComplaintType[] ;
+  public complain_type_id_sel: any;
+  public channel_id_sel: any;
+  public subject_id_sel: any;
+  public complain_type_id: any;
   public complain_name:string = '';
   public channel_id: any = '';
   public subject_id:string = '' ;
@@ -42,25 +46,35 @@ export class Step2 {
   public auth = this.host+'/api/complaint/key_in';
   public complain_type = this.host+'/api/complaint/key_in';
   public token: string;
-  public selectOptions:any;
-  constructor(public navCtrl: NavController, public navParams: NavParams,public RequestOptions:RequestOptions,public http:Http) {
-    this.keyin_id = '251'; 
-    this.complain_type_id = [
-      new ComplaintType(1, 'key1'),
-      new ComplaintType(2, 'key2'),
-      new ComplaintType(3, 'key3'),
-      new ComplaintType(4, 'key4'),
-  ];
+  public selectOptions:any;  
+  constructor(public navCtrl: NavController, public navParams: NavParams,public RequestOptions:RequestOptions,public http:Http,public SelectorComplaint:SelectorComplaint) {
+    this.keyin_id = this.navParams.get('param1');; 
+  //   this.complain_type_id = [
+  //     new ComplaintType(1, 'key1'),
+  //     new ComplaintType(2, 'key2'),
+  //     new ComplaintType(3, 'key3'),
+  //     new ComplaintType(4, 'key4'),
+  // ];
 }
 
 
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad Step2');
-
-   this.getComplainType().then((data:ComplaintType[]) => {
-       this.complain_type_id = data;
+    this.SelectorComplaint.getComplaintTypeList().then((data)=>{
+      this.complain_type_id_sel = data;
     });
+
+    this.SelectorComplaint.getChannelList().then((data)=>{
+      this.channel_id_sel = data;
+    });
+
+    this.SelectorComplaint.getSubjectList().then((data)=>{
+      this.subject_id_sel = data;
+    });    
+  //  this.getComplainType().then((data:ComplaintType[]) => {
+  //      this.complain_type_id = data;
+  //   });
 
   }
 
@@ -88,11 +102,12 @@ export class Step2 {
       accused_name:this.accused_name, 
       wish_detail: this.wish_detail
     }
+    console.log(Complaint_data);
     
     return new Promise((resolve, reject) => {
 
       let headers = new Headers();
-      headers.append('Authorization', 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyaWQiOiIxIiwiZnVsbG5hbWUiOiJcdTBlMTlcdTBlMzJcdTBlMjJBZG1pbiBpc3RyYXRvciIsInVzZXJuYW1lIjoiYWRtaW5pc3RyYXRvciIsInBlcm1pc3Npb24iOlsiMjEiLCIyIiwiNSIsIjciLCIxMCIsIjExIiwiMTMiLCIxNCIsIjE1IiwiMTYiLCIxNyIsIjE4IiwiMjAiLCIxOSIsIjIyIiwiMjMiXSwiaWF0IjoxNTAwNzI2MDY5LCJleHAiOjE1MDA4MTI1Njl9.ldvVDx0ruP7-PGJrvnCZPCg8oewVqAHZJgHY85Vaw1c');
+      headers.append('Authorization', 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyaWQiOiIxIiwiZnVsbG5hbWUiOiJcdTBlMTlcdTBlMzJcdTBlMjJBZG1pbiBpc3RyYXRvciIsInVzZXJuYW1lIjoiYWRtaW5pc3RyYXRvciIsInBlcm1pc3Npb24iOlsiMjEiLCIyIiwiNSIsIjciLCIxMCIsIjExIiwiMTMiLCIxNCIsIjE1IiwiMTYiLCIxNyIsIjE4IiwiMjAiLCIxOSIsIjIyIiwiMjMiXSwiaWF0IjoxNTAxMTU1MTA4LCJleHAiOjE1MDEyNDE2MDh9.Lmh2FFzJK8vgHsogI5Uw-geccgfqJ0-ewG4s3vBGoRo');
       headers.append('Content-Type', 'application/x-www-form-urlencoded');
 
       let body = "complain_type_id=" + Complaint_data.complain_type_id + "&complain_name=" + Complaint_data.complain_name + "&channel_id=" + Complaint_data.channel_id + "&subject_id=" + Complaint_data.subject_id + "&accused_type_id=" + Complaint_data.accused_type_id + "&accused_name=" + Complaint_data.accused_name + "&wish_detail=" + Complaint_data.wish_detail + "&step=2&keyin_id="+keyin_id;
@@ -116,3 +131,4 @@ export class Step2 {
 
 
 }
+
