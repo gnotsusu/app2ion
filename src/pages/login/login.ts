@@ -85,8 +85,8 @@ export class Login {
 
   presentAlert(){
     let alert = this.alertCtrl.create({
-      title: "Session Expired",
-      subTitle: "Please login again!",
+      title: "ระยะเวลาอยู่ในระบบของคุณหมดอายุ",
+      subTitle: "กรุณาเข้าสู่ระบบอีกครั้ง",
       buttons: ['ตกลง']
     });
     alert.present();
