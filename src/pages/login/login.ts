@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams, LoadingController} from 'ionic-angular';
+import {IonicPage, NavController, NavParams, LoadingController, AlertController} from 'ionic-angular';
 import {Auth} from '../../providers/auth';
-import {HomePage} from '../home/home';
 import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
 import {Tabs} from "../tabs/tabs";
@@ -19,10 +18,16 @@ import {Tabs} from "../tabs/tabs";
 export class Login {
 
   public username: string;
-  public password: string
+  public password: string;
   loading : any;
+  token:string = "";
 
-  constructor(public navCtrl: NavController, public http: Http, public navParams: NavParams, public auth: Auth, public loadCtrl : LoadingController) {
+  constructor(public navCtrl: NavController,
+              public http: Http,
+              public navParams: NavParams,
+              public auth: Auth,
+              public loadCtrl : LoadingController,
+              public alertCtrl : AlertController) {
   }
 
   ionViewDidLoad() {
@@ -31,13 +36,24 @@ export class Login {
   }
 
   authen(){
-    this.auth.isCheck()
-      .then(data => {
-        if(data !== ""){
-          this.navCtrl.push(Tabs);
-        }
+
+    this.showLoading();
+
+    this.auth.isCheck().then((data) => {
+        return data;
+    }).then( (token:string) => {
+        return this.auth.isExpire(token);
+    }).then((isExpire:Boolean) => {
+      if (isExpire ) {
+        this.loading.dismiss();
+        this.presentAlert();
+      } else {
+        this.loading.dismiss();
+        this.navCtrl.push(Tabs);
+      }
     }).catch(err => {
-      console.log(err.toString());
+      this.loading.dismiss();
+      console.error(err.message);
     });
   }
 
@@ -65,6 +81,15 @@ export class Login {
       content : 'กำลังยื่นยันตัวตน...'
     });
     this.loading.present();
+  }
+
+  presentAlert(){
+    let alert = this.alertCtrl.create({
+      title: "Session Expired",
+      subTitle: "Please login again!",
+      buttons: ['ตกลง']
+    });
+    alert.present();
   }
 
 }
