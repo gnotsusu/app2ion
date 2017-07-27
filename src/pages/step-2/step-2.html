@@ -9,7 +9,8 @@
   <ion-navbar>
     <ion-title>ความประสงค์ในการดำเนินการ</ion-title>
     <ion-buttons end>
-      <button ion-button [navPush]="step3Page">save</button>
+      <!--<button ion-button [navPush]="step3Page">save</button>-->
+      <button ion-button (click)='saveData()'>save</button>
     </ion-buttons>
   </ion-navbar>
 
@@ -23,9 +24,9 @@
      </ion-list-header>
      <ion-item>
         <ion-label floating>ประเภทเรื่อง</ion-label>
-        <ion-select [(ngModel)]="complain_type_id">
-          <!--<ion-option *ngFor="let employee of employees" [value]="employee"></ion-option>-->
-          <ion-option >test</ion-option>
+        <ion-select [(ngModel)]="complain_type_id"  >
+          <ion-option *ngFor="let complain of complain_type_id_sel" [value]="complain.id" >{{complain.name}}</ion-option>
+          <!--<ion-option >test</ion-option>-->
         </ion-select>
       </ion-item>
       <ion-item>
@@ -35,15 +36,15 @@
       <ion-item>
         <ion-label floating>ช่องทางรับเรื่อง</ion-label>
         <ion-select [(ngModel)]="channel_id">
-          <!--<ion-option *ngFor="let employee of employees" [value]="employee"></ion-option>-->
-          <ion-option >test</ion-option>
+          <ion-option *ngFor="let channel of channel_id_sel" [value]="channel.id">{{channel.name}}</ion-option>
+          <!--<ion-option >test</ion-option>-->
         </ion-select>
       </ion-item>
       <ion-item>
         <ion-label floating>ลักษณะเรื่อง</ion-label>
         <ion-select [(ngModel)]="subject_id">
-          <!--<ion-option *ngFor="let employee of employees" [value]="employee"></ion-option>-->
-          <ion-option >test</ion-option>
+          <ion-option *ngFor="let subject of subject_id_sel" [value]="subject.id">{{subject.name}}</ion-option>
+          <!--<ion-option >test</ion-option>-->
         </ion-select>
       </ion-item>
       <ion-list radio-group [(ngModel)]="accused_type_id">
@@ -88,7 +89,7 @@
         <ion-label >ความประสงค์เพิ่มเติม</ion-label>        
       </ion-item>
       <ion-item>
-        <textarea [(ngModel)]="wish_detail"></textarea>        
+        <textarea [(ngModel)]="wish_detail"></textarea>
       </ion-item>
   </ion-card-content>
 </ion-content>
