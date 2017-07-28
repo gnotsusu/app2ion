@@ -67,7 +67,7 @@ export class Auth {
 
   public host = 'http://122.155.197.104/sysdamrongdham';
   public auth = this.host+'/api/authen/token';
-  public info = this.host+'/api/user/user';
+  public info = this.host+'/api/authen/token_info';
   public token: string;
 
   public userInfo : User;
@@ -77,19 +77,48 @@ export class Auth {
   }
 
   public isCheck() {
-
     return new Promise((resolve, reject)=> {
-      this.storage.get('token').then( (data) =>{
-        if(data) {
+      this.storage.get('token').then( (data:string) => {
           console.log('data login : ', data);
           this.token = data;
-          resolve(true);
-        }
-      }).catch( (err) => {
-        reject(err.toString());
+          resolve(data);
+      }).catch((err:string) => {
+        reject(err);
       })
     });
+  }
 
+  public isExpire(token:string){
+    return new Promise((resolve, reject)=>{
+      if(token) {
+        let headers = new Headers();
+        headers.append('Authorization', 'Bearer ' + token);
+        let options = new RequestOptions({headers: headers});
+        this.http.get(this.info, options).map(res => res.json()).subscribe(
+          data => {
+            console.log(data.error);
+            if (data.error) {
+              resolve(true);
+            } else {
+              resolve(false);
+            }
+          },
+          (err) => {
+            if (err.status == 401) {
+
+              this.storage.clear().then(() => console.log('storage clear'));
+              resolve(true);
+            } else {
+              reject(err);
+            }
+            //reject(err);
+          }
+        );
+      }else{
+        //console.log('Token is empty!!!');
+        reject('Token is empty!!!');
+      }
+    });
   }
 
   public login(credentials) {
@@ -127,7 +156,7 @@ export class Auth {
      return new Promise((resolve, reject) => {
 
        this.storage.clear().then(()=> {
-         setTimeout(resolve(true), 1500);
+         setTimeout(resolve(true), 2500);
        }).catch((err) =>{
          reject(err);
        });

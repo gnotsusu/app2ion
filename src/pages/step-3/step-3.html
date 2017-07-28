@@ -19,64 +19,60 @@
 <ion-content padding>
   <ion-card-content>
     <ion-list-header>
-        เนื้อหาเรื่องร้องทุกข์ร้องเรียน
-     </ion-list-header>
-     <ion-item>
-        <ion-label floating>วันเดือนปีที่เกิดเหตุ(ถ้ามี)</ion-label>
-        <ion-datetime [(ngModel)]="scene_date" name="scene_date"  displayFormat="DD-MM-YYYY" ></ion-datetime>
-      </ion-item>
-      <ion-item>
-        <ion-label floating>สถานที่เกิดเหตุ</ion-label>
-        <ion-select [(ngModel)]="place_scene">
-          <!--<ion-option *ngFor="let employee of employees" [value]="employee"></ion-option>-->
-          <ion-option >test</ion-option>
-        </ion-select>
-      </ion-item>
-      <ion-item>
-        <ion-label floating>จังหวัด</ion-label>
-        <ion-select [(ngModel)]="province_id">
-          <!--<ion-option *ngFor="let employee of employees" [value]="employee"></ion-option>-->
-          <ion-option >test</ion-option>
-        </ion-select>
-      </ion-item>
-      <ion-item>
-        <ion-label floating>อำเภอ</ion-label>
-        <ion-select [(ngModel)]="district_id">
-          <!--<ion-option *ngFor="let employee of employees" [value]="employee"></ion-option>-->
-          <ion-option >test</ion-option>
-        </ion-select>
-      </ion-item>
-      <ion-item>
-        <ion-label floating>ตำบล</ion-label>
-        <ion-select [(ngModel)]="address_id">
-          <!--<ion-option *ngFor="let employee of employees" [value]="employee"></ion-option>-->
-          <ion-option >test</ion-option>
-        </ion-select>
-      </ion-item>
-      <ion-item>
-        <ion-label >ความประสงค์เพิ่มเติม</ion-label>        
-      </ion-item>
-      <ion-item>
-        <textarea [(ngModel)]="complaint_detail"></textarea>        
-      </ion-item>
-      <ion-list-header>
-        จุดเกิดเหตุ
-     </ion-list-header>
-     <ion-item>
-        <ion-label floating>ละติจูด</ion-label>
-        <ion-input [(ngModel)]="latitude" name="latitude" type="text"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label floating>ลองติจูด</ion-label>
-        <ion-input [(ngModel)]="longitude" name="longitude" type="text"></ion-input>
-      </ion-item>
-      <ion-item>
-        <div>
-          <ion-buttons >
-            <button ion-button (click)="goToMap()"><ion-icon name="pin"></ion-icon>&nbsp;&nbsp;จุดเกิดเหตุ</button>            
-          </ion-buttons>
-        </div>
-        <div #map id="map" class="map"></div>
-      </ion-item>
+      เนื้อหาเรื่องร้องทุกข์ร้องเรียน
+    </ion-list-header>
+    <ion-item>
+      <ion-label floating>วันเดือนปีที่เกิดเหตุ(ถ้ามี)</ion-label>
+      <ion-datetime [(ngModel)]="scene_date" name="scene_date" displayFormat="DD-MM-YYYY"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>สถานที่เกิดเหตุ</ion-label>
+      <ion-input type="text" [(ngModel)]="place_scene"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>จังหวัด</ion-label>
+      <ion-select [(ngModel)]="province_id" (ionChange)="onChangeProvince()">
+        <ion-option *ngFor="let province of provinces" [value]="province.id">{{province.value}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>อำเภอ</ion-label>
+      <ion-select [(ngModel)]="district_id" (ionChange)="onChangeDistrict()">
+        <ion-option *ngFor="let district of districts" [value]="district.id">{{district.value}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>ตำบล</ion-label>
+      <ion-select [(ngModel)]="address_id">
+        <ion-option *ngFor="let sub_district of sub_districts" [value]="sub_district.id">{{sub_district.value}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>ความประสงค์เพิ่มเติม</ion-label>
+    </ion-item>
+    <ion-item>
+      <textarea [(ngModel)]="complaint_detail"></textarea>
+    </ion-item>
+    <ion-list-header>
+      จุดเกิดเหตุ
+    </ion-list-header>
+    <ion-item>
+      <ion-label floating>ละติจูด</ion-label>
+      <ion-input type="text" [(ngModel)]="latitude"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>ลองติจูด</ion-label>
+      <ion-input type="text" [(ngModel)]="longitude"></ion-input>
+    </ion-item>
+    <ion-item>
+      <div>
+        <ion-buttons>
+          <button ion-button (click)="goToMap()">
+            <ion-icon name="pin"></ion-icon>&nbsp;&nbsp;จุดเกิดเหตุ
+          </button>
+        </ion-buttons>
+      </div>
+      <div #map id="map" class="map"></div>
+    </ion-item>
   </ion-card-content>
 </ion-content>
