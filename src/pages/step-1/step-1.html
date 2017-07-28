@@ -24,7 +24,11 @@
     </ion-list-header>
     <ion-item>
       <ion-label floating>วันที่ร้องทุกข์</ion-label>
-      <ion-datetime [(ngModel)]="complain_date" name="complain_date" displayFormat="DD-MM-YYYY"></ion-datetime>
+      <ion-datetime [(ngModel)]="complain_date" 
+        name="complain_date" 
+        displayFormat="DD-MM-YYYY" 
+        cancelText="ยกเลิก"
+        doneText="ตกลง"></ion-datetime>
     </ion-item>
     <ion-item>
       <ion-label floating>ผู้รับแจ้ง</ion-label>
