@@ -9,7 +9,7 @@
   <ion-navbar>
     <ion-title>หลักฐานประกอบเรื่องร้องเรียน/ร้องทุกข์</ion-title>
     <ion-buttons end>
-      <button ion-button [navPush]="step5Page">save</button>
+      <button ion-button [navPush]="step5Page">ถัดไป</button>
     </ion-buttons>
   </ion-navbar>
 
@@ -17,5 +17,25 @@
 
 
 <ion-content padding>
-
+  <div>
+    <ion-buttons >
+      <button ion-button block (click)="openModal()">เลือกภาพหลักฐาน</button>
+    </ion-buttons>
+  </div>
+  <div>
+    <ion-buttons >
+      <button ion-button block (click)="showListImage()">แสดงภาพหลักฐาน</button>
+    </ion-buttons>
+  </div>
+  <ion-row>
+    <ion-list ion-item *ngFor="let item of items">
+      <ion-icon item-left>icon</ion-icon>
+      {{item.id}}
+      <div class="item-note" item-right>
+        {{item.id}}
+        <img [src]="item.src" *ngIf="item.src">
+        <img class="imageData" [src]="item.base64Image" *ngIf="item.base64Image" />
+      </div>
+    </ion-list>
+  </ion-row>
 </ion-content>
