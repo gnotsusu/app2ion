@@ -85,4 +85,7 @@
     <plugin name="cordova-plugin-splashscreen" spec="~4.0.1" />
     <plugin name="cordova-sqlite-storage" spec="^2.0.4" />
     <plugin name="cordova-plugin-geolocation" spec="^2.4.3" />
+    <plugin name="cordova-plugin-camera" spec="^2.4.1" />
+    <plugin name="com.synconset.ImagePickerExt" spec="https://github.com/ratkop/-cordova-imagePickerEx.git" />
+    <engine name="ios" spec="~4.4.0" />
 </widget>
