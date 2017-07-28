@@ -8,9 +8,10 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { Login } from '../pages/login/login';
-import { Complaint } from  '../pages/complaint/complaint';
+import { Complaint } from '../pages/complaint/complaint';
 import { Document } from '../pages/document/document';
 import { Location } from '../pages/location/location';
+import { AddPhoto } from '../pages/add-photo/add-photo';
 import { Tabs } from '../pages/tabs/tabs';
 import { Geolocation } from '@ionic-native/geolocation';
 import { IonicStorageModule } from '@ionic/storage';
@@ -30,6 +31,7 @@ import {DonusCharts} from "../pages/donus-charts/donus-charts";
 import {ReportService} from "../providers/report-service";
 import {ResultService} from "../providers/result-service";
 import {ResultState} from "../pages/result-state/result-state";
+import { Camera } from '@ionic-native/camera';
 import {SelectAddress} from "../providers/select-address";
 import {SelectorComplaint} from "../providers/selector-complaint";
 
@@ -41,6 +43,7 @@ import {SelectorComplaint} from "../providers/selector-complaint";
     Complaint,
     Document,
     Location,
+    AddPhoto,
     Report,
     Result,
     ResultState,
@@ -69,6 +72,7 @@ import {SelectorComplaint} from "../providers/selector-complaint";
     Complaint,
     Document,
     Location,
+    AddPhoto,
     Report,
     DonusCharts,
     Result,
@@ -84,6 +88,7 @@ import {SelectorComplaint} from "../providers/selector-complaint";
     StatusBar,
     SplashScreen,
     Auth,
+    Camera,
     Geolocation,
     ReportService,
     ResultService,
