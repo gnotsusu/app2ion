@@ -1,7 +1,8 @@
+import { FormGroup, FormBuilder, Validators  } from '@angular/forms';
 import { Login } from './../login/login';
 import { Auth } from './../../providers/auth';
 import { Storage } from '@ionic/storage';
-import { RequestOptions, Http,Headers } from '@angular/http';
+import { RequestOptions, Http, Headers, URLSearchParams } from '@angular/http';
 import { Step2 } from './../step-2/step-2';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
@@ -31,6 +32,8 @@ export class Step1 {
   public api_save = this.host+'/api/complaint/key_in';
   public token: any;
   loading : any;
+  complainForm:FormGroup;
+  submitAttempt: boolean = false;
   
 
 
@@ -42,7 +45,12 @@ export class Step1 {
     public RequestOptions:RequestOptions,
     public http:Http,
     public auth:Auth,
-    public loadCtrl:LoadingController) {      
+    public loadCtrl:LoadingController,
+    public formBuilder:FormBuilder) {      
+      this.complainForm = formBuilder.group({
+        complain_date: ['',Validators.required],
+        recipient: ['',Validators.required]
+    });
     
   }
 
@@ -83,6 +91,7 @@ export class Step1 {
   }
 
   saveData(){
+    this.submitAttempt = true;
     let Complaint_data = {
       complain_date:this.complain_date ,
       recipient:this.recipient,
@@ -93,12 +102,37 @@ export class Step1 {
       user_complain_type_id: this.user_complain_type_id
     }
     let token_data = this.token;
+
+    let complain_date_ex:string[] = [];
+    let doc_receive_date_ex:string[] = [];
+    let doc_send_date_ex:string[] = [];
+if(this.complainForm.valid){
     return new Promise((resolve, reject) => {      
       let headers = new Headers();
       headers.append('Authorization','Bearer '+ token_data);
       headers.append('Content-Type', 'application/x-www-form-urlencoded');
 
-      let body = "complain_date=" + Complaint_data.complain_date + "&recipient=" + Complaint_data.recipient + "&doc_receive_date=" + Complaint_data.doc_receive_date + "&doc_receive_no=" + Complaint_data.doc_receive_no + "&doc_send_date=" + Complaint_data.doc_send_date + "&doc_send_no=" + Complaint_data.doc_send_no + "&user_complain_type_id=" + Complaint_data.user_complain_type_id + "&step=1";
+      let body = new URLSearchParams();
+      if(Complaint_data.complain_date != ""){
+        complain_date_ex = Complaint_data.complain_date.split("-");
+        body.set('complain_date',complain_date_ex[2]+"/"+complain_date_ex[1]+"/"+(parseInt(complain_date_ex[0])+543));
+      }
+
+      if(Complaint_data.doc_receive_date != ""){
+        doc_receive_date_ex = Complaint_data.doc_receive_date.split("-");
+        body.set('doc_receive_date',doc_receive_date_ex[2]+"/"+doc_receive_date_ex[1]+"/"+(parseInt(doc_receive_date_ex[0])+543));
+      }
+
+      if(Complaint_data.doc_send_date != ""){
+        doc_send_date_ex = Complaint_data.doc_send_date.split("-");
+        body.set('doc_send_date',doc_send_date_ex[2]+"/"+doc_send_date_ex[1]+"/"+(parseInt(doc_send_date_ex[0])+543));
+      }
+      
+      body.set('recipient',Complaint_data.recipient);      
+      body.set('doc_receive_no',Complaint_data.doc_receive_no);      
+      body.set('doc_send_no',Complaint_data.doc_send_no);
+      body.set('user_complain_type_id',Complaint_data.user_complain_type_id);
+      body.set('step','1');
       let options = new RequestOptions({headers: headers});
 
       this.http.post(this.api_save, body, options).map(res => res).subscribe(
@@ -116,5 +150,6 @@ export class Step1 {
     });
     
    }
+  }
 
 }
