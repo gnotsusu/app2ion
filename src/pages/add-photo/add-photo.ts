@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ViewController, IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Camera } from '@ionic-native/camera';
+import {Http, Headers, RequestOptions} from '@angular/http';
 /**
  * Generated class for the AddPhotoPage page.
  *
@@ -14,11 +15,15 @@ import { Camera } from '@ionic-native/camera';
 })
 export class AddPhoto {
   base64Image:any;
-  constructor(public viewCtrl: ViewController,public navCtrl: NavController, public navParams: NavParams,public camera:Camera) {
+  public keyid_id = 0;
+  public host = 'http://122.155.197.104/sysdamrongdham/Result_attach_file/addPhoto/';
+
+  constructor(public viewCtrl: ViewController,public navCtrl: NavController, public navParams: NavParams,public http: Http,public camera:Camera) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AddPhoto');
+    this.keyid_id = this.navParams.get('id');
   }
 
   takePhoto(){
@@ -31,6 +36,7 @@ export class AddPhoto {
       console.log(err);
     });
   }
+
   accessGallery(){
     this.camera.getPicture({
      sourceType: this.camera.PictureSourceType.SAVEDPHOTOALBUM,
@@ -42,8 +48,25 @@ export class AddPhoto {
     });
   }
 
+  savePhoto(){
+      return new Promise((resolve, reject) => {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        let options = new RequestOptions({headers: headers});
+
+        this.http.post(this.host, {id: this.keyid_id, data_image: this.base64Image}).map(res => res.json()).subscribe(
+              data => {
+                console.log('Http Success:'+data);
+              },
+              err => {
+                console.log('Http Error:'+err);
+              }
+        );
+      });
+  }
+
   closeModal() {
-      this.viewCtrl.dismiss('closeModal:add-photo');
+      this.viewCtrl.dismiss(this.base64Image);
       //this.viewCtrl.dismiss();
   }
 
