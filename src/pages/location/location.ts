@@ -1,7 +1,9 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Geolocation } from  '@ionic-native/geolocation'
+import {IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
+import {Geolocation} from '@ionic-native/geolocation'
+
 declare var google;
+
 /**
  * Generated class for the Location page.
  *
@@ -18,17 +20,23 @@ export class Location {
   map: any;
   varLat: string = '';
   varLng: string = '';
+  oldLatitude:string;
+  oldLongitude:string;
 
-  constructor(public navCtrl: NavController, public geolocation: Geolocation) {
+  //callback:any;
 
+  constructor(public navCtrl: NavController, public geolocation: Geolocation, public navParams: NavParams, public viewCtrl: ViewController) {
+    this.oldLatitude = this.navParams.get("latitude");
+    this.oldLongitude = this.navParams.get("longitude");
+    //console.log(this.location);
   }
 
 
-  ionViewDidLoad(){
+  ionViewDidLoad() {
     this.loadMap();
   }
 
-  loadMap(){
+  loadMap() {
 
     this.geolocation.getCurrentPosition().then((position) => {
 
@@ -48,11 +56,11 @@ export class Location {
 
   }
 
-  getLocation(){
+  getLocation() {
     this.loadMap();
   }
 
-  addMarker(){
+  addMarker() {
     let marker = new google.maps.Marker({
       map: this.map,
       draggable: true,
@@ -63,13 +71,13 @@ export class Location {
 
     this.varLat = marker.position.lat();
     this.varLng = marker.position.lng();
-    console.log('Current Latitude:',marker.position.lat(),':', marker.position.lng());
+    //console.log('Current Latitude:', marker.position.lat(), ':', marker.position.lng());
     let content = "<b>ตำแหน่งคุณ</b>";
     this.addInfoWindow(marker, content);
 
   }
 
-  addInfoWindow(marker, content){
+  addInfoWindow(marker, content) {
 
     let infoWindow = new google.maps.InfoWindow({
       content: content
@@ -87,7 +95,18 @@ export class Location {
 
   }
 
-  saveMap(){
-    console.log('saveMap Latitude:',this.varLat,',',this.varLng);
+  saveMap(event: any): void {
+    this.viewCtrl.dismiss({
+      latitude: this.varLat,
+      longitude: this.varLng
+    });
+    //console.log('saveMap Latitude:',this.varLat,',',this.varLng);
+  }
+
+  goBack() {
+    this.viewCtrl.dismiss({
+      latitude: this.oldLatitude,
+      longitude: this.oldLongitude
+    });
   }
 }
