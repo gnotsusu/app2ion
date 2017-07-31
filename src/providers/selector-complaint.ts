@@ -195,4 +195,37 @@ export class SelectorComplaint {
     });
   }
 
+  getComplaintTypeListByParent(parent_id:string) {
+    let url = this.complaintTypeList+'//parent_id/'+parent_id;
+    return new Promise((resolve, reject) => {
+      this.http.get(url).map((res) => res.json()).subscribe((data) => {
+        this.complaintType = [];
+        for (let index in data) {
+          this.complaintType.push(new ComplaintType( index, data[index]));
+        }
+        resolve(this.complaintType);
+      }, err => {
+        reject(err);
+      });
+
+    });
+  }
+
+  getAccusedTypeListByParent(parent_id:string) {
+    let url = this.accusedTypeList+'/'+parent_id;
+    return new Promise((resolve, reject) => {
+      this.http.get(url).map(res => res.json()).subscribe(
+        (data) => {
+          this.accusedType = [];
+          for(let i in data){
+            this.accusedType.push(new AccusedType(i, data[i]));
+          }
+          resolve(this.accusedType);
+        },
+        (err) => {
+          reject(err);
+        });
+
+    });
+  }
 }

@@ -1,6 +1,6 @@
 import {Step4} from '../step-4/step-4';
 import {Component} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validator} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {IonicPage, NavController, NavParams, ModalController, LoadingController} from 'ionic-angular';
 import {Location} from '../location/location';
 import {SelectAddress} from "../../providers/select-address";
@@ -23,20 +23,22 @@ import {RequestOptions, Http, Headers, URLSearchParams} from '@angular/http';
 export class Step3 {
   step4Page = Step4;
   keyin_id: number;
-  scene_date: any;
-  place_scene: any;
-  province_id: any;
-  district_id: any;
-  address_id: any;
-  complaint_detail: string;
-  latitude: any;
-  longitude: any;
+  scene_date: any = '';
+  place_scene: any = '';
+  province_id: any = '';
+  district_id: any = '';
+  address_id: any ='';
+  complaint_detail: string = '';
+  latitude: any = '';
+  longitude: any = '';
   provinces: any;
   districts: any;
   sub_districts: any;
   myForm: any;
   token: any;
   loading: any;
+  complainForm: FormGroup;
+  submitAttempt: boolean = false;
   public host = 'http://122.155.197.104/sysdamrongdham';
   public api_keyin = this.host + '/api/complaint/key_in';
   public complain_type = this.host + '/api/complaint/key_in';
@@ -47,8 +49,19 @@ export class Step3 {
               public selectAddress: SelectAddress,
               public loadCtrl: LoadingController,
               public auth: Auth,
-              public http: Http,) {
+              public http: Http,
+              public formBuilder: FormBuilder
+              ) {
     this.keyin_id = this.navParams.get('param1');
+    this.complainForm = formBuilder.group({
+      place_scene: ['', Validators.required],
+      province_id: ['', Validators.required],
+      district_id: ['', Validators.required],
+      address_id: ['', Validators.required],
+      complaint_detail: ['', Validators.required],
+      latitude: ['', Validators.required],
+      longitude: ['', Validators.required]
+    });
   }
 
   ionViewDidLoad() {
@@ -114,6 +127,7 @@ export class Step3 {
   }
 
   saveData() {
+    this.submitAttempt = true;
     let token_data = this.token;
     let keyin_id = this.keyin_id;
     let Complaint_data = {
@@ -126,34 +140,36 @@ export class Step3 {
     };
     console.log(Complaint_data);
 
-    return new Promise((resolve, reject) => {
-      let headers = new Headers();
-      headers.append('Authorization', 'Bearer ' + token_data);
-      headers.append('Content-Type', 'application/x-www-form-urlencoded');
-      let body = new URLSearchParams();
-      body.set('step', '3');
-      body.set('keyin_id', this.keyin_id.toString());
-      body.set('scene_date', this.scene_date);
-      //body.set('scene_date', '27/07/2560');
-      body.set('place_scene', this.place_scene);
-      body.set('address_id', this.address_id);
-      body.set('complaint_detail', this.complaint_detail);
-      body.set('latitude', this.latitude);
-      body.set('longitude', this.longitude);
+    if (this.complainForm.valid) {
+      return new Promise((resolve, reject) => {
+        let headers = new Headers();
+        headers.append('Authorization', 'Bearer ' + token_data);
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        let body = new URLSearchParams();
+        body.set('step', '3');
+        body.set('keyin_id', this.keyin_id.toString());
+        body.set('scene_date', this.scene_date);
+        //body.set('scene_date', '27/07/2560');
+        body.set('place_scene', this.place_scene);
+        body.set('address_id', this.address_id);
+        body.set('complaint_detail', this.complaint_detail);
+        body.set('latitude', this.latitude);
+        body.set('longitude', this.longitude);
 
-      let options = new RequestOptions({headers: headers});
-      this.http.put(this.api_keyin, body, options).map(res => res).subscribe(
-        data => {
-          console.log(data['_body']);
-          this.navCtrl.push(Step4, {param1: data['_body']});
-        },
-        err => {
-          console.log('Http Error');
-          reject(err);
-        }
-      );
+        let options = new RequestOptions({headers: headers});
+        this.http.put(this.api_keyin, body, options).map(res => res).subscribe(
+          data => {
+            console.log(data['_body']);
+            this.navCtrl.push(Step4, {param1: data['_body']});
+          },
+          err => {
+            console.log('Http Error');
+            reject(err);
+          }
+        );
 
-    });
+      });
+    }
 
   }
 }
