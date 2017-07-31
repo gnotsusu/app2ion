@@ -1,7 +1,7 @@
-    .ios, .md{
-        page-step-1 {
+    //.ios, .md{
+        /*page-step-1 {
             ion-content{
-                background: url('../../assets/images/bg.jpg'); 
+                background: url('../../assets/images/bg.jpg');
                 -webkit-background-size: cover;
                 -moz-background-size: cover;
                 background-size: 100% 100%;
@@ -35,7 +35,7 @@
 
             p {
                 font-size: 0.8em;
-                color: #f53e3e;
+                color:$red;
             }
     
             .swiper-slide {
@@ -64,6 +64,10 @@
                 text-overflow: clip;
                 background: rgba(252,252,252,1);
             }
+
+            .item-input .label-md, .item-select .label-md, .item-datetime .label-md {
+                color: #1b1a1a;
+            }
     
             .invalid {
                 border: 1px solid #ea6153;
@@ -71,7 +75,7 @@
                 }
             }
 
-            
-        }
-    }
+
+        }*/
+    //}
 
