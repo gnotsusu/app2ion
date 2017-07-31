@@ -24,6 +24,7 @@ export class Step1 {
   public complain_date: any = '';
   public recipient: string = '';
   public doc_receive_date: any = '';
+  public user_data: any = '';
   public doc_receive_no: string = '';
   public doc_send_date: any = '';
   public doc_send_no: string = '';
@@ -54,12 +55,6 @@ export class Step1 {
 
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad Step1');
-    this.authen();
-    //this.token = this.auth.token;
-  }
-
   authen() {
 
     this.showLoading();
@@ -83,6 +78,18 @@ export class Step1 {
     });
   }
 
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad Step1');
+    this.authen();
+
+    this.auth.getUserProfile().then((data) => {
+      this.user_data = data;
+    }).catch(err => {
+      console.error(err.message);
+    });
+    //this.token = this.auth.token;
+  }
+
   showLoading() {
     this.loading = this.loadCtrl.create({
       content: 'กำลังยื่นยันตัวตน...'
@@ -92,15 +99,18 @@ export class Step1 {
 
   saveData() {
     this.submitAttempt = true;
-    let Complaint_data = {
-      complain_date: this.complain_date,
-      recipient: this.recipient,
-      doc_receive_date: this.doc_receive_date,
-      doc_receive_no: this.doc_receive_no,
-      doc_send_date: this.doc_send_date,
-      doc_send_no: this.doc_send_no,
-      user_complain_type_id: this.user_complain_type_id
-    }
+
+
+      let Complaint_data = {
+        complain_date: this.complain_date,
+        recipient: this.recipient,
+        doc_receive_date: this.doc_receive_date,
+        doc_receive_no: this.doc_receive_no,
+        doc_send_date: this.doc_send_date,
+        doc_send_no: this.doc_send_no,
+        user_complain_type_id: this.user_complain_type_id
+      }
+
     let token_data = this.token;
 
     let complain_date_ex: string[] = [];
