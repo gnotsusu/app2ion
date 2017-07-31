@@ -13,13 +13,12 @@ import 'rxjs/add/operator/map';
 
 export class UserProfiles{
   user: User;
-  groups: Groups[];
+  groups: Array<any>;
 
-  constructor(user: User, groups: Groups[]) {
+  constructor(user: User, groups: Array<any>) {
     this.user = user;
     this.groups = groups;
   }
-
 }
 
 export class User {
@@ -68,10 +67,11 @@ export class Auth {
   public host = 'http://122.155.197.104/sysdamrongdham';
   public auth = this.host+'/api/authen/token';
   public info = this.host+'/api/authen/token_info';
+  public user = this.host+'/api/user/user';
   public token: string;
 
   public userInfo : User;
-  public groups : Groups[];
+  public groups : Array<any> = [];
 
   constructor(public http: Http, public storage: Storage) {
   }
@@ -167,16 +167,18 @@ export class Auth {
     return new Promise((resolve, reject) => {
       let headers = new Headers();
       headers.append('Authorization', 'Bearer '+this.token);
-      let position = new RequestOptions({headers: headers});
-      this.http.get(this.info, position).map(res => res.json()).subscribe(
+      let options = new RequestOptions({headers: headers});
+      this.http.get(this.user, options).map(res => res.json()).subscribe(
         data => {
           let user = data.user;
           let groups = data.groups;
 
+          console.log("User "+user);
+
           this.userInfo = new User(user.id, user.username,user.email, user.first_name, user.last_name, user.company, user.phone, user.idcard, user.gender);
 
-          for(let group of groups){
-            this.groups.push(new Groups(group.id, group.name, group.description, group.bgcolor))
+          for(let i in groups){
+            this.groups.push(new Groups(groups[i].id, groups[i].name, groups[i].description, groups[i].bgcolor))
           }
 
           resolve(new UserProfiles(this.userInfo, this.groups));
