@@ -84,6 +84,7 @@ export class Step1 {
 
     this.auth.getUserProfile().then((data) => {
       this.user_data = data;
+      console.log(this.user_data);
     }).catch(err => {
       console.error(err.message);
     });
@@ -99,18 +100,37 @@ export class Step1 {
 
   saveData() {
     this.submitAttempt = true;
-
-
-      let Complaint_data = {
+    let Complaint_data;
+    if(this.user_complain_type_id == '2'){
+      Complaint_data = {
         complain_date: this.complain_date,
         recipient: this.recipient,
         doc_receive_date: this.doc_receive_date,
         doc_receive_no: this.doc_receive_no,
         doc_send_date: this.doc_send_date,
         doc_send_no: this.doc_send_no,
-        user_complain_type_id: this.user_complain_type_id
+        user_complain_type_id: this.user_complain_type_id,
+        id_card: this.user_data.user.idcard,
+        first_name: this.user_data.user.first_name,
+        last_name: this.user_data.user.last_name,
+        phone_number: this.user_data.user.phone
       }
-
+    }else{
+      Complaint_data = {
+        complain_date: this.complain_date,
+        recipient: this.recipient,
+        doc_receive_date: this.doc_receive_date,
+        doc_receive_no: this.doc_receive_no,
+        doc_send_date: this.doc_send_date,
+        doc_send_no: this.doc_send_no,
+        user_complain_type_id: this.user_complain_type_id,
+        id_card: "",
+        first_name: "",
+        last_name: "",
+        phone_number: ""
+      }
+    }
+    console.log(Complaint_data);
     let token_data = this.token;
 
     let complain_date_ex: string[] = [];
@@ -142,6 +162,10 @@ export class Step1 {
         body.set('doc_receive_no', Complaint_data.doc_receive_no);
         body.set('doc_send_no', Complaint_data.doc_send_no);
         body.set('user_complain_type_id', Complaint_data.user_complain_type_id);
+        body.set('id_card', Complaint_data.id_card);
+        body.set('first_name', Complaint_data.first_name);
+        body.set('last_name', Complaint_data.last_name);
+        body.set('phone_number', Complaint_data.phone_number);
         body.set('step', '1');
         let options = new RequestOptions({ headers: headers });
 
