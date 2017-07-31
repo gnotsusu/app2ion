@@ -15,27 +15,20 @@
 
 </ion-header>
 
-
-<ion-content padding>
+<ion-content>
   <div>
     <ion-buttons >
       <button ion-button block (click)="openModal()">เลือกภาพหลักฐาน</button>
     </ion-buttons>
   </div>
-  <div>
-    <ion-buttons >
-      <button ion-button block (click)="showListImage()">แสดงภาพหลักฐาน</button>
-    </ion-buttons>
-  </div>
-  <ion-row>
+  <ion-row >
     <ion-list ion-item *ngFor="let item of items">
-      <ion-icon item-left>icon</ion-icon>
-      {{item.id}}
-      <div class="item-note" item-right>
-        {{item.id}}
-        <img [src]="item.src" *ngIf="item.src">
-        <img class="imageData" [src]="item.base64Image" *ngIf="item.base64Image" />
-      </div>
+          <div class="avatar-content">
+            <img [src]="item.src" *ngIf="item.src">
+          </div>
+          <div style="text-align: right;margin-top: -50px;" >
+            <button (click)="deleteImage(item.id)" style="right: 3%;padding: 4px 10px;background: #ffffff;border-radius: 100%;font-size: 1.5em;"><ion-icon name="trash"></ion-icon></button>
+          </div>
     </ion-list>
   </ion-row>
 </ion-content>
