@@ -169,7 +169,9 @@ export class Step5 {
   public token: any;
   public host = 'http://122.155.197.104/sysdamrongdham';
   public api_keyin = this.host + '/api/complaint/key_in';
-  public complain_data: ComplaintData;
+  public complain_data: Array<any> = [];
+
+  keyInId:any;
 
   constructor(
     public navCtrl: NavController,
@@ -179,7 +181,7 @@ export class Step5 {
     public loadCtrl: LoadingController
 
   ) {
-    console.log('test_data = ' + this.token);
+    //console.log('test_data = ' + this.token);
   }
 
   ionViewDidLoad() {
@@ -208,7 +210,7 @@ export class Step5 {
         }
       }).then(() => {
         return this.getComplainData(this.token)
-      }).then((data: ComplaintData) => {
+      }).then((data:any) => {
         this.complain_data = data;
       }).catch(err => {
         this.loading.dismiss();
@@ -241,14 +243,14 @@ export class Step5 {
           subject.push(new Subject(subjectList[i].subject_id, subjectList[i].subject_name));
         }
 
-
-
         for (let i in channelList) {
           console.log('debug :' + channelList[i].channel_name);
           channel.push(new Channel(channelList[i].channel_id, channelList[i].channel_name));
         }
 
-        this.complain_data = new ComplaintData(
+        this.keyInId = data.keyin_id;
+
+        this.complain_data.push(new ComplaintData(
           data.keyin_id,
           data.create_user_id,
           data.update_user_id,
@@ -291,9 +293,9 @@ export class Step5 {
           data.title_name,
           subject,
           channel,
-          data.attach_file);
+          data.attach_file));
 
-        console.log("Log Complanit :" + this.complain_data.toString());
+        console.log("Log Complanit :" + this.complain_data[0].toString());
         resolve(this.complain_data);
       })
     });
