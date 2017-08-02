@@ -17,12 +17,12 @@
 
 
 <ion-content padding>
-  <ion-card-content>
+  <ion-card-content *ngFor="let comp of complain_data">
     <ion-list-header>
       เรืองร้องทุกข์/ร้องรียน
     </ion-list-header>
     <ion-item>
-      <ion-label>เลขที่เรื่องร้องทุกข์</ion-label>
+      <ion-label>เลขที่เรื่องร้องทุกข์ {{comp.keyin_id}}</ion-label>
     </ion-item>
     <ion-item>
       <ion-label>วันที่ร้องทุกข์</ion-label>
