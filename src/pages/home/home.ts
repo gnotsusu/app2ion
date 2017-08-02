@@ -1,6 +1,9 @@
+import { Step1 } from './../step-1/step-1';
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Complaint } from '../complaint/complaint';
+import {Result} from "../result/result";
+import {Report} from "../report/report";
 
 @Component({
   selector: 'page-home',
@@ -13,8 +16,15 @@ export class HomePage {
   }
 
   goToComplaint(){
-    this.navCtrl.push(Complaint);
+    this.navCtrl.push(Step1);
   }
 
+  goToResult(){
+    this.navCtrl.push(Result);
+  }
+
+  goToReport(){
+    this.navCtrl.push(Report);
+  }
 
 }

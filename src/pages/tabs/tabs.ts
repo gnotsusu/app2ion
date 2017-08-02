@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
-import { Complaint } from '../complaint/complaint';
-import { Location } from '../location/location';
 import { Document } from '../document/document';
+import {HomePage} from "../home/home";
+import {Report} from "../report/report";
 
 
 /**
@@ -18,8 +18,8 @@ import { Document } from '../document/document';
 @IonicPage()
 export class Tabs {
 
-  tab1Root: any = Complaint;
-  tab2Root: any = Location;
+  tab1Root: any = HomePage;
+  tab2Root: any = Report;
   tab3Root: any = Document;
 
   constructor(public navCtrl: NavController) {}

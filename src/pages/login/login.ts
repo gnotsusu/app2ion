@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams, LoadingController} from 'ionic-angular';
+import {IonicPage, NavController, NavParams, LoadingController, AlertController} from 'ionic-angular';
 import {Auth} from '../../providers/auth';
-import {HomePage} from '../home/home';
 import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
+import {Tabs} from "../tabs/tabs";
 /**
  * Generated class for the Login page.
  *
@@ -18,10 +18,16 @@ import 'rxjs/add/operator/map';
 export class Login {
 
   public username: string;
-  public password: string
+  public password: string;
   loading : any;
+  token:string = "";
 
-  constructor(public navCtrl: NavController, public http: Http, public navParams: NavParams, public auth: Auth, public loadCtrl : LoadingController) {
+  constructor(public navCtrl: NavController,
+              public http: Http,
+              public navParams: NavParams,
+              public auth: Auth,
+              public loadCtrl : LoadingController,
+              public alertCtrl : AlertController) {
   }
 
   ionViewDidLoad() {
@@ -30,13 +36,24 @@ export class Login {
   }
 
   authen(){
-    this.auth.isCheck()
-      .then(data => {
-        if(data !== ""){
-          this.navCtrl.push(HomePage);
-        }
+
+    this.showLoading();
+
+    this.auth.isCheck().then((data) => {
+        return data;
+    }).then( (token:string) => {
+        return this.auth.isExpire(token);
+    }).then((isExpire:Boolean) => {
+      if (isExpire ) {
+        this.loading.dismiss();
+        this.presentAlert();
+      } else {
+        this.loading.dismiss();
+        this.navCtrl.push(Tabs);
+      }
     }).catch(err => {
-      console.log(err.toString());
+      this.loading.dismiss();
+      console.error(err.message);
     });
   }
 
@@ -51,7 +68,7 @@ export class Login {
     this.auth.login(credentials).then(res => {
       console.log(res);
       this.loading.dismiss();
-      this.navCtrl.push(HomePage);
+      this.navCtrl.push(Tabs);
     }).catch((err) => {
       this.loading.dismiss();
       alert('username or password failure!');
@@ -61,9 +78,18 @@ export class Login {
 
   showLoading(){
     this.loading = this.loadCtrl.create({
-      content : 'ยื่นยันตัวตน...'
+      content : 'กำลังยื่นยันตัวตน...'
     });
     this.loading.present();
+  }
+
+  presentAlert(){
+    let alert = this.alertCtrl.create({
+      title: "ระยะเวลาอยู่ในระบบของคุณหมดอายุ",
+      subTitle: "กรุณาเข้าสู่ระบบอีกครั้ง",
+      buttons: ['ตกลง']
+    });
+    alert.present();
   }
 
 }
