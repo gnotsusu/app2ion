@@ -1,7 +1,7 @@
     .ios, .md{
         page-step-2 {
             ion-content{
-                background: url('../../assets/images/bg.jpg'); 
+                background: url('../../assets/images/bg.jpg');
                 -webkit-background-size: cover;
                 -moz-background-size: cover;
                 background-size: 100% 100%;
@@ -37,16 +37,16 @@
                 font-size: 0.8em;
                 color: #f53e3e;
             }
-    
+
             .swiper-slide {
                 display: block;
             }
-    
+
             ion-label, .select-text {
                 margin-left: 10px;
             }
-    
-            ion-input, ion-select, ion-textarea,ion-datetime {                
+
+            ion-input, ion-select, ion-textarea,ion-datetime {
                 background-color: #f2f2f2;
                 padding: 5px 10px;
                 display: inline-block;
@@ -70,14 +70,26 @@
                 width: 90%;
                 display: inherit;
             }
-    
+
             .invalid {
                 border: 1px solid #ea6153;
             }
-                }
+            .complain_type_1{
+              display: none;
             }
+            .complain_type_2{
+              display: none;
+            }
+            .accused_type_1{
+              display: none;
+            }
+            .accused_type_2{
+              display: none;
+            }
+          }
+      }
 
-            
+
         }
     }
 
