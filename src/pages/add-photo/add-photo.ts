@@ -53,10 +53,13 @@ export class AddPhoto {
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         let options = new RequestOptions({headers: headers});
-
-        this.http.post(this.host, {id: this.keyid_id, data_image: this.base64Image}).map(res => res.json()).subscribe(
+        //res.json()
+        this.http.post(this.host, {id: this.keyid_id, data_image: this.base64Image}).map(res => res.text()).subscribe(
               data => {
                 console.log('Http Success:'+data);
+                if(data){
+                    this.closeModal();
+                }
               },
               err => {
                 console.log('Http Error:'+err);
@@ -66,7 +69,7 @@ export class AddPhoto {
   }
 
   closeModal() {
-      this.viewCtrl.dismiss(this.base64Image);
+      this.viewCtrl.dismiss();
       //this.viewCtrl.dismiss();
   }
 
