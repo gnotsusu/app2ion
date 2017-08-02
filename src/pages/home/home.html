@@ -13,16 +13,15 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
-  <ion-card class="user-info">
-    <img src="http://image.shutterstock.com/mosaic_250/0/0/581545438.jpg">
-    <div class="avatar-content">
-      <img src="assets/if_user_1902268.png">
-    </div>
-    <div class="btn-camera">
-      <ion-icon name="camera"></ion-icon>
-    </div>
-  </ion-card>
   <ion-list >
+    <ion-card class="user-info">
+      <div class="avatar-content">
+        <img src="assets/if_user_1902268.png">
+      </div>
+      <div class="btn-camera">
+        <ion-icon name="camera"></ion-icon>
+      </div>
+    </ion-card>
     <ion-item (click)="goToComplaint()">
       <ion-icon name="filing" large item-start></ion-icon>
       <h2>แจ้งเรื่องร้องเรียน</h2>
@@ -43,7 +42,7 @@
       <ion-note item-end>99+</ion-note>
     </ion-item>
     <ion-item>
-        <ion-icon name="people" large item-start=""></ion-icon>
+        <ion-icon name="checkbox" large item-start=""></ion-icon>
         <h2>บันทึกผลเรียบร้อย</h2>
         <ion-note item-end>99+</ion-note>
     </ion-item>
