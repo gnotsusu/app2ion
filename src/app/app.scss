@@ -51,7 +51,7 @@ ion-content{
       margin-bottom: 0px;
       color: #333;
     }
-	
+
     .item-ios,.item-md{
 	  background-color: #ffffff !important;
     }
@@ -114,9 +114,9 @@ ion-content{
 
 ion-navbar{
 	.toolbar-background-md,.toolbar-background-ios{
-		border-color: #4c88f3 !important;
-		background: #488aff !important;
-		background: rgba(72, 138, 255, 0.81) !important;
+		border-color: #ffffff !important;
+		background: #ffffff !important;
+		background: rgba(76, 198, 241, 1.00) !important;
 	}
 
 	.toolbar-title-md,.toolbar-title-ios{
@@ -125,6 +125,23 @@ ion-navbar{
 	.bar-button-default-md,.bar-button-default-ios{
 		color: #ffffff !important;
 	}
+}
+
+ion-tabs{
+  .tabbar {
+    border-color: #ffffff !important;
+    background: #ffffff !important;
+    background: rgba(76, 198, 241, 1.00) !important;
+  }
+}
+
+ion-toolbar{
+  .toolbar-background-md,.toolbar-background-ios,.toolbar-background{
+    background: rgba(255, 255, 255, 1.00) !important;
+  }
+  .item,.item-block,.item-md,.item-ios{
+    background: rgba(255, 255, 255, 1.00) !important;
+  }
 }
 
 .on-scroll .scroll-content{
