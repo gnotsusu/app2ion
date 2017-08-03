@@ -25,97 +25,55 @@
       <ion-label>เลขที่เรื่องร้องทุกข์</ion-label>
     </ion-item>
     <ion-item>
+      <p>{{ complain_data?.complain_no }}</p>
+    </ion-item>
+    <ion-item>
       <ion-label>วันที่ร้องทุกข์</ion-label>
+    </ion-item>
+    <ion-item>
+      <p>{{ complain_data?.complain_date }}</p>
     </ion-item>
     <ion-item>
       <ion-label>ผู้รับแจ้ง</ion-label>
     </ion-item>
     <ion-item>
+      <p>{{ complain_data?.recipient }}</p>
+    </ion-item>
+    <ion-item>
       <ion-label>วันที่หนังสือส่งเข้า</ion-label>
+    </ion-item>
+    <ion-item>
+      <p>{{ complain_data?.doc_receive_date }}</p>
     </ion-item>
     <ion-item>
       <ion-label>เลขที่หนังสือส่งเข้า</ion-label>
     </ion-item>
     <ion-item>
+      <p>{{ complain_data?.doc_receive_no }}</p>
+    </ion-item>
+    <ion-item>
       <ion-label>วันที่หนังสือส่งออก</ion-label>
+    </ion-item>
+    <ion-item>
+      <p>{{ complain_data?.doc_send_date }}</p>
     </ion-item>
     <ion-item>
       <ion-label>เลขที่หนังสือส่งออก</ion-label>
     </ion-item>
     <ion-item>
+      <p>{{ complain_data?.doc_receive_no }}</p>
+    </ion-item>
+    <ion-item>
       <ion-label>ผู้บันทึก</ion-label>
     </ion-item>
     <ion-item>
-      <ion-label>ประเภทเรื่องร้องทุกข์</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>หัวข้อเรื่องร้องทุกข์</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>ช่องทางร้องทุกข์</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>ลักษณะลักษณะเรื่องร้องทุกข์</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>รายละเอียดเรื่องร้องทุกข์</ion-label>
+      <p></p>
     </ion-item>
     <ion-item>
       <ion-label>ผู้ร้องทุกข์</ion-label>
     </ion-item>
     <ion-item>
-      <ion-label>เลขบัตรประจำตัวประชาชน</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>ชื่อผู้ร้องทุกข์</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>ที่อยู่ปัจจุบันที่สามารถติดต่อได้</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>ตำบล/แขวง</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>อำเภอ/เขต</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>จังหวัด</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>เบอร์โทรศัพท์</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>เบอร์โทรศัพท์มือถือ</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>ผู้ถูกร้องทุกข์</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>หน่วยงาน</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>เนื้อหาสาระ</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>วันเดือนปีที่เกิดเหตุ (ถ้ามี)</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>สถานที่เกิดเหตุ</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>จังหวัด</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>เหตุการณ์พฤติการณ์</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>ควมประสงค์ในการดำเนินการ</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>หลักฐานประกอบเรื่องร้องทุกข์</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>สถานะดำเนินการเรื่องร้องทุกข์</ion-label>
+      <p>{{ complain_data?.first_name }} {{ complain_data?.last_name }}</p>
     </ion-item>
   </ion-card-content>
 </ion-content>

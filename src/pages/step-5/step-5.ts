@@ -185,7 +185,6 @@ export class Step5 {
   ionViewDidLoad() {
     console.log('ionViewDidLoad Step5');
     this.authen();
-
   }
 
   authen() {
@@ -210,6 +209,7 @@ export class Step5 {
         return this.getComplainData(this.token)
       }).then((data: ComplaintData) => {
         this.complain_data = data;
+      console.log(this.complain_data);
       }).catch(err => {
         this.loading.dismiss();
         console.error(err.message);
@@ -224,7 +224,7 @@ export class Step5 {
   }
 
   getComplainData(token: string) {
-    let keyin_id = '294';
+    let keyin_id = '345';
     let headers = new Headers();
     headers.append('Authorization', 'Bearer ' + token);
     let options = new RequestOptions({ headers: headers });
