@@ -1,4 +1,4 @@
-import { Subject, Channel } from './../../providers/selector-complaint';
+import { Subject, Channel , Wish} from './../../providers/selector-complaint';
 
 import { Login } from './../login/login';
 import { Http, RequestOptions, Headers } from '@angular/http';
@@ -53,11 +53,12 @@ export class ComplaintData {
   update_datetime: any;
   step: any;
   complaint_type: any;
-  wish: any;
+  wish: any[] = [];
   title_name: any;
   subject: any[] = [];
   channel: any[] = [];
   attach_file: any;
+  user_complain: any;
 
   constructor(
     keyin_id: any,
@@ -98,11 +99,12 @@ export class ComplaintData {
     update_datetime: any,
     step: any,
     complaint_type: any,
-    wish: any,
+    wish: Array<any> = [],
     title_name: any,
     subject: Array<any> = [],
     channel: Array<any> = [],
-    attach_file: any
+    attach_file: any,
+    user_complain:any
   ) {
     this.keyin_id = keyin_id;
     this.create_user_id = create_user_id;
@@ -147,6 +149,7 @@ export class ComplaintData {
     this.subject = subject;
     this.channel = channel;
     this.attach_file = attach_file;
+    this.user_complain = user_complain;
   }
 
   public toString(): string {
@@ -233,11 +236,13 @@ export class Step5 {
     console.log('test_data = ' + token);
     return new Promise((resolve, reject) => {
       this.http.get(this.api_keyin + '/' + keyin_id, options).map(res => res.json()).subscribe((data) => {
-
+        console.log(data);
         let subject: Array<Subject> = [];
         let channel: Array<Channel> = [];
+        let wish: Array<Wish> = [];
         let subjectList = data.subject;
         let channelList = data.channel;
+        let wishList = data.wish;
         for (let i in subjectList) {
           console.log('debug :' + subjectList[i].subject_name);
           subject.push(new Subject(subjectList[i].subject_id, subjectList[i].subject_name));
@@ -248,8 +253,18 @@ export class Step5 {
           channel.push(new Channel(channelList[i].channel_id, channelList[i].channel_name));
         }
 
-        this.keyInId = data.keyin_id;
+        for (let i of wishList) {
+          console.log('debug :' + wishList[i].wish_name);
+          wish.push(new Wish(wishList[i].wish_id, channelList[i].wish_name));
+        }
 
+        this.keyInId = data.keyin_id;
+        let user_complain :any;
+        if(data.user_complain_type_id == '1'){
+          user_complain = 'ไม่ประสงค์ออกนาม';
+        }else{
+          user_complain = data.title_name+data.first_name+' '+data.last_name;
+        }
         this.complain_data.push(new ComplaintData(
           data.keyin_id,
           data.create_user_id,
@@ -289,11 +304,13 @@ export class Step5 {
           data.update_datetime,
           data.step,
           data.complaint_type,
-          data.wish,
+          wish,
           data.title_name,
           subject,
           channel,
-          data.attach_file));
+          data.attach_file,
+          user_complain
+          ));
 
         console.log("Log Complanit :" + this.complain_data[0].toString());
         resolve(this.complain_data);
