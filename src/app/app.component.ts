@@ -44,8 +44,8 @@ export class MyApp {
 
     this.pages = [
       new Pages('หน้าหลัก', 'home', HomePage),
-      new Pages('บันทึกเรื่องราวร้องทุกข์', 'paper-airplane', Complaint),
-      new Pages('ผลการดำเนินงาน', 'email-unread', Result),
+      new Pages('บันทึกเรื่องราวร้องทุกข์', 'filing', Complaint),
+      new Pages('ผลการดำเนินงาน', 'clipboard', Result),
       new Pages('รายงาน', 'paper', Report)
       //new Pages('ออกจากระบบ', 'lock', Login)
     ];
