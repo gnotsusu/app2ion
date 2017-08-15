@@ -75,11 +75,14 @@
     </ion-list-header>
     <ion-item>
       <ion-label floating>ละติจูด</ion-label>
-      <ion-input type="text" [(ngModel)]="latitude" [ngModelOptions]="{standalone: true}"></ion-input>
+      <ion-input type="text" [(ngModel)]="latitude" formControlName="latitude"  [class.invalid]="!complainForm.controls.latitude.valid && (complainForm.controls.latitude.dirty || submitAttempt)"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label floating>ลองติจูด</ion-label>
-      <ion-input type="text" [(ngModel)]="longitude" [ngModelOptions]="{standalone: true}"></ion-input>
+      <ion-input type="text" [(ngModel)]="longitude" formControlName="longitude"  [class.invalid]="!complainForm.controls.longitude.valid && (complainForm.controls.longitude.dirty || submitAttempt)"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="(!complainForm.controls.latitude.valid && (complainForm.controls.latitude.dirty || submitAttempt)) || (!complainForm.controls.longitude.valid && (complainForm.controls.longitude.dirty || submitAttempt))">
+      <p>กรุณาเลือกจุดเกิดเหตุ</p>
     </ion-item>
     <ion-item>
       <div>
