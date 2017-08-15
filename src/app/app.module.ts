@@ -9,6 +9,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { Login } from '../pages/login/login';
 import { Complaint } from '../pages/complaint/complaint';
+import { Dashboard } from '../pages/dashboard/dashboard';
 import { Document } from '../pages/document/document';
 import { Location } from '../pages/location/location';
 import { AddPhoto } from '../pages/add-photo/add-photo';
@@ -41,6 +42,7 @@ import {SelectorComplaint} from "../providers/selector-complaint";
     HomePage,
     Login,
     Complaint,
+    Dashboard,
     Document,
     Location,
     AddPhoto,
@@ -70,6 +72,7 @@ import {SelectorComplaint} from "../providers/selector-complaint";
     HomePage,
     Login,
     Complaint,
+    Dashboard,
     Document,
     Location,
     AddPhoto,

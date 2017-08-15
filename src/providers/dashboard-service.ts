@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import {Injectable} from '@angular/core';
+import {RequestOptions, Http, Headers, URLSearchParams} from '@angular/http';
+import {Storage} from '@ionic/storage';
 import 'rxjs/add/operator/map';
 
 /*
@@ -11,14 +12,41 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class DashboardService {
 
-  public host:string = "http://122.155.197.104/sysdamrongdham";
-  public dashboardApi:string = this.host+"/api/complaint/dashboard/1";
+  host: string = "http://122.155.197.104/sysdamrongdham";
+  apiCountComplaint: string = this.host + "/api/complaint/count";
+  apiComplaint: string = this.host + "/api/complaint/dashboard_mobile/";
+  dashboardApi: string = this.host + "/api/complaint/dashboard/1";
+  token: string;
+  complaints: object[] = [];
+  countComplaints: object[] = [];
 
-  constructor(public http: Http) {
-    console.log('Hello DashboardService Provider');
+  constructor(public http: Http, public storage: Storage) {
+    //console.log('Hello DashboardService Provider');
   }
 
-  getDashboardlist(token:string){
+  ComplaintData(page) {
+    return new Promise((resolve, reject) => {
+      this.storage.get('token').then((data: string) => {
+        this.token = data;
+        return data;
+      }).then((token: string) => {
+        let headers = new Headers();
+        headers.append('Authorization', 'Bearer ' + token);
+        let options = new RequestOptions({headers: headers});
+        this.http.get(this.apiComplaint + page, options).map(res => res.json()).subscribe(
+          (data) => {
+            this.complaints = data;
+            resolve(this.complaints);
+          }, (err) => {
+            reject({});
+          });
+      }).catch((err: string) => {
+        reject(err);
+      });
+    });
+  }
+
+  getDashboardlist(token: string) {
     return new Promise((resolve, reject) => {
       this.http.get(this.dashboardApi)
         .map(res => res.json())
