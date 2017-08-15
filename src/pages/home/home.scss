@@ -36,10 +36,10 @@ page-home {
   .btn-camera{
     position: absolute;
     display: block;
-    top: 29%;
+    top: 25%;
     //bottom: 5%;
     right: 3%;
-    padding: 6px 10px;
+    padding: 3px 9px 0px 9px;
     background: #ffffff;
     border-radius: 100%;
     font-size: 1.5em;
@@ -49,6 +49,8 @@ page-home {
     font-size: 2em;
   }
 
-
+  .user-info{
+    background: rgb(231, 231, 231);
+  }
 
 }

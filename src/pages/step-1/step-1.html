@@ -9,73 +9,80 @@
   <ion-navbar>
     <ion-title>บันทึกเรื่องราวร้องทุกข์</ion-title>
     <ion-buttons end>
-      <!--<button ion-button [navPush]="step2Page">save</button>-->
-      <button ion-button (click)="saveData()">save</button>
+      <button ion-button [navPush]="step2Page">save</button>
+      <!--<button ion-button (click)="saveData()">save</button>-->
     </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
-
-<ion-content padding>
+<ion-content class="outer-content">
   <form [formGroup]="complainForm">
-    <ion-card-content>
+    <ion-list>
+      <ion-item-group>
       <ion-list-header>
-        ข้อมูลทั่วไป
+        <ion-icon item-start name="filing"></ion-icon>
+        ข้อมูลร้องทุกข์
       </ion-list-header>
-      <ion-item>
-        <ion-label floating>วันที่ร้องทุกข์</ion-label>
-        <ion-datetime [(ngModel)]="complain_date" name="complain_date" formControlName="complain_date" displayFormat="DD-MM-YYYY"
-          cancelText="ยกเลิก" doneText="ตกลง" [class.invalid]="!complainForm.controls.complain_date.valid && (complainForm.controls.complain_date.dirty || submitAttempt)"></ion-datetime>
-      </ion-item>
-      <ion-item *ngIf="!complainForm.controls.complain_date.valid && (complainForm.controls.complain_date.dirty || submitAttempt)">
-        <p>กรุณาเลือกวันที่</p>
-      </ion-item>
-      <ion-item>
-        <ion-label floating>ผู้รับแจ้ง</ion-label>
-        <ion-input [(ngModel)]="recipient" name="recipient" formControlName="recipient" type="text" required [class.invalid]="!complainForm.controls.recipient.valid && (complainForm.controls.recipient.dirty || submitAttempt)">
-        </ion-input>
-      </ion-item>
-      <ion-item *ngIf="!complainForm.controls.recipient.valid && (complainForm.controls.recipient.dirty || submitAttempt)">
-        <p>กรุณากรอกผู้รับแจ้ง</p>
-      </ion-item>
-      <ion-item>
-        <ion-label floating>วันที่หนังสือส่งเข้า</ion-label>
-        <ion-datetime [(ngModel)]="doc_receive_date" name="doc_receive_date" displayFormat="DD-MM-YYYY" [ngModelOptions]="{standalone: true}"></ion-datetime>
-      </ion-item>
-      <ion-item>
-        <ion-label floating>เลขที่หนังสือส่งเข้า</ion-label>
-        <ion-input [(ngModel)]="doc_receive_no" name="doc_receive_no" type="text" [ngModelOptions]="{standalone: true}"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label floating>วันที่หนังสือส่งออก</ion-label>
-        <ion-datetime [(ngModel)]="doc_send_date" name="doc_send_date" displayFormat="DD-MM-YYYY" [ngModelOptions]="{standalone: true}"></ion-datetime>
-      </ion-item>
-      <ion-item>
-        <ion-label floating>เลขที่หนังสือส่งออก</ion-label>
-        <ion-input [(ngModel)]="doc_send_no" name="doc_send_no" type="text" [ngModelOptions]="{standalone: true}"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label floating>ผู้บันทึก</ion-label>
-        <ion-input type="text"></ion-input>
-      </ion-item>
-      <ion-list radio-group [(ngModel)]="user_complain_type_id" [ngModelOptions]="{standalone: true}">
-        <ion-list-header>
-          ผู้ร้องทุกข์
-        </ion-list-header>
+        <ion-item>
+          <ion-label floating>วันที่ร้องทุกข์</ion-label>
+          <ion-datetime [(ngModel)]="complain_date" name="complain_date" formControlName="complain_date" displayFormat="DD-MM-YYYY"
+                        cancelText="ยกเลิก" doneText="ตกลง" [class.invalid]="!complainForm.controls.complain_date.valid && (complainForm.controls.complain_date.dirty || submitAttempt)"></ion-datetime>
+        </ion-item>
+        <ion-item *ngIf="!complainForm.controls.complain_date.valid && (complainForm.controls.complain_date.dirty || submitAttempt)">
+          <p>กรุณาเลือกวันที่</p>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>ผู้รับแจ้ง</ion-label>
+          <ion-input [(ngModel)]="recipient" name="recipient" formControlName="recipient" type="text" required [class.invalid]="!complainForm.controls.recipient.valid && (complainForm.controls.recipient.dirty || submitAttempt)">
+          </ion-input>
+        </ion-item>
+        <ion-item *ngIf="!complainForm.controls.recipient.valid && (complainForm.controls.recipient.dirty || submitAttempt)">
+          <p>กรุณากรอกผู้รับแจ้ง</p>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>วันที่หนังสือส่งเข้า</ion-label>
+          <ion-datetime [(ngModel)]="doc_receive_date" name="doc_receive_date" displayFormat="DD-MM-YYYY" [ngModelOptions]="{standalone: true}"></ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>เลขที่หนังสือส่งเข้า</ion-label>
+          <ion-input [(ngModel)]="doc_receive_no" name="doc_receive_no" type="text" [ngModelOptions]="{standalone: true}"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>วันที่หนังสือส่งออก</ion-label>
+          <ion-datetime [(ngModel)]="doc_send_date" name="doc_send_date" displayFormat="DD-MM-YYYY" [ngModelOptions]="{standalone: true}"></ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>เลขที่หนังสือส่งออก</ion-label>
+          <ion-input [(ngModel)]="doc_send_no" name="doc_send_no" type="text" [ngModelOptions]="{standalone: true}"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>ผู้บันทึก</ion-label>
+          <ion-input type="text"></ion-input>
+        </ion-item>
+        <ion-item></ion-item>
+      </ion-item-group>
+    </ion-list>
+    <ion-list radio-group [(ngModel)]="user_complain_type_id" [ngModelOptions]="{standalone: true}">
+      <ion-item-group>
+      <ion-list-header>
+        <ion-icon item-start name="person"></ion-icon>
+        ผู้ร้องทุกข์
+      </ion-list-header>
         <ion-item>
           <ion-label> ไม่ประสงค์ออกนาม</ion-label>
-          <ion-radio value="1"></ion-radio>
+          <ion-radio value="1" aria-checked="true"></ion-radio>
         </ion-item>
         <ion-item>
           <ion-label>บันทึก/เลือกผู้ร้องทุกข์</ion-label>
           <ion-radio value="2"></ion-radio>
         </ion-item>
-      </ion-list>
-
-    </ion-card-content>
+        <ion-item></ion-item>
+      </ion-item-group>
+    </ion-list>
   </form>
 </ion-content>
+
 <ion-footer>
 
 </ion-footer>
