@@ -16,29 +16,51 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-item-sliding *ngFor="let complaint of complaints" style="border-left: 5px solid red;">
+    <ion-item-sliding *ngFor="let complaint of complaints">
+
       <ion-item>
-        <!--<ion-avatar item-start>
-          <img src="img/slimer.png">
-        </ion-avatar>-->
-        <h2>{{complaint.complain_name}}</h2>
+        <ion-card style="border-top: 3px solid red;">
+
+          <ion-item>
+            <ion-grid>
+              <ion-row>
+                <ion-col col-12>
+                  <h2>เลขที่ : {{complaint.complain_no}}</h2>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+          <ion-card-content>
+            <ion-grid>
+              <ion-row>
+                <ion-col col-12 class="wrapping-list">
+                  เรื่อง : {{complaint.complain_name}}
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+
+          <ion-row>
+            <ion-col center text-right>
+              <ion-note>
+                แจ้งเมื่อ : 10 ก.ย. 2560 เวลา 14.30 น.
+              </ion-note>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col center text-right>
+              <button ion-button color="dark" clear>
+                <ion-icon ios="ios-construct" md="md-construct" style="font-size: 18pt"></ion-icon>
+              </button>
+              <button ion-button color="dark" clear>
+                <ion-icon ios="ios-trash" md="md-trash" style="font-size: 18pt"></ion-icon>
+              </button>
+            </ion-col>
+          </ion-row>
+
+        </ion-card>
       </ion-item>
-      <ion-item-options side="right">
-        <button ion-button color="primary">
-          <ion-icon name="build"></ion-icon>
-            แก้ไข
-        </button>
-        <button ion-button color="danger">
-          <ion-icon name="trash"></ion-icon>
-          ลบ
-        </button>
-      </ion-item-options>
-      <!--<ion-item-options side="right">
-        <button ion-button color="primary">
-          <ion-icon name="mail"></ion-icon>
-          Email
-        </button>
-      </ion-item-options>-->
+
     </ion-item-sliding>
   </ion-list>
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
