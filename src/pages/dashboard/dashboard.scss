@@ -4,7 +4,7 @@
 .ios, .md{
   page-dashboard {
     ion-content{
-      background: url('../../assets/images/bg.jpg');
+      /*background: url('../../assets/images/bg.jpg');*/
       -webkit-background-size: cover;
       -moz-background-size: cover;
       background-size: 100% 100%;
@@ -77,6 +77,16 @@
         .invalid {
           border: 1px solid #ea6153;
         }
+      }
+      .item-inner{
+        border-bottom: 0px !important;
+      }
+      .scroll-content{
+        padding: 0px !important;
+      }
+      .wrapping-list{
+        overflow: initial !important;
+        white-space: initial !important;
       }
     }
 

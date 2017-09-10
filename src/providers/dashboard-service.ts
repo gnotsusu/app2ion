@@ -12,7 +12,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class DashboardService {
 
-  host: string = "http://122.155.197.104/sysdamrongdham";
+  host: string = "http://123.242.172.133/sysdamrongdham";
   apiCountComplaint: string = this.host + "/api/complaint/count";
   apiComplaint: string = this.host + "/api/complaint/dashboard_mobile/";
   dashboardApi: string = this.host + "/api/complaint/dashboard/1";
