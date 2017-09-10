@@ -9,8 +9,8 @@
   <ion-navbar>
     <ion-title>ความประสงค์ในการดำเนินการ</ion-title>
     <ion-buttons end>
-      <button ion-button [navPush]="step3Page">save</button>
-      <!--<button ion-button (click)='saveData()'>save</button>-->
+      <!-- <button ion-button [navPush]="step3Page">save</button> -->
+      <button ion-button (click)='saveData()'>save</button>
     </ion-buttons>
   </ion-navbar>
 
@@ -25,7 +25,8 @@
       </ion-list-header>
       <ion-item>
         <ion-label floating>ประเภทเรื่อง</ion-label>
-        <ion-select [(ngModel)]="complain_type_id" formControlName="complain_type_id" [class.invalid]="!complainForm.controls.complain_type_id.valid && (complainForm.controls.complain_type_id.dirty || submitAttempt)" (ionChange)="onChangeComplainType()">
+        <ion-select [(ngModel)]="complain_type_id" formControlName="complain_type_id" [class.invalid]="!complainForm.controls.complain_type_id.valid && (complainForm.controls.complain_type_id.dirty || submitAttempt)"
+          (ionChange)="onChangeComplainType()">
           <ion-option *ngFor="let complain of complain_type_id_sel" [value]="complain.id">{{complain.name}}</ion-option>
           <!--<ion-option >test</ion-option>-->
         </ion-select>
@@ -80,7 +81,8 @@
       </ion-item>
       <ion-item>
         <ion-label floating>หน่วยงานหรือผู้ถูกร้องเรียนร้องทุกข์</ion-label>
-        <ion-select [(ngModel)]="accused_type_id" formControlName="accused_type_id" [class.invalid]="!complainForm.controls.accused_type_id.valid && (complainForm.controls.accused_type_id.dirty || submitAttempt)" (ionChange)="onChangeAccusedType()">
+        <ion-select [(ngModel)]="accused_type_id" formControlName="accused_type_id" [class.invalid]="!complainForm.controls.accused_type_id.valid && (complainForm.controls.accused_type_id.dirty || submitAttempt)"
+          (ionChange)="onChangeAccusedType()">
           <ion-option *ngFor="let complain of accused_type_id_sel" [value]="complain.id">{{complain.name}}</ion-option>
           <!--<ion-option >test</ion-option>-->
         </ion-select>
