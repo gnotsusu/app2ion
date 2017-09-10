@@ -29,6 +29,7 @@ import {ChartsModule} from "ng2-charts";
 import {Report} from "../pages/report/report";
 import {Result} from "../pages/result/result";
 import {DonusCharts} from "../pages/donus-charts/donus-charts";
+import {LineCharts} from "../pages/line-charts/line-charts";
 import {ReportService} from "../providers/report-service";
 import {ResultService} from "../providers/result-service";
 import {ResultState} from "../pages/result-state/result-state";
@@ -50,6 +51,7 @@ import {SelectorComplaint} from "../providers/selector-complaint";
     Result,
     ResultState,
     DonusCharts,
+    LineCharts,
     Tabs,
     Step1,
     Step2,
@@ -78,6 +80,7 @@ import {SelectorComplaint} from "../providers/selector-complaint";
     AddPhoto,
     Report,
     DonusCharts,
+    LineCharts,
     Result,
     ResultState,
     Tabs,

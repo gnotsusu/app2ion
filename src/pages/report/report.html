@@ -15,9 +15,13 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list no-lines>
-    <button ion-item *ngFor="let l of list" (click)="OpenReports(l)">
-      {{l.name}}
-    </button>
+  <ion-list >
+    <ion-item ion-item *ngFor="let l of list" (click)="OpenReports(l)">
+      <ion-thumbnail item-start>
+        <img src="assets/icon/{{l.icon}}">
+      </ion-thumbnail>
+        <h2>{{l.name}}</h2>
+      <p class="item wrap-text">{{l.name}}</p>
+    </ion-item>
   </ion-list>
 </ion-content>
