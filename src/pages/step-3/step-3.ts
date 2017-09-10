@@ -1,12 +1,12 @@
-import {Step4} from '../step-4/step-4';
-import {Component} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {IonicPage, NavController, NavParams, ModalController, LoadingController} from 'ionic-angular';
-import {Location} from '../location/location';
-import {SelectAddress} from "../../providers/select-address";
-import {Login} from '../login/login';
-import {Auth} from '../../providers/auth';
-import {RequestOptions, Http, Headers, URLSearchParams} from '@angular/http';
+import { Step4 } from '../step-4/step-4';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { IonicPage, NavController, NavParams, ModalController, LoadingController } from 'ionic-angular';
+import { Location } from '../location/location';
+import { SelectAddress } from "../../providers/select-address";
+import { Login } from '../login/login';
+import { Auth } from '../../providers/auth';
+import { RequestOptions, Http, Headers, URLSearchParams } from '@angular/http';
 
 /**
  * Generated class for the Step3 page.
@@ -27,7 +27,7 @@ export class Step3 {
   place_scene: any = '';
   province_id: any = '';
   district_id: any = '';
-  address_id: any ='';
+  address_id: any = '';
   complaint_detail: string = '';
   latitude: any = '';
   longitude: any = '';
@@ -39,19 +39,19 @@ export class Step3 {
   loading: any;
   complainForm: FormGroup;
   submitAttempt: boolean = false;
-  public host = 'http://122.155.197.104/sysdamrongdham';
+  public host = 'http://123.242.172.133/sysdamrongdham';
   public api_keyin = this.host + '/api/complaint/key_in';
   public complain_type = this.host + '/api/complaint/key_in';
 
   constructor(public navCtrl: NavController,
-              public navParams: NavParams,
-              public modalCtrl: ModalController,
-              public selectAddress: SelectAddress,
-              public loadCtrl: LoadingController,
-              public auth: Auth,
-              public http: Http,
-              public formBuilder: FormBuilder
-              ) {
+    public navParams: NavParams,
+    public modalCtrl: ModalController,
+    public selectAddress: SelectAddress,
+    public loadCtrl: LoadingController,
+    public auth: Auth,
+    public http: Http,
+    public formBuilder: FormBuilder
+  ) {
     this.keyin_id = this.navParams.get('param1');
     this.complainForm = formBuilder.group({
       place_scene: ['', Validators.required],
@@ -156,11 +156,11 @@ export class Step3 {
         body.set('latitude', this.latitude);
         body.set('longitude', this.longitude);
 
-        let options = new RequestOptions({headers: headers});
+        let options = new RequestOptions({ headers: headers });
         this.http.put(this.api_keyin, body, options).map(res => res).subscribe(
           data => {
             console.log(data['_body']);
-            this.navCtrl.push(Step4, {param1: data['_body']});
+            this.navCtrl.push(Step4, { param1: data['_body'] });
           },
           err => {
             console.log('Http Error');

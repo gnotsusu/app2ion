@@ -3,7 +3,7 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 
- // type Address = { AddressId: string, AddressName: string};
+// type Address = { AddressId: string, AddressName: string};
 /*
   Generated class for the SelectAddress provider.
 
@@ -12,7 +12,7 @@ import 'rxjs/add/operator/map';
 */
 @Injectable()
 export class SelectAddress {
-  host: string = "http://122.155.197.104/sysdamrongdham/api/dropdown/ccaa_lists/";
+  host: string = "http://123.242.172.133/sysdamrongdham/api/dropdown/ccaa_lists/";
   address: object[] = [];
 
   constructor(public http: Http) {
@@ -20,31 +20,14 @@ export class SelectAddress {
   }
 
 
-  Province(){
-    let url = this.host+'Changwat';
+  Province() {
+    let url = this.host + 'Changwat';
     return new Promise((resolve, reject) => {
       this.http.get(url).map(res => res.json()).subscribe(
         (data) => {
-              this.address =[];
-            Object.keys(data).forEach((key) => {
-              this.address.push({id:key,value:data[key].replace('จังหวัด','')});
-            });
-          resolve(this.address);
-        },
-        (err) => {
-          reject(err);
-        });
-    });
-  }
-
-  District(province:string){
-    let url = this.host+'Aumpur/'+province.substring(0,2);
-    return new Promise((resolve, reject) => {
-      this.http.get(url).map(res => res.json()).subscribe(
-        (data) => {
-          this.address =[];
+          this.address = [];
           Object.keys(data).forEach((key) => {
-            this.address.push({id:key,value:data[key].replace('อำเภอ','')});
+            this.address.push({ id: key, value: data[key].replace('จังหวัด', '') });
           });
           resolve(this.address);
         },
@@ -54,14 +37,31 @@ export class SelectAddress {
     });
   }
 
-  SubDistrict(district:string){
-    let url = this.host+'Tamboon/'+district.substring(0,4);
+  District(province: string) {
+    let url = this.host + 'Aumpur/' + province.substring(0, 2);
     return new Promise((resolve, reject) => {
       this.http.get(url).map(res => res.json()).subscribe(
         (data) => {
-          this.address =[];
+          this.address = [];
           Object.keys(data).forEach((key) => {
-            this.address.push({id:key,value:data[key].replace('ตำบล','')});
+            this.address.push({ id: key, value: data[key].replace('อำเภอ', '') });
+          });
+          resolve(this.address);
+        },
+        (err) => {
+          reject(err);
+        });
+    });
+  }
+
+  SubDistrict(district: string) {
+    let url = this.host + 'Tamboon/' + district.substring(0, 4);
+    return new Promise((resolve, reject) => {
+      this.http.get(url).map(res => res.json()).subscribe(
+        (data) => {
+          this.address = [];
+          Object.keys(data).forEach((key) => {
+            this.address.push({ id: key, value: data[key].replace('ตำบล', '') });
           });
           resolve(this.address);
         },
