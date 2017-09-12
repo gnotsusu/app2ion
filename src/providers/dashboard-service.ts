@@ -26,7 +26,11 @@ export class DashboardService {
     //console.log('Hello DashboardService Provider');
   }
 
-  ComplaintData(page) {
+  ComplaintData(page,status=null) {
+    let currentStatus:string = '';
+    if(status !== null){
+      currentStatus = '?current_status='+status;
+    }
     return new Promise((resolve, reject) => {
       this.storage.get('token').then((data: string) => {
         this.token = data;
@@ -35,7 +39,7 @@ export class DashboardService {
         let headers = new Headers();
         headers.append('Authorization', 'Bearer ' + token);
         let options = new RequestOptions({ headers: headers });
-        this.http.get(this.apiComplaint + page, options).map(res => res.json()).subscribe(
+        this.http.get(this.apiComplaint + page+currentStatus, options).map(res => res.json()).subscribe(
           (data) => {
             this.complaints = data;
             resolve(this.complaints);
