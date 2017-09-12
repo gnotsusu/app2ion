@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
-import {RequestOptions, Http, Headers, URLSearchParams} from '@angular/http';
-import {Storage} from '@ionic/storage';
+import { Injectable } from '@angular/core';
+import { RequestOptions, Http, Headers, URLSearchParams } from '@angular/http';
+import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
 
 /*
@@ -16,9 +16,11 @@ export class DashboardService {
   apiCountComplaint: string = this.host + "/api/complaint/count";
   apiComplaint: string = this.host + "/api/complaint/dashboard_mobile/";
   dashboardApi: string = this.host + "/api/complaint/dashboard/1";
+  dashboardCountApi: string = this.host + "/api/complaint/total_status_row";
   token: string;
   complaints: object[] = [];
   countComplaints: object[] = [];
+  countComplaintsStatus: object[] = [];
 
   constructor(public http: Http, public storage: Storage) {
     //console.log('Hello DashboardService Provider');
@@ -32,7 +34,7 @@ export class DashboardService {
       }).then((token: string) => {
         let headers = new Headers();
         headers.append('Authorization', 'Bearer ' + token);
-        let options = new RequestOptions({headers: headers});
+        let options = new RequestOptions({ headers: headers });
         this.http.get(this.apiComplaint + page, options).map(res => res.json()).subscribe(
           (data) => {
             this.complaints = data;
@@ -51,6 +53,28 @@ export class DashboardService {
       this.http.get(this.dashboardApi)
         .map(res => res.json())
         .subscribe()
+    });
+  }
+
+  getDashboardCountlist() {
+    return new Promise((resolve, reject) => {
+      this.storage.get('token').then((data: string) => {
+        this.token = data;
+        return data;
+      }).then((token: string) => {
+        let headers = new Headers();
+        headers.append('Authorization', 'Bearer ' + token);
+        let options = new RequestOptions({ headers: headers });
+        this.http.get(this.dashboardCountApi, options).map(res => res.json()).subscribe(
+          (data) => {
+            this.countComplaintsStatus = data;
+            resolve(this.countComplaintsStatus);
+          }, (err) => {
+            reject({});
+          });
+      }).catch((err: string) => {
+        reject(err);
+      });
     });
   }
 

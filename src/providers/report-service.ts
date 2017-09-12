@@ -2,12 +2,15 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import {DonusCharts} from "../pages/donus-charts/donus-charts";
+import {LineCharts} from "../pages/line-charts/line-charts";
 
 export class ReportDataSet{
+  icon:string;
   name:string;
   component:any;
 
-  constructor(name: string, component: any) {
+  constructor(icon: string, name: string, component: any) {
+    this.icon = icon;
     this.name = name;
     this.component = component;
   }
@@ -32,11 +35,11 @@ export class ReportService {
     return new Promise((resolve)=>{
 
       this.reportlist = [
-        new ReportDataSet('DonutCharts', DonusCharts),
-        new ReportDataSet('DonutCharts', DonusCharts),
-        new ReportDataSet('DonutCharts', DonusCharts),
-        new ReportDataSet('DonutCharts', DonusCharts),
-        new ReportDataSet('DonutCharts', DonusCharts)
+        new ReportDataSet('asset_1.png', 'รายงานรวมเรื่องร้องทุกข์', LineCharts),
+        new ReportDataSet('asset_2.png', 'รายงานจำนวนเรื่องร้องทุกข์ตามลักษณะเรื่อง', DonusCharts),
+        new ReportDataSet('asset_3.png', 'รายงานสถิติเรื่องร้องเรียนร้องทุกข์ตามประเภทเรื่อง', DonusCharts),
+        new ReportDataSet('asset_4.png', 'รายงานภาพรวมสถิติเรื่องร้องทุกข์ตามสถานะ', DonusCharts),
+        new ReportDataSet('asset_5.png', 'รายงานภาพรวมสถิติเปรียบเทียบเรื่องร้องทุกข์', DonusCharts)
       ];
       resolve(this.reportlist);
     });
@@ -45,6 +48,5 @@ export class ReportService {
   getDataSet(){
 
   }
-
 
 }

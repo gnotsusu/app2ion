@@ -1,3 +1,16 @@
 page-report {
 
+  .item {
+    .wrap-text {
+      overflow: initial;
+      white-space: pre-wrap;
+    }
+
+    .onwrap-text{
+      overflow: inherit;
+
+    }
+
+  }
+
 }

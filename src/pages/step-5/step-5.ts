@@ -1,4 +1,4 @@
-import { Subject, Channel , Wish} from './../../providers/selector-complaint';
+import { Subject, Channel, Wish } from './../../providers/selector-complaint';
 
 import { Login } from './../login/login';
 import { Http, RequestOptions, Headers } from '@angular/http';
@@ -104,7 +104,7 @@ export class ComplaintData {
     subject: Array<any> = [],
     channel: Array<any> = [],
     attach_file: any,
-    user_complain:any
+    user_complain: any
   ) {
     this.keyin_id = keyin_id;
     this.create_user_id = create_user_id;
@@ -170,11 +170,11 @@ export class Step5 {
   loading: any;
   keyin_id: string;
   public token: any;
-  public host = 'http://122.155.197.104/sysdamrongdham';
+  public host = 'http://123.242.172.133/sysdamrongdham';
   public api_keyin = this.host + '/api/complaint/key_in';
   public complain_data: Array<any> = [];
 
-  keyInId:any;
+  keyInId: any;
 
   constructor(
     public navCtrl: NavController,
@@ -212,9 +212,9 @@ export class Step5 {
         }
       }).then(() => {
         return this.getComplainData(this.token)
-      }).then((data:any) => {
+      }).then((data: any) => {
         this.complain_data = data;
-      console.log(this.complain_data);
+        console.log(this.complain_data);
       }).catch(err => {
         this.loading.dismiss();
         console.error(err.message);
@@ -259,11 +259,11 @@ export class Step5 {
         }
 
         this.keyInId = data.keyin_id;
-        let user_complain :any;
-        if(data.user_complain_type_id == '1'){
+        let user_complain: any;
+        if (data.user_complain_type_id == '1') {
           user_complain = 'ไม่ประสงค์ออกนาม';
-        }else{
-          user_complain = data.title_name+data.first_name+' '+data.last_name;
+        } else {
+          user_complain = data.title_name + data.first_name + ' ' + data.last_name;
         }
         this.complain_data.push(new ComplaintData(
           data.keyin_id,
@@ -310,7 +310,7 @@ export class Step5 {
           channel,
           data.attach_file,
           user_complain
-          ));
+        ));
 
         console.log("Log Complanit :" + this.complain_data[0].toString());
         resolve(this.complain_data);

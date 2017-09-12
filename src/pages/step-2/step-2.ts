@@ -55,7 +55,7 @@ export class Step2 {
   public accused_type_2: any = '';
   public accused_name: string = '';
   public wish_detail: string = '';
-  public host = 'http://122.155.197.104/sysdamrongdham';
+  public host = 'http://123.242.172.133/sysdamrongdham';
   public api_keyin = this.host + '/api/complaint/key_in';
   public complain_type = this.host + '/api/complaint/key_in';
   public token: any;
@@ -159,18 +159,18 @@ export class Step2 {
     let keyin_id = this.keyin_id;
     let complain_type_id;
     let accused_type_id;
-    if(this.complain_type_id_2 != '' && this.complain_type_id_2 != undefined){
+    if (this.complain_type_id_2 != '' && this.complain_type_id_2 != undefined) {
       complain_type_id = this.complain_type_id_2;
-    }else if(this.complain_type_id_1 != '' && this.complain_type_id_1 != undefined){
+    } else if (this.complain_type_id_1 != '' && this.complain_type_id_1 != undefined) {
       complain_type_id = this.complain_type_id_1;
-    }else{
+    } else {
       complain_type_id = this.complain_type_id;
     }
-    if(this.accused_type_id_2 != '' && this.accused_type_id_2 != undefined){
+    if (this.accused_type_id_2 != '' && this.accused_type_id_2 != undefined) {
       accused_type_id = this.accused_type_id_2;
-    }else if(this.accused_type_id_1 != '' && this.accused_type_id_1 != undefined){
+    } else if (this.accused_type_id_1 != '' && this.accused_type_id_1 != undefined) {
       accused_type_id = this.accused_type_id_1;
-    }else{
+    } else {
       accused_type_id = this.accused_type_id;
     }
     let Complaint_data = {
@@ -227,7 +227,7 @@ export class Step2 {
       link2.style.display = 'none';
       this.complain_type_1 = data;
       this.complain_type_2 = [];
-    },function(err){
+    }, function (err) {
       var link = document.getElementById('complain_type_1');
       link.style.display = 'none';
       var link2 = document.getElementById('complain_type_2');
@@ -239,7 +239,7 @@ export class Step2 {
       var link2 = document.getElementById('complain_type_2');
       link2.style.display = 'block';
       this.complain_type_2 = data;
-    },function(err){
+    }, function (err) {
       var link2 = document.getElementById('complain_type_2');
       link2.style.display = 'none';
     });
@@ -253,7 +253,7 @@ export class Step2 {
       link2.style.display = 'none';
       this.accused_type_1 = data;
       this.accused_type_2 = [];
-    },function(err){
+    }, function (err) {
       var link = document.getElementById('accused_type_1');
       link.style.display = 'none';
       var link2 = document.getElementById('accused_type_2');
@@ -266,7 +266,7 @@ export class Step2 {
       var link2 = document.getElementById('accused_type_2');
       link2.style.display = 'block';
       this.accused_type_2 = data;
-    },function(err){
+    }, function (err) {
       var link2 = document.getElementById('accused_type_2');
       link2.style.display = 'none';
     });

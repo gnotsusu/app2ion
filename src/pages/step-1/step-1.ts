@@ -29,7 +29,7 @@ export class Step1 {
   public doc_send_date: any = '';
   public doc_send_no: string = '';
   public user_complain_type_id: string = '';
-  public host = 'http://122.155.197.104/sysdamrongdham';
+  public host = 'http://123.242.172.133/sysdamrongdham';
   public api_save = this.host + '/api/complaint/key_in';
   public token: any;
   loading: any;
@@ -101,7 +101,7 @@ export class Step1 {
   saveData() {
     this.submitAttempt = true;
     let Complaint_data;
-    if(this.user_complain_type_id == '2'){
+    if (this.user_complain_type_id == '2') {
       Complaint_data = {
         complain_date: this.complain_date,
         recipient: this.recipient,
@@ -115,7 +115,7 @@ export class Step1 {
         last_name: this.user_data.user.last_name,
         phone_number: this.user_data.user.phone
       }
-    }else{
+    } else {
       Complaint_data = {
         complain_date: this.complain_date,
         recipient: this.recipient,
