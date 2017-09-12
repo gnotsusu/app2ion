@@ -1,9 +1,8 @@
-
-import {Component, ViewChild} from '@angular/core';
-import {MenuController, Nav, Platform, LoadingController} from 'ionic-angular';
-import {StatusBar} from '@ionic-native/status-bar';
-import {SplashScreen} from '@ionic-native/splash-screen';
-import { Auth }from '../providers/auth';
+import { Component, ViewChild } from '@angular/core';
+import { MenuController, Nav, Platform, LoadingController } from 'ionic-angular';
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { Auth } from '../providers/auth';
 
 export class Pages {
   title: string;
@@ -17,12 +16,12 @@ export class Pages {
   }
 }
 
-import {Login} from '../pages/login/login';
-import {HomePage} from "../pages/home/home";
-import {Complaint} from "../pages/complaint/complaint";
-import {Report} from "../pages/report/report";
-import {Result} from "../pages/result/result";
-import {Tabs} from "../pages/tabs/tabs";
+import { Login } from '../pages/login/login';
+import { HomePage } from "../pages/home/home";
+import { Step1 } from './../pages/step-1/step-1';
+import { Report } from "../pages/report/report";
+import { Dashboard } from './../pages/dashboard/dashboard';
+import { Tabs } from "../pages/tabs/tabs";
 @Component({
   templateUrl: 'app.html'
 })
@@ -33,20 +32,20 @@ export class MyApp {
   loading: any;
 
   constructor(
-              public platform: Platform,
-              public statusBar: StatusBar,
-              public splashScreen: SplashScreen,
-              public menu: MenuController,
-              public auth: Auth,
-              public loadingCtrl:LoadingController) {
+    public platform: Platform,
+    public statusBar: StatusBar,
+    public splashScreen: SplashScreen,
+    public menu: MenuController,
+    public auth: Auth,
+    public loadingCtrl: LoadingController) {
 
     this.initializeApp();
-
     this.pages = [
-      new Pages('หน้าหลัก', 'home', HomePage),
-      new Pages('บันทึกเรื่องราวร้องทุกข์', 'filing', Complaint),
-      new Pages('ผลการดำเนินงาน', 'clipboard', Result),
-      new Pages('รายงาน', 'paper', Report)
+      new Pages('หน้าหลัก', 'home', Tabs)
+      // new Pages('หน้าหลัก', 'home', HomePage),
+      // new Pages('บันทึกเรื่องราวร้องทุกข์', 'filing', Step1),
+      // new Pages('ผลการดำเนินงาน', 'clipboard', Dashboard),
+      // new Pages('รายงาน', 'paper', Report)
       //new Pages('ออกจากระบบ', 'lock', Login)
     ];
 
@@ -54,7 +53,7 @@ export class MyApp {
 
   private initializeApp() {
 
-    this.platform.ready().then(()=>{
+    this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
@@ -68,23 +67,23 @@ export class MyApp {
     this.nav.setRoot(page.component);
   }
 
-  public signOut(){
+  public signOut() {
     this.menu.close();
     this.showLoading();
 
-    this.auth.clearAutherize().then(()=> {
+    this.auth.clearAutherize().then(() => {
       this.loading.dismiss();
       this.nav.setRoot(Login);
-    }).catch((err)=> {
+    }).catch((err) => {
       this.loading.dismiss();
       console.log(err.stack);
     })
 
   }
 
-  showLoading(){
+  showLoading() {
     this.loading = this.loadingCtrl.create({
-      content : 'กำลังออกจากระบบ...'
+      content: 'กำลังออกจากระบบ...'
     });
     this.loading.present();
   }

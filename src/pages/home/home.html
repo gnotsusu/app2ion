@@ -13,18 +13,22 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
+
   <ion-list>
-    <ion-card class="user-info">
+    <!-- <ion-card class="user-info">
       <div class="avatar-content">
         <img src="assets/if_user_1902268.png">
       </div>
       <div class="btn-camera">
         <ion-icon name="camera"></ion-icon>
       </div>
-    </ion-card>
+    </ion-card> -->
     <ion-item (click)="goToComplaint()">
       <ion-icon name="filing" large item-start></ion-icon>
       <h2>แจ้งเรื่องร้องเรียน</h2>
+      <ion-note item-end>
+        <span text-right><ion-icon name="add" large item-start></ion-icon></span>
+      </ion-note>
     </ion-item>
     <ion-item (click)="goToAllComplaint()">
       <ion-icon name="mail" large item-start></ion-icon>
