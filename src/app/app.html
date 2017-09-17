@@ -1,13 +1,16 @@
 <ion-menu [content]="content" type="overlay" persistent="true">
 
-  <ion-header>
+  <ion-header *ngFor="let comp of test">
     <ion-toolbar>
       <ion-item no-lines>
         <ion-avatar item-left>
-          <h1>G</h1>
+          <img width="80" height="80" src="http://123.242.172.133/sysdamrongdham/upload/register_photos/{{comp.image}}" *ngIf="comp && comp.image">
+          <img width="80" height="80" src="http://123.242.172.133/sysdamrongdham/assets/images/person_mono.jpg" *ngIf="!comp || !comp.image">
+
+
         </ion-avatar>
-        <h2>Hello,{{test}}</h2>
-        <p>Guest User</p>
+        <h2>Hello,{{comp.name}}</h2>
+        <p>{{comp.group}}</p>
       </ion-item>
       <ion-buttons end>
         <button ion-button icon-only>

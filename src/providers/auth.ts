@@ -30,10 +30,11 @@ export class User {
   last_name: string;
   company: string;
   phone: string;
+  photo: string;
   idcard: string;
   gender: string;
 
-  constructor(id: string, username: string, email: string, first_name: string, last_name: string, company: string, phone: string, idcard: string, gender: string) {
+  constructor(id: string, username: string, email: string, first_name: string, last_name: string, company: string, phone: string, photo: string, idcard: string, gender: string) {
     this.id = id;
     this.username = username;
     this.email = email;
@@ -41,6 +42,7 @@ export class User {
     this.last_name = last_name;
     this.company = company;
     this.phone = phone;
+    this.photo = photo;
     this.idcard = idcard;
     this.gender = gender;
   }
@@ -173,9 +175,12 @@ export class Auth {
           let user = data.user;
           let groups = data.groups;
 
-          console.log("User " + user);
+          console.log("User ");
+          console.log(user);
+          console.log("Group ");
+          console.log(groups);
 
-          this.userInfo = new User(user.id, user.username, user.email, user.first_name, user.last_name, user.company, user.phone, user.idcard, user.gender);
+          this.userInfo = new User(user.id, user.username, user.email, user.first_name, user.last_name, user.company, user.phone, user.register_photo, user.idcard, user.gender);
 
           for (let i in groups) {
             this.groups.push(new Groups(groups[i].id, groups[i].name, groups[i].description, groups[i].bgcolor))

@@ -1,3 +1,4 @@
+import { User } from './../providers/auth';
 import { Component, ViewChild } from '@angular/core';
 import { MenuController, Nav, Platform, LoadingController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -16,6 +17,20 @@ export class Pages {
   }
 }
 
+export class UserData {
+  id: string;
+  name: string;
+  group: any;
+  image: any
+
+  constructor(id: string, name: string, group: any, image: any) {
+    this.id = id;
+    this.name = name;
+    this.group = group;
+    this.image = image
+  }
+}
+
 import { Login } from '../pages/login/login';
 import { HomePage } from "../pages/home/home";
 import { Step1 } from './../pages/step-1/step-1';
@@ -30,7 +45,8 @@ export class MyApp {
   rootPage: any = Login;
   pages: Array<Pages>;
   loading: any;
-
+  test: Array<any> = [];
+  public token: any;
   constructor(
     public platform: Platform,
     public statusBar: StatusBar,
@@ -48,6 +64,10 @@ export class MyApp {
       // new Pages('รายงาน', 'paper', Report)
       //new Pages('ออกจากระบบ', 'lock', Login)
     ];
+    this.authen();
+    //this.test = this.auth.getUserProfile();
+    //console.log('a');
+    console.log(this.test);
 
   }
 
@@ -58,6 +78,42 @@ export class MyApp {
       this.splashScreen.hide();
     });
 
+  }
+  authen() {
+    //this.showLoading();
+    this.auth.isCheck().then((data) => {
+      this.token = data;
+      return data;
+    }).then((token: string) => {
+      return this.auth.isExpire(token);
+    }).then((isExpire: Boolean) => {
+      if (isExpire) {
+        // this.loading.dismiss();
+        this.nav.pop(Login);
+      } else {
+        this.auth.getUserProfile().then((data) => {
+          // console.log('da');
+          // console.log(data['user']);
+          return data['user'];
+        }).then((data) => {
+          this.test.push(new UserData(
+            data['id'],
+            data['first_name'],
+            '',
+            data['photo']
+          ));
+          console.log('sa');
+          console.log(this.test);
+          // return this.test
+        });
+        //this.test = this.test[0];
+        return this.test;
+        // this.loading.dismiss();
+      }
+    }).catch(err => {
+      // this.loading.dismiss();
+      console.error(err.message);
+    });
   }
 
   public openPage(page) {
