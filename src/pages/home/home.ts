@@ -30,8 +30,13 @@ export class HomePage {
     this.navCtrl.push(Step1);
   }
 
-  goToAllComplaint() {
-    this.navCtrl.push(Dashboard);
+  goToAllComplaint(status) {
+    if (status !== null) {
+      this.navCtrl.push(Dashboard, { status_id: status });
+    } else {
+      this.navCtrl.push(Dashboard);
+    }
+
   }
 
   goToResult() {

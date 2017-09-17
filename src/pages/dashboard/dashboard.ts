@@ -1,9 +1,12 @@
-import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams, ModalController, LoadingController} from 'ionic-angular';
-import {DashboardService} from "../../providers/dashboard-service";
-import {Login} from '../login/login';
-import {Auth} from '../../providers/auth';
-import {RequestOptions, Http, Headers, URLSearchParams} from '@angular/http';
+import { Step2 } from './../step-2/step-2';
+import { Step1 } from './../step-1/step-1';
+import { Step5 } from './../step-5/step-5';
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams, ModalController, LoadingController } from 'ionic-angular';
+import { DashboardService } from "../../providers/dashboard-service";
+import { Login } from '../login/login';
+import { Auth } from '../../providers/auth';
+import { RequestOptions, Http, Headers, URLSearchParams } from '@angular/http';
 
 /**
  * Generated class for the Step3 page.
@@ -22,13 +25,13 @@ export class Dashboard {
   loading: any;
   page: number = 1;
   complaints: object[] = [];
-
+  status_id: any;
   constructor(public navCtrl: NavController,
-              public navParams: NavParams,
-              public loadCtrl: LoadingController,
-              public auth: Auth,
-              public http: Http,
-              public dashboardService: DashboardService,) {
+    public navParams: NavParams,
+    public loadCtrl: LoadingController,
+    public auth: Auth,
+    public http: Http,
+    public dashboardService: DashboardService, ) {
     // for (let i = 0; i < 30; i++) {
     //   this.complaints.push( this.complaints.length );
     // }
@@ -37,7 +40,9 @@ export class Dashboard {
 
   ionViewDidLoad() {
     this.authen();
-    this.dashboardService.ComplaintData(this.page).then((data) => {
+    this.status_id = this.navParams.get('status_id');
+    console.log('status_id = ' + this.status_id);
+    this.dashboardService.ComplaintData(this.page, this.status_id).then((data) => {
       Object.keys(data).forEach((key) => {
         this.complaints.push(data[key]);
       });
@@ -75,10 +80,15 @@ export class Dashboard {
     this.loading.present();
   }
 
+  goToDetail(keyin_id) {
+    console.log(keyin_id);
+    this.navCtrl.push(Step5, { param1: keyin_id });
+  }
+
   doInfinite(infiniteScroll) {
     console.log('Begin async operation');
     setTimeout(() => {
-      this.dashboardService.ComplaintData(this.page).then((data) => {
+      this.dashboardService.ComplaintData(this.page, this.status_id).then((data) => {
         console.log(data);
         if (data[0].status !== false) {
           Object.keys(data).forEach((key) => {

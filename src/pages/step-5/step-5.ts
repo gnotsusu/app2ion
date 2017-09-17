@@ -1,4 +1,4 @@
-import { Subject, Channel, Wish } from './../../providers/selector-complaint';
+import { Subject, Channel, Wish, ComplaintType } from './../../providers/selector-complaint';
 
 import { Login } from './../login/login';
 import { Http, RequestOptions, Headers } from '@angular/http';
@@ -189,6 +189,7 @@ export class Step5 {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad Step5');
+    this.keyin_id = this.navParams.get('param1');
     this.authen();
   }
 
@@ -229,7 +230,7 @@ export class Step5 {
   }
 
   getComplainData(token: string) {
-    let keyin_id = '345';
+    let keyin_id = this.keyin_id;
     let headers = new Headers();
     headers.append('Authorization', 'Bearer ' + token);
     let options = new RequestOptions({ headers: headers });
@@ -253,10 +254,10 @@ export class Step5 {
           channel.push(new Channel(channelList[i].channel_id, channelList[i].channel_name));
         }
 
-        for (let i of wishList) {
-          console.log('debug :' + wishList[i].wish_name);
-          wish.push(new Wish(wishList[i].wish_id, channelList[i].wish_name));
-        }
+        // for (let i of wishList) {
+        //   console.log('debug :' + wishList[i].wish_name);
+        //   wish.push(new Wish(wishList[i].wish_id, channelList[i].wish_name));
+        // }
 
         this.keyInId = data.keyin_id;
         let user_complain: any;
