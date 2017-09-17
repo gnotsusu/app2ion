@@ -1,4 +1,6 @@
 import { Step2 } from './../step-2/step-2';
+import { Step3 } from './../step-3/step-3';
+import { Step4 } from './../step-4/step-4';
 import { Step1 } from './../step-1/step-1';
 import { Step5 } from './../step-5/step-5';
 import { Component } from '@angular/core';
@@ -43,6 +45,7 @@ export class Dashboard {
     this.status_id = this.navParams.get('status_id');
     console.log('status_id = ' + this.status_id);
     this.dashboardService.ComplaintData(this.page, this.status_id).then((data) => {
+      console.log(data);
       Object.keys(data).forEach((key) => {
         this.complaints.push(data[key]);
       });
@@ -80,9 +83,21 @@ export class Dashboard {
     this.loading.present();
   }
 
-  goToDetail(keyin_id) {
+  goToDetail(keyin_id, step) {
     console.log(keyin_id);
-    this.navCtrl.push(Step5, { param1: keyin_id });
+    if (step == '1') {
+      this.navCtrl.push(Step1, { param1: keyin_id });
+    } else if (step == '2') {
+      this.navCtrl.push(Step2, { param1: keyin_id });
+    } else if (step == '3') {
+      this.navCtrl.push(Step3, { param1: keyin_id });
+    } else if (step == '4') {
+      this.navCtrl.push(Step4, { param1: keyin_id });
+    } else {
+      this.navCtrl.push(Step5, { param1: keyin_id });
+    }
+
+
   }
 
   doInfinite(infiniteScroll) {
