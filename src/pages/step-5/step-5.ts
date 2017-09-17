@@ -1,4 +1,5 @@
-import { Subject, Channel, Wish, ComplaintType } from './../../providers/selector-complaint';
+import { SelectAddress } from './../../providers/select-address';
+import { Subject, Channel, Wish, ComplaintType, SelectorComplaint } from './../../providers/selector-complaint';
 
 import { Login } from './../login/login';
 import { Http, RequestOptions, Headers } from '@angular/http';
@@ -26,6 +27,7 @@ export class ComplaintData {
   doc_send_date: any;
   doc_send_no: any;
   complain_type_id: any;
+  complain_type: any;
   complain_name: any;
   channel_id: any;
   subject_id: any;
@@ -72,6 +74,7 @@ export class ComplaintData {
     doc_send_date: any,
     doc_send_no: any,
     complain_type_id: any,
+    complain_type: any,
     complain_name: any,
     channel_id: any,
     subject_id: any,
@@ -117,6 +120,7 @@ export class ComplaintData {
     this.doc_send_date = doc_send_date;
     this.doc_send_no = doc_send_no;
     this.complain_type_id = complain_type_id;
+    this.complain_type = complain_type;
     this.complain_name = complain_name;
     this.channel_id = channel_id;
     this.subject_id = subject_id;
@@ -181,6 +185,8 @@ export class Step5 {
     public navParams: NavParams,
     public auth: Auth,
     public http: Http,
+    public SelectorComplaint: SelectorComplaint,
+    public selectAddress: SelectAddress,
     public loadCtrl: LoadingController
 
   ) {
@@ -211,11 +217,81 @@ export class Step5 {
         } else {
           this.loading.dismiss();
         }
-      }).then(() => {
+      }).then((data) => {
         return this.getComplainData(this.token)
-      }).then((data: any) => {
-        this.complain_data = data;
-        console.log(this.complain_data);
+      }).then((data2: any) => {
+        let data_result: any;
+        let complain_type_data = this.SelectorComplaint.getComplaintTypeList().then((data) => {
+          for (let i in data) {
+            if (data[i].id == data2[0]['complain_type_id']) {
+              data_result = data[i].name;
+              return data_result;
+            }
+
+          }
+        }).then((data_result: any) => {
+          this.complain_data[0]['complain_type'] = data_result;
+          //return this.complain_data;
+        });
+        return this.complain_data;
+      }).then((data2) => {
+        let data_result: any;
+        let complain_type_data = this.SelectorComplaint.getAccusedTypeList().then((data) => {
+          for (let i in data) {
+            if (data[i].id == data2[0]['accused_type_id']) {
+              data_result = data[i].name;
+              return data_result;
+            }
+          }
+        }).then((data_result: any) => {
+          this.complain_data[0]['accused_type_id'] = data_result;
+        });
+        return this.complain_data;
+      }).then((data2) => {
+        let data_result: any;
+        let data_province = data2[0]['address_id'].substring(0, 2) + '000000';
+        let complain_type_data = this.selectAddress.Province().then((data) => {
+          for (let i in data) {
+            // console.log(data[i].id + '==' + data_province);
+            if (data[i].id == data_province) {
+              data_result = data[i].value;
+              return data_result;
+            }
+          }
+        }).then((data_result: any) => {
+          this.complain_data[0]['province_data'] = data_result;
+        });
+        return this.complain_data;
+      }).then((data2) => {
+        let data_result: any;
+        let data_district = data2[0]['address_id'].substring(0, 4) + '0000';
+        let complain_type_data = this.selectAddress.District(data2[0]['address_id']).then((data) => {
+          for (let i in data) {
+            // console.log(data[i].id + '==' + data_district);
+            if (data[i].id == data_district) {
+              data_result = data[i].value;
+              return data_result;
+            }
+          }
+        }).then((data_result: any) => {
+          this.complain_data[0]['district_data'] = data_result;
+        });
+        return this.complain_data;
+      }).then((data2) => {
+        let data_result: any;
+        let data_subdistrict = data2[0]['address_id'].substring(0, 6) + '00';
+        let complain_type_data = this.selectAddress.SubDistrict(data2[0]['address_id']).then((data) => {
+          for (let i in data) {
+            // console.log(data[i].id + '==' + data_subdistrict);
+            if (data[i].id == data_subdistrict) {
+              data_result = data[i].value;
+              return data_result;
+            }
+          }
+        }).then((data_result: any) => {
+          this.complain_data[0]['subdistrict_data'] = data_result;
+        });
+        return this.complain_data;
       }).catch(err => {
         this.loading.dismiss();
         console.error(err.message);
@@ -244,6 +320,7 @@ export class Step5 {
         let subjectList = data.subject;
         let channelList = data.channel;
         let wishList = data.wish;
+        let complain_type = '';
         for (let i in subjectList) {
           console.log('debug :' + subjectList[i].subject_name);
           subject.push(new Subject(subjectList[i].subject_id, subjectList[i].subject_name));
@@ -278,6 +355,7 @@ export class Step5 {
           data.doc_send_date,
           data.doc_send_no,
           data.complain_type_id,
+          complain_type,
           data.complain_name,
           data.channel_id,
           data.subject_id,
