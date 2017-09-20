@@ -9,6 +9,7 @@ import { DashboardService } from "../../providers/dashboard-service";
 import { Login } from '../login/login';
 import { Auth } from '../../providers/auth';
 import { RequestOptions, Http, Headers, URLSearchParams } from '@angular/http';
+import * as moment from 'moment';
 
 /**
  * Generated class for the Step3 page.
@@ -34,10 +35,7 @@ export class Dashboard {
     public auth: Auth,
     public http: Http,
     public dashboardService: DashboardService, ) {
-    // for (let i = 0; i < 30; i++) {
-    //   this.complaints.push( this.complaints.length );
-    // }
-
+    moment.locale('th');
   }
 
   ionViewDidLoad() {
@@ -47,6 +45,8 @@ export class Dashboard {
     this.dashboardService.ComplaintData(this.page, this.status_id).then((data) => {
       console.log(data);
       Object.keys(data).forEach((key) => {
+        moment(data[key].complain_date);
+        data[key].complain_date = moment().format('d MMM ') + (moment().get('year')+543) + moment().format(' เวลา h:mm:ss น.');
         this.complaints.push(data[key]);
       });
     });
@@ -101,12 +101,13 @@ export class Dashboard {
   }
 
   doInfinite(infiniteScroll) {
-    console.log('Begin async operation');
     setTimeout(() => {
       this.dashboardService.ComplaintData(this.page, this.status_id).then((data) => {
         console.log(data);
         if (data[0].status !== false) {
           Object.keys(data).forEach((key) => {
+            moment(data[key].complain_date);
+            data[key].complain_date = moment().format('d MMM ') + (moment().get('year')+543) + moment().format(' เวลา h:mm:ss น.');
             this.complaints.push(data[key]);
           });
         }
@@ -114,7 +115,6 @@ export class Dashboard {
         console.error(err.message);
       });
       this.page++;
-      console.log('Async operation has ended');
       infiniteScroll.complete();
     }, 500);
   }
