@@ -1,13 +1,14 @@
-import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import {Injectable} from '@angular/core';
+import {Http, Headers, RequestOptions} from '@angular/http';
 import 'rxjs/add/operator/map';
 import {DonusCharts} from "../pages/donus-charts/donus-charts";
 import {LineCharts} from "../pages/line-charts/line-charts";
+import {Storage} from '@ionic/storage';
 
-export class ReportDataSet{
-  icon:string;
-  name:string;
-  component:any;
+export class ReportDataSet {
+  icon: string;
+  name: string;
+  component: any;
 
   constructor(icon: string, name: string, component: any) {
     this.icon = icon;
@@ -24,15 +25,18 @@ export class ReportDataSet{
 */
 @Injectable()
 export class ReportService {
+  token: string;
 
+  host: string = "http://123.242.172.133/sysdamrongdham/";
+  reportType: string = this.host + "api/report/report_test_app";
   reportlist: ReportDataSet[];
 
-  constructor(public http: Http) {
+  constructor(public http: Http, public storage: Storage) {
     console.log('Hello ReportService Provider');
   }
 
-  getReportList(){
-    return new Promise((resolve)=>{
+  getReportList() {
+    return new Promise((resolve) => {
 
       this.reportlist = [
         new ReportDataSet('asset_1.png', 'รายงานรวมเรื่องร้องทุกข์', LineCharts),
@@ -45,8 +49,20 @@ export class ReportService {
     });
   }
 
-  getDataSet(){
 
+  getDataSetReportType(token: string) {
+    let headers = new Headers();
+    headers.append('Authorization', 'Bearer ' + token);
+    let options = new RequestOptions({ headers: headers });
+    console.log('test_data = ' + token);
+    return new Promise((resolve, reject) => {
+      this.http.get(this.reportType, options).map((res)=> res.json()).subscribe(
+        (data)=>{
+        resolve(data);
+      },(err) => {
+          reject(err);
+      })
+    });
   }
 
 }

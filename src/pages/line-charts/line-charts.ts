@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Auth} from "../../providers/auth";
 
 /**
  * Generated class for the DonusCharts page.
@@ -14,15 +15,75 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class LineCharts {
 
-  public doughnutChartLabels:string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
-  public doughnutChartData:number[] = [350, 450, 100];
-  public doughnutChartType:string = 'line';
+  public chartOptions:any = {
+    responsive: true
+  };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  public doughnutChartLabels:string[] = [
+    "มกราคม",
+    "กุมภาพันธ์",
+    "มีนาคม",
+    "เมษายน",
+    "พฤษภาคม",
+    "มิถุนายน",
+    "กรกฎาคม",
+    "สิงหาคม",
+    "กันยายน"
+  ];
+
+  public doughnutChartData:any =[
+    {
+      "data": [
+        10,
+        9,
+        11,
+        8,
+        0,
+        0,
+        45,
+        26,
+        2
+      ],
+      "label": "ทั่วไป"
+    },
+    {
+      "data": [
+        4,
+        9,
+        10,
+        8,
+        0,
+        0,
+        19,
+        10,
+        0
+      ],
+      "label": "สำคัญ"
+    },
+    {
+      "data": [
+        4,
+        10,
+        10,
+        8,
+        0,
+        0,
+        32,
+        0,
+        0
+      ],
+      "label": "บัตรสนเท่ห์"
+    }
+  ];
+
+  public doughnutChartType:string = 'horizontalBar';
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public auth : Auth) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DonusCharts');
+    this.authorize();
   }
 
   chartHovered(e:any):void{
@@ -31,6 +92,14 @@ export class LineCharts {
 
   chartClicked(e:any):void{
     console.log(e);
+  }
+
+  authorize(){
+    this.auth.isCheck().then( (token:string) => {
+       return token;
+    }).catch( err => {
+       console.debug(err);
+    })
   }
 
 }

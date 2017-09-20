@@ -13,4 +13,4 @@ import { LineCharts } from './line-charts';
     LineCharts
   ]
 })
-export class DonusChartsModule {}
+export class LineChartsModule {}
