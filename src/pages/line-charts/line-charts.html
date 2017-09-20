@@ -13,14 +13,15 @@
 </ion-header>
 
 
-<ion-content padding>
-  <ion-card>
-    <canvas baseChart
-            [data]="doughnutChartData"
-            [labels]="doughnutChartLabels"
-            [chartType]="doughnutChartType"
-            (chartHover)="chartHovered($event)"
-            (chartClick)="chartClicked($event)">
+<ion-content>
+    <canvas
+      baseChart
+      [datasets]="doughnutChartData"
+      [labels]="doughnutChartLabels"
+      [legend]=true
+      [chartType]="doughnutChartType"
+      [options]="chartOptions"
+      (chartHover)="chartHovered($event)"
+      (chartClick)="chartClicked($event)">
     </canvas>
-  </ion-card>
 </ion-content>
