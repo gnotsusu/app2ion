@@ -204,7 +204,6 @@ export class Step1 {
       complain_date: ['', Validators.required],
       recipient: ['', Validators.required]
     });
-    this.complain_date = 'a';
     this.keyin_id = this.navParams.get('param1');
 
   }
@@ -233,7 +232,7 @@ export class Step1 {
       }
     }).then((data) => {
       console.log(data);
-      if (data != undefined) {
+      if (data != undefined && data != '') {
         if (data[0]['complain_date'] != '') {
           let cd_tmp = data[0]['complain_date'].toString().split(' ');
           let cd_tmp_splt = cd_tmp[0].split('-');
