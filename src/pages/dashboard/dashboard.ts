@@ -41,17 +41,14 @@ export class Dashboard {
   ionViewDidLoad() {
     this.authen();
     this.status_id = this.navParams.get('status_id');
-    console.log('status_id = ' + this.status_id);
     this.dashboardService.ComplaintData(this.page, this.status_id).then((data) => {
-      console.log(data);
       Object.keys(data).forEach((key) => {
-        moment(data[key].complain_date);
-        data[key].complain_date = moment().format('d MMM ') + (moment().get('year')+543) + moment().format(' เวลา h:mm:ss น.');
+        let now = moment(data[key].complain_date);
+        data[key].complain_date = now.format('d MMM ') + (now.get('year')+543) + now.format(' เวลา h:mm:ss น.');
         this.complaints.push(data[key]);
       });
     });
     this.page++;
-    console.log(this.complaints);
   }
 
   authen() {
@@ -103,11 +100,10 @@ export class Dashboard {
   doInfinite(infiniteScroll) {
     setTimeout(() => {
       this.dashboardService.ComplaintData(this.page, this.status_id).then((data) => {
-        console.log(data);
         if (data[0].status !== false) {
           Object.keys(data).forEach((key) => {
-            moment(data[key].complain_date);
-            data[key].complain_date = moment().format('d MMM ') + (moment().get('year')+543) + moment().format(' เวลา h:mm:ss น.');
+            let now = moment(data[key].complain_date);
+            data[key].complain_date = now.format('d MMM ') + (now.get('year')+543) + now.format(' เวลา h:mm:ss น.');
             this.complaints.push(data[key]);
           });
         }

@@ -40,6 +40,7 @@ export class Step2 {
   public accused_type_id_sel: any;
   public channel_id_sel: any;
   public subject_id_sel: any;
+  public wish_id_sel: any;
   public complain_type_id: any;
   public complain_type_id_1: any;
   public complain_type_id_2: any;
@@ -103,6 +104,10 @@ export class Step2 {
 
     this.SelectorComplaint.getSubjectList().then((data) => {
       this.subject_id_sel = data;
+    });
+
+    this.SelectorComplaint.getWishList().then((data) => {
+      this.wish_id_sel = data;
     });
     //  this.getComplainType().then((data:ComplaintType[]) => {
     //      this.complain_type_id = data;
