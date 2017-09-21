@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {Auth} from "../../providers/auth";
+import {Reports} from "../../providers/reports";
 
 /**
  * Generated class for the DonusCharts page.
@@ -13,77 +14,44 @@ import {Auth} from "../../providers/auth";
   selector: 'page-line-charts',
   templateUrl: 'line-charts.html',
 })
-export class LineCharts {
+export class LineCharts implements OnInit{
+
+  ngOnInit(): void {
+    throw new Error("Method not implemented.");
+  }
+
 
   public chartOptions:any = {
     responsive: true
   };
 
-  public doughnutChartLabels:string[] = [
-    "มกราคม",
-    "กุมภาพันธ์",
-    "มีนาคม",
-    "เมษายน",
-    "พฤษภาคม",
-    "มิถุนายน",
-    "กรกฎาคม",
-    "สิงหาคม",
-    "กันยายน"
-  ];
+  public doughnutChartLabels:Array<any>;
 
-  public doughnutChartData:any =[
-    {
-      "data": [
-        10,
-        9,
-        11,
-        8,
-        0,
-        0,
-        45,
-        26,
-        2
-      ],
-      "label": "ทั่วไป"
-    },
-    {
-      "data": [
-        4,
-        9,
-        10,
-        8,
-        0,
-        0,
-        19,
-        10,
-        0
-      ],
-      "label": "สำคัญ"
-    },
-    {
-      "data": [
-        4,
-        10,
-        10,
-        8,
-        0,
-        0,
-        32,
-        0,
-        0
-      ],
-      "label": "บัตรสนเท่ห์"
-    }
-  ];
+  public doughnutChartData: Array<any>;
 
   public doughnutChartType:string = 'horizontalBar';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public auth : Auth) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public reports: Reports,
+              public auth : Auth) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DonusCharts');
-    this.authorize();
+    this.auth.isCheck().then( (token:string) => {
+      //console.log(token);
+      return token;
+    }).then(token => {
+      return this.reports.getReport(token);
+    }).then((data:any) => {
+      //console.log(data.lables, data.datasets);
+      this.doughnutChartLabels = JSON.parse(data.lables);
+      this.doughnutChartData = JSON.parse(data.datasets);
+      console.log(this.doughnutChartLabels, this.doughnutChartData);
+    }).catch( err => {
+      console.debug(err);
+    })
   }
 
   chartHovered(e:any):void{
@@ -94,12 +62,5 @@ export class LineCharts {
     console.log(e);
   }
 
-  authorize(){
-    this.auth.isCheck().then( (token:string) => {
-       return token;
-    }).catch( err => {
-       console.debug(err);
-    })
-  }
 
 }
