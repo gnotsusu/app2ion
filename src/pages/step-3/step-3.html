@@ -1,0 +1,99 @@
+<!--
+  Generated template for the Step3 page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>เนื้อหาเรื่องร้องทุกข์ร้องเรียน</ion-title>
+    <ion-buttons end>
+      <!-- <button ion-button [navPush]="step4Page">save</button> -->
+      <button ion-button (click)="saveData()">save</button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form [formGroup]="complainForm">
+    <ion-card-content>
+      <ion-list-header>
+        เนื้อหาเรื่องร้องทุกข์ร้องเรียน
+      </ion-list-header>
+      <ion-item>
+        <ion-label floating>วันเดือนปีที่เกิดเหตุ(ถ้ามี)</ion-label>
+        <ion-datetime [(ngModel)]="scene_date" name="scene_date" displayFormat="DD-MM-YYYY" [ngModelOptions]="{standalone: true}"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>สถานที่เกิดเหตุ</ion-label>
+        <ion-input type="text" [(ngModel)]="place_scene" formControlName="place_scene" [class.invalid]="!complainForm.controls.place_scene.valid && (complainForm.controls.place_scene.dirty || submitAttempt)"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="!complainForm.controls.place_scene.valid && (complainForm.controls.place_scene.dirty || submitAttempt)">
+        <p>กรุณากรอกสถานที่เกิดเหตุ</p>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>จังหวัด</ion-label>
+        <ion-select [(ngModel)]="province_id" (ionChange)="onChangeProvince()" formControlName="province_id" [class.invalid]="!complainForm.controls.province_id.valid && (complainForm.controls.province_id.dirty || submitAttempt)">
+          <ion-option *ngFor="let province of provinces" [value]="province.id">{{province.value}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item *ngIf="!complainForm.controls.province_id.valid && (complainForm.controls.province_id.dirty || submitAttempt)">
+        <p>กรุณาเลือกจังหวัด</p>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>อำเภอ</ion-label>
+        <ion-select [(ngModel)]="district_id" (ionChange)="onChangeDistrict()" formControlName="district_id" [class.invalid]="!complainForm.controls.district_id.valid && (complainForm.controls.district_id.dirty || submitAttempt)">
+          <ion-option *ngFor="let district of districts" [value]="district.id">{{district.value}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item *ngIf="!complainForm.controls.district_id.valid && (complainForm.controls.district_id.dirty || submitAttempt)">
+        <p>กรุณาเลือกอำเภอ</p>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>ตำบล</ion-label>
+        <ion-select [(ngModel)]="address_id" formControlName="address_id" [class.invalid]="!complainForm.controls.address_id.valid && (complainForm.controls.address_id.dirty || submitAttempt)">
+          <ion-option *ngFor="let sub_district of sub_districts" [value]="sub_district.id">{{sub_district.value}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item *ngIf="!complainForm.controls.address_id.valid && (complainForm.controls.address_id.dirty || submitAttempt)">
+        <p>กรุณาเลือกตำบล</p>
+      </ion-item>
+      <ion-item>
+        <ion-label>รายละเอียดการร้องเรียน/ร้องทุกข์</ion-label>
+      </ion-item>
+      <ion-item>
+        <textarea [(ngModel)]="complaint_detail" formControlName="complaint_detail" [class.invalid]="!complainForm.controls.complaint_detail.valid && (complainForm.controls.complaint_detail.dirty || submitAttempt)"></textarea>
+      </ion-item>
+      <ion-item *ngIf="!complainForm.controls.complaint_detail.valid && (complainForm.controls.complaint_detail.dirty || submitAttempt)">
+        <p>กรุณากรอกรายละเอียดการร้องเรียน/ร้องทุกข์</p>
+      </ion-item>
+      <ion-list-header>
+        จุดเกิดเหตุ
+      </ion-list-header>
+      <ion-item>
+        <ion-label floating>ละติจูด</ion-label>
+        <ion-input type="text" [(ngModel)]="latitude" formControlName="latitude" [class.invalid]="!complainForm.controls.latitude.valid && (complainForm.controls.latitude.dirty || submitAttempt)"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>ลองติจูด</ion-label>
+        <ion-input type="text" [(ngModel)]="longitude" formControlName="longitude" [class.invalid]="!complainForm.controls.longitude.valid && (complainForm.controls.longitude.dirty || submitAttempt)"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="(!complainForm.controls.latitude.valid && (complainForm.controls.latitude.dirty || submitAttempt)) || (!complainForm.controls.longitude.valid && (complainForm.controls.longitude.dirty || submitAttempt))">
+        <p>กรุณาเลือกจุดเกิดเหตุ</p>
+      </ion-item>
+      <ion-item>
+        <div>
+          <ion-buttons>
+            <button ion-button (click)="goToMap()">
+            <ion-icon name="pin"></ion-icon>&nbsp;&nbsp;จุดเกิดเหตุ
+          </button>
+          </ion-buttons>
+        </div>
+        <div #map id="map" class="map"></div>
+      </ion-item>
+    </ion-card-content>
+  </form>
+</ion-content>

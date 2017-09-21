@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Location } from '../location/location';
+import { Step1 } from '../step-1/step-1';
 import { Geolocation } from '@ionic-native/geolocation';
 /**
  * Generated class for the Complaint page.
@@ -30,6 +31,10 @@ var Complaint = (function () {
     };
     Complaint.prototype.goToMap = function () {
         this.navCtrl.push(Location);
+    };
+
+    Complaint.prototype.goToKey = function () {
+        this.navCtrl.push(Step1);
     };
     Complaint.prototype.loadMap = function () {
         var _this = this;

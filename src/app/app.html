@@ -1,17 +1,20 @@
-<ion-menu [content]="content" type="overlay"  persistent="true" >
+<ion-menu [content]="content" type="overlay" persistent="true">
 
-  <ion-header>
+  <ion-header *ngFor="let comp of test">
     <ion-toolbar>
       <ion-item no-lines>
         <ion-avatar item-left>
-          <h2>G</h2>
+          <img width="80" height="80" src="http://123.242.172.133/sysdamrongdham/upload/register_photos/{{comp.image}}" *ngIf="comp && comp.image">
+          <img width="80" height="80" src="http://123.242.172.133/sysdamrongdham/assets/images/person_mono.jpg" *ngIf="!comp || !comp.image">
+
+
         </ion-avatar>
-        <h2>Hello,</h2>
-        <p>Guest User</p>
+        <h2>Hello,{{comp.name}}</h2>
+        <p>{{comp.group}}</p>
       </ion-item>
       <ion-buttons end>
-        <button ion-button icon-only >
-          <ion-icon name="settings"></ion-icon>
+        <button ion-button icon-only>
+          <ion-icon name="settings" ></ion-icon>
         </button>
       </ion-buttons>
     </ion-toolbar>
@@ -21,6 +24,9 @@
     <ion-list no-lines>
       <button ion-item *ngFor="let p of pages" (click)="openPage(p)">
         <ion-icon name="{{p.icon}}"></ion-icon>  {{p.title}}
+      </button>
+      <button ion-item (click)="signOut()">
+        <ion-icon name="lock"></ion-icon> ออกจากระบบ
       </button>
     </ion-list>
   </ion-content>

@@ -12,96 +12,115 @@
 
 </ion-header>-->
 <ion-header>
-  <ion-navbar  hideBackButton="true">
-    <button ion-button menuToggle><ion-icon name="menu"></ion-icon></button>
+  <ion-navbar hideBackButton="true">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title text-center> บันทึกเรื่องร้องทุกข์/ร้องเรียน</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only><ion-icon name="compose"></ion-icon></button>
+      <button ion-button [navPush]="stepPage">save</button>
     </ion-buttons>
 
   </ion-navbar>
 </ion-header>
 
-<ion-content  padding>
-  <ion-card-content>
-    <ion-list>
+<ion-content padding>
+
+    <ion-card-content>
       <ion-list-header>
         ข้อมูลทั่วไป
       </ion-list-header>
       <ion-item>
-        <ion-label >เลขที่เรื่องร้องทุกข์</ion-label>
+        <ion-label floating>เลขที่เรื่องร้องทุกข์</ion-label>
         <ion-input></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label >วันที่ร้องทุกข์</ion-label>
-        <ion-datetime displayFormat="DD-MM-YYYY" ></ion-datetime>
+        <ion-label floating>วันที่ร้องทุกข์</ion-label>
+        <ion-datetime [(ngModel)]="complain_date" name="complain_date" displayFormat="DD-MM-YYYY"></ion-datetime>
       </ion-item>
-      <ion-list-header>
-        ผู้ร้องทุกข์
-      </ion-list-header>
-      <ion-item>
-        <ion-label >เลขบัตรประจำตัวประชาชน</ion-label>
-        <ion-input type="text"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label >ผู้รับแจ้ง</ion-label>
-        <ion-input type="text"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label >หมายเลขโทรศัพท์</ion-label>
-        <ion-input type="text"></ion-input>
-      </ion-item>
-      <ion-list-header>
-        รายละเอียดการร้องเรียน/ร้องทุกข์
-      </ion-list-header>
-      <ion-item>
-        <textarea placeholder="รายละเอียดการร้องทุกข์"></textarea>
-      </ion-item>
-      <ion-list-header>
-        จุดเกิดเหตุ
-      </ion-list-header>
-      <ion-item>
-        <ion-label >ละติจูด</ion-label>
-        <ion-input type="text"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label >ลองจิจูด</ion-label>
-        <ion-input type="text"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label >หรือ</ion-label>
-      </ion-item>
-      <ion-item>
-        <div>
-          <ion-buttons end>
-            <button ion-button (click)="goToMap()"><ion-icon name="locate"></ion-icon>ตำแหน่งคุณ</button>
-            <button ion-button class="button" (click)="saveMap()">บันทึกพิกัด</button>
-          </ion-buttons>
-        </div>
-        <div #map id="map" class="map"></div>
-      </ion-item>
-      <ion-list-header>
-        ผู้ถูกร้องเรียน
-      </ion-list-header>
-      <ion-item>
-        <ion-label >วันที่ร้องทุกข์</ion-label>
-        <ion-datetime displayFormat="DD-MM-YYYY" ></ion-datetime>
-      </ion-item>
-      <ion-list-header>
-        หลักฐานประกอบการร้องทุกข์
-      </ion-list-header>
-      <ion-input type="text"></ion-input>
-      <ion-list-header>
-        ความประสงค์ในการดำเนินการของผู้ร้องทุกข์
-      </ion-list-header>
-      <ion-input type="text"></ion-input>
-      <ion-list-header>
-        ผลการดำเนินการของเจ้าหน้าที่
-      </ion-list-header>
-      <ion-input type="text"></ion-input>
-      <ion-list-header>
-        กรอกรหัสยืนยันตามภาพ
-      </ion-list-header>
-    </ion-list>
+    </ion-card-content>
+
+  <ion-card-content>
+    <ion-list-header>
+      ผู้ร้องทุกข์
+    </ion-list-header>
+    <ion-item>
+      <ion-label floating>เลขบัตรประจำตัวประชาชน</ion-label>
+      <ion-input [(ngModel)]="id_card" name="id_card" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>ผู้รับแจ้ง</ion-label>
+      <ion-input [(ngModel)]="recipient" name="recipient" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>หมายเลขโทรศัพท์</ion-label>
+      <ion-input [(ngModel)]="phone_number" name="phone_number" type="text"></ion-input>
+    </ion-item>
+  </ion-card-content>
+  <ion-card-content>
+    <ion-list-header>
+      รายละเอียดการร้องเรียน/ร้องทุกข์
+    </ion-list-header>
+    <ion-item>
+      <textarea [(ngModel)]="complaint_detail" name="complaint_detail" placeholder="รายละเอียดการร้องทุกข์"></textarea>
+    </ion-item>
+  </ion-card-content>
+  <ion-card-content>
+    <ion-list-header>
+      จุดเกิดเหตุ
+    </ion-list-header>
+    <ion-item>
+      <ion-label floating>ละติจูด</ion-label>
+      <ion-input [(ngModel)]="latitude" name="latitude" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>ลองจิจูด</ion-label>
+      <ion-input [(ngModel)]="longitude" name="longitude" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>หรือ</ion-label>
+    </ion-item>
+    <ion-item>
+      <div>
+        <ion-buttons>
+          <button ion-button (click)="goToMap()">
+            <ion-icon name="pin"></ion-icon>&nbsp;&nbsp;จุดเกิดเหตุ
+          </button>
+        </ion-buttons>
+      </div>
+      <div #map id="map" class="map"></div>
+    </ion-item>
+  </ion-card-content>
+  <ion-card-content>
+    <ion-list-header>
+      ผู้ถูกร้องเรียน
+    </ion-list-header>
+    <ion-item>
+      <ion-label floating>วันที่ร้องทุกข์</ion-label>
+      <ion-datetime displayFormat="DD-MM-YYYY"></ion-datetime>
+    </ion-item>
+  </ion-card-content>
+  <ion-card-content>
+    <ion-list-header>
+      หลักฐานประกอบการร้องทุกข์
+    </ion-list-header>
+    <ion-input type="text"></ion-input>
+  </ion-card-content>
+  <ion-card-content>
+    <ion-list-header>
+      ความประสงค์ในการดำเนินการ<br>ของผู้ร้องทุกข์
+    </ion-list-header>
+    <ion-input type="text"></ion-input>
+  </ion-card-content>
+  <ion-card-content>
+    <ion-list-header>
+      ผลการดำเนินการของเจ้าหน้าที่
+    </ion-list-header>
+    <ion-input type="text"></ion-input>
+  </ion-card-content>
+  <ion-card-content>
+    <ion-list-header>
+      กรอกรหัสยืนยันตามภาพ
+    </ion-list-header>
   </ion-card-content>
 </ion-content>

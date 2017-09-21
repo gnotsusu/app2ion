@@ -1,3 +1,56 @@
 page-home {
 
+  .ion-card {
+    position: relative;
+    text-align: center;
+  }
+
+  .card-ios{
+    margin: 0 !important;
+    width: 100% !important;
+    height: 190px;
+  }
+
+  .card-md{
+    margin: 0 !important;
+    width: 100% !important;
+    height: 180px;
+  }
+
+  .avatar-content{
+    position: absolute;
+    display: block;
+    margin: 0 auto;
+    top: 5%;
+    bottom: 5%;
+    left: 0;
+    right: 0;
+
+    img{
+      width: 145px;
+      display: block;
+      margin: 0 auto;
+    }
+  }
+
+  .btn-camera{
+    position: absolute;
+    display: block;
+    top: 25%;
+    //bottom: 5%;
+    right: 3%;
+    padding: 3px 9px 0px 9px;
+    background: #ffffff;
+    border-radius: 100%;
+    font-size: 1.5em;
+  }
+
+  ion-item{
+    font-size: 2em;
+  }
+
+  .user-info{
+    background: rgb(231, 231, 231);
+  }
+
 }

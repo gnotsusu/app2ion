@@ -1,3 +1,24 @@
 page-complaint {
+    ion-content{
+        background: #e8f5fc;
+    }    
+    ion-card-content{
+        display: block;
+        background-color: #eee;
+        margin-bottom: 10px;
+        border-radius: 3px;
+    }
+    .input-wrapper{
+        font-size: 12px;
+    }
+    ion-list-header{
+        border: 0px !important;
+    }
 
+    ion-item{
+        ion-label{
+            font-size: 12px;
+        }
+        
+    }
 }

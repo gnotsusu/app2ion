@@ -1,3 +1,22 @@
 page-login {
-
+    .scroll-content {
+        background: url('../../assets/images/buildings-footer.png');
+        //background-color: #ffffff;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        //background-size: 100% 100%;
+        background-repeat: no-repeat;
+        overflow: hidden;
+    }
+  .image-logo{
+    background-image: url('../../assets/images/login.jpg');
+    width: 319px;
+    height: 240px;
+    box-shadow: 0px -25px 55px 60px white inset;
+    position: absolute;
+  }
+  .logo-name{
+    text-align: center;
+    font-size: 2.0em;
+  }
 }
