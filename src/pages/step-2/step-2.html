@@ -116,16 +116,8 @@
         <ion-list-header>
           ความประสงค์
         </ion-list-header>
-        <ion-item>
-          <ion-label>ขอความช่วยเหลือ</ion-label>
-          <ion-checkbox></ion-checkbox>
-        </ion-item>
-        <ion-item>
-          <ion-label>ขอความเป็นธรรม</ion-label>
-          <ion-checkbox></ion-checkbox>
-        </ion-item>
-        <ion-item>
-          <ion-label>ขอตรวจสอบข้อเท็จจริง</ion-label>
+        <ion-item *ngFor="let complain of wish_id_sel;">
+          <ion-label>{{complain.name}}</ion-label>
           <ion-checkbox></ion-checkbox>
         </ion-item>
       </ion-list>

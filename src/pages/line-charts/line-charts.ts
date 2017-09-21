@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Auth} from "../../providers/auth";
+import {Reports} from "../../providers/reports";
 
 /**
  * Generated class for the DonusCharts page.
@@ -12,17 +14,44 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   selector: 'page-line-charts',
   templateUrl: 'line-charts.html',
 })
-export class LineCharts {
+export class LineCharts implements OnInit{
 
-  public doughnutChartLabels:string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
-  public doughnutChartData:number[] = [350, 450, 100];
-  public doughnutChartType:string = 'line';
+  ngOnInit(): void {
+    throw new Error("Method not implemented.");
+  }
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+
+  public chartOptions:any = {
+    responsive: true
+  };
+
+  public doughnutChartLabels:Array<any>;
+
+  public doughnutChartData: Array<any>;
+
+  public doughnutChartType:string = 'horizontalBar';
+
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public reports: Reports,
+              public auth : Auth) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DonusCharts');
+    this.auth.isCheck().then( (token:string) => {
+      //console.log(token);
+      return token;
+    }).then(token => {
+      return this.reports.getReport(token);
+    }).then((data:any) => {
+      //console.log(data.lables, data.datasets);
+      this.doughnutChartLabels = JSON.parse(data.lables);
+      this.doughnutChartData = JSON.parse(data.datasets);
+      console.log(this.doughnutChartLabels, this.doughnutChartData);
+    }).catch( err => {
+      console.debug(err);
+    })
   }
 
   chartHovered(e:any):void{
@@ -32,5 +61,6 @@ export class LineCharts {
   chartClicked(e:any):void{
     console.log(e);
   }
+
 
 }

@@ -9,6 +9,7 @@ import { DashboardService } from "../../providers/dashboard-service";
 import { Login } from '../login/login';
 import { Auth } from '../../providers/auth';
 import { RequestOptions, Http, Headers, URLSearchParams } from '@angular/http';
+import * as moment from 'moment';
 
 /**
  * Generated class for the Step3 page.
@@ -34,24 +35,20 @@ export class Dashboard {
     public auth: Auth,
     public http: Http,
     public dashboardService: DashboardService, ) {
-    // for (let i = 0; i < 30; i++) {
-    //   this.complaints.push( this.complaints.length );
-    // }
-
+    moment.locale('th');
   }
 
   ionViewDidLoad() {
     this.authen();
     this.status_id = this.navParams.get('status_id');
-    console.log('status_id = ' + this.status_id);
     this.dashboardService.ComplaintData(this.page, this.status_id).then((data) => {
-      console.log(data);
       Object.keys(data).forEach((key) => {
+        let now = moment(data[key].complain_date);
+        data[key].complain_date = now.format('d MMM ') + (now.get('year')+543) + now.format(' เวลา h:mm:ss น.');
         this.complaints.push(data[key]);
       });
     });
     this.page++;
-    console.log(this.complaints);
   }
 
   authen() {
@@ -101,12 +98,12 @@ export class Dashboard {
   }
 
   doInfinite(infiniteScroll) {
-    console.log('Begin async operation');
     setTimeout(() => {
       this.dashboardService.ComplaintData(this.page, this.status_id).then((data) => {
-        console.log(data);
         if (data[0].status !== false) {
           Object.keys(data).forEach((key) => {
+            let now = moment(data[key].complain_date);
+            data[key].complain_date = now.format('d MMM ') + (now.get('year')+543) + now.format(' เวลา h:mm:ss น.');
             this.complaints.push(data[key]);
           });
         }
@@ -114,7 +111,6 @@ export class Dashboard {
         console.error(err.message);
       });
       this.page++;
-      console.log('Async operation has ended');
       infiniteScroll.complete();
     }, 500);
   }

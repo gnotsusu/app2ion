@@ -1,13 +1,12 @@
-import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-import 'rxjs/add/operator/map';
+import {Injectable} from '@angular/core';
+import {Http, Headers, RequestOptions} from '@angular/http';
 import {DonusCharts} from "../pages/donus-charts/donus-charts";
 import {LineCharts} from "../pages/line-charts/line-charts";
 
-export class ReportDataSet{
-  icon:string;
-  name:string;
-  component:any;
+export class ReportDataSet {
+  icon: string;
+  name: string;
+  component: any;
 
   constructor(icon: string, name: string, component: any) {
     this.icon = icon;
@@ -24,16 +23,14 @@ export class ReportDataSet{
 */
 @Injectable()
 export class ReportService {
-
-  reportlist: ReportDataSet[];
+  public reportlist :ReportDataSet[] = [];
 
   constructor(public http: Http) {
     console.log('Hello ReportService Provider');
   }
 
-  getReportList(){
-    return new Promise((resolve)=>{
-
+  getReportList() {
+    return new Promise((resolve) => {
       this.reportlist = [
         new ReportDataSet('asset_1.png', 'รายงานรวมเรื่องร้องทุกข์', LineCharts),
         new ReportDataSet('asset_2.png', 'รายงานจำนวนเรื่องร้องทุกข์ตามลักษณะเรื่อง', DonusCharts),
@@ -43,10 +40,6 @@ export class ReportService {
       ];
       resolve(this.reportlist);
     });
-  }
-
-  getDataSet(){
-
   }
 
 }
