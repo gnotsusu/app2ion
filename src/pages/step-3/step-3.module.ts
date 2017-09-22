@@ -13,4 +13,4 @@ import { Step3 } from './step-3';
     Step3
   ]
 })
-export class Step3Module {}
+export class Step2Module { }

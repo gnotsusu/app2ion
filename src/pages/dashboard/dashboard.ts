@@ -44,7 +44,7 @@ export class Dashboard {
     this.dashboardService.ComplaintData(this.page, this.status_id).then((data) => {
       Object.keys(data).forEach((key) => {
         let now = moment(data[key].complain_date);
-        data[key].complain_date = now.format('d MMM ') + (now.get('year')+543) + now.format(' เวลา h:mm:ss น.');
+        data[key].complain_date = now.format('d MMM ') + (now.get('year') + 543) + now.format(' เวลา h:mm:ss น.');
         this.complaints.push(data[key]);
       });
     });
@@ -83,13 +83,13 @@ export class Dashboard {
   goToDetail(keyin_id, step) {
     console.log(keyin_id);
     if (step == '1') {
-      this.navCtrl.push(Step1, { param1: keyin_id });
-    } else if (step == '2') {
       this.navCtrl.push(Step2, { param1: keyin_id });
-    } else if (step == '3') {
+    } else if (step == '2') {
       this.navCtrl.push(Step3, { param1: keyin_id });
-    } else if (step == '4') {
+    } else if (step == '3') {
       this.navCtrl.push(Step4, { param1: keyin_id });
+    } else if (step == '4') {
+      this.navCtrl.push(Step5, { param1: keyin_id });
     } else {
       this.navCtrl.push(Step5, { param1: keyin_id });
     }
@@ -103,7 +103,7 @@ export class Dashboard {
         if (data[0].status !== false) {
           Object.keys(data).forEach((key) => {
             let now = moment(data[key].complain_date);
-            data[key].complain_date = now.format('d MMM ') + (now.get('year')+543) + now.format(' เวลา h:mm:ss น.');
+            data[key].complain_date = now.format('d MMM ') + (now.get('year') + 543) + now.format(' เวลา h:mm:ss น.');
             this.complaints.push(data[key]);
           });
         }
