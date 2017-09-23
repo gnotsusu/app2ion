@@ -81,7 +81,7 @@ export class Auth {
   public isCheck() {
     return new Promise((resolve, reject) => {
       this.storage.get('token').then((data: string) => {
-        console.log('data login : ', data);
+        //console.log('data login : ', data);
         this.token = data;
         resolve(data);
       }).catch((err: string) => {
@@ -98,7 +98,7 @@ export class Auth {
         let options = new RequestOptions({ headers: headers });
         this.http.get(this.info, options).map(res => res.json()).subscribe(
           data => {
-            console.log(data.error);
+            //console.log(data.error);
             if (data.error) {
               resolve(true);
             } else {
@@ -117,7 +117,7 @@ export class Auth {
           }
         );
       } else {
-        //console.log('Token is empty!!!');
+        ////console.log('Token is empty!!!');
         reject('Token is empty!!!');
       }
     });
@@ -135,18 +135,18 @@ export class Auth {
 
       this.http.post(this.auth, body, options).map(res => res.json()).subscribe(
         data => {
-          console.log('Http Success');
+          //console.log('Http Success');
           this.token = data.token;
           this.storage.set('token', this.token).then(
             () => {
               resolve(data.token);
             }).catch((err) => {
-              console.log(err.toString());
+              ////console.log(err.toString());
               reject(err);
             });
         },
         err => {
-          console.log('Http Error');
+          ////console.log('Http Error');
           reject(err);
         }
       );
@@ -175,10 +175,10 @@ export class Auth {
           let user = data.user;
           let groups = data.groups;
 
-          console.log("User ");
-          console.log(user);
-          console.log("Group ");
-          console.log(groups);
+          ////console.log("User ");
+          ////console.log(user);
+          ////console.log("Group ");
+          ////console.log(groups);
 
           this.userInfo = new User(user.id, user.username, user.email, user.first_name, user.last_name, user.company, user.phone, user.register_photo, user.idcard, user.gender);
 

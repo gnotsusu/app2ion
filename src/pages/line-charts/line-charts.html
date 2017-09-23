@@ -14,11 +14,12 @@
 
 
 <ion-content>
-    <canvas
+    <canvas width="100%"
       baseChart
       [datasets]="doughnutChartData"
       [labels]="doughnutChartLabels"
       [legend]=true
+      [colors]="lineChartColors"
       [chartType]="doughnutChartType"
       [options]="chartOptions"
       (chartHover)="chartHovered($event)"
