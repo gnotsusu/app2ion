@@ -201,8 +201,8 @@ export class Step1 {
     public loadCtrl: LoadingController,
     public formBuilder: FormBuilder) {
     this.complainForm = formBuilder.group({
-      complain_date: ['', Validators.required],
-      recipient: ['', Validators.required]
+      // complain_date: ['', Validators.required],
+      // recipient: ['', Validators.required]
     });
     this.keyin_id = this.navParams.get('param1');
 
@@ -233,7 +233,7 @@ export class Step1 {
     }).then((data) => {
       console.log(data);
       if (data != undefined && data != '') {
-        if (data[0]['complain_date'] != '') {
+        /*if (data[0]['complain_date'] != '') {
           let cd_tmp = data[0]['complain_date'].toString().split(' ');
           let cd_tmp_splt = cd_tmp[0].split('-');
           this.complain_date = new Date(cd_tmp_splt[0] + '-' + cd_tmp_splt[1] + '-' + cd_tmp_splt[2]).toISOString();
@@ -252,7 +252,7 @@ export class Step1 {
         }
         this.recipient = data[0]['recipient'];
         this.doc_receive_no = data[0]['doc_receive_no'];
-        this.doc_send_no = data[0]['doc_send_no'];
+        this.doc_send_no = data[0]['doc_send_no'];*/
         this.user_complain_type_id = data[0]['user_complain_type_id'];
       }
       return data;
@@ -362,12 +362,12 @@ export class Step1 {
     let Complaint_data;
     if (this.user_complain_type_id == '2') {
       Complaint_data = {
-        complain_date: this.complain_date,
+        /*complain_date: this.complain_date,
         recipient: this.recipient,
         doc_receive_date: this.doc_receive_date,
         doc_receive_no: this.doc_receive_no,
         doc_send_date: this.doc_send_date,
-        doc_send_no: this.doc_send_no,
+        doc_send_no: this.doc_send_no,*/
         user_complain_type_id: this.user_complain_type_id,
         id_card: this.user_data.user.idcard,
         first_name: this.user_data.user.first_name,
@@ -376,12 +376,12 @@ export class Step1 {
       }
     } else {
       Complaint_data = {
-        complain_date: this.complain_date,
+        /*complain_date: this.complain_date,
         recipient: this.recipient,
         doc_receive_date: this.doc_receive_date,
         doc_receive_no: this.doc_receive_no,
         doc_send_date: this.doc_send_date,
-        doc_send_no: this.doc_send_no,
+        doc_send_no: this.doc_send_no,*/
         user_complain_type_id: this.user_complain_type_id,
         id_card: "",
         first_name: "",
@@ -403,7 +403,7 @@ export class Step1 {
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
 
         let body = new URLSearchParams();
-        if (Complaint_data.complain_date != "") {
+        /*if (Complaint_data.complain_date != "") {
           complain_date_ex = Complaint_data.complain_date.split("-");
           body.set('complain_date', complain_date_ex[2] + "/" + complain_date_ex[1] + "/" + (parseInt(complain_date_ex[0]) + 543) + " 00:00:00");
         }
@@ -416,15 +416,15 @@ export class Step1 {
         if (Complaint_data.doc_send_date != "") {
           doc_send_date_ex = Complaint_data.doc_send_date.split("-");
           body.set('doc_send_date', doc_send_date_ex[2] + "/" + doc_send_date_ex[1] + "/" + (parseInt(doc_send_date_ex[0]) + 543) + " 00:00:00");
-        }
+        }*/
 
         if (keyin_id != undefined && keyin_id != '') {
           body.set('keyin_id', keyin_id);
         }
 
-        body.set('recipient', Complaint_data.recipient);
+        /*body.set('recipient', Complaint_data.recipient);
         body.set('doc_receive_no', Complaint_data.doc_receive_no);
-        body.set('doc_send_no', Complaint_data.doc_send_no);
+        body.set('doc_send_no', Complaint_data.doc_send_no);*/
         body.set('user_complain_type_id', Complaint_data.user_complain_type_id);
         body.set('id_card', Complaint_data.id_card);
         body.set('first_name', Complaint_data.first_name);

@@ -26,4 +26,20 @@ export class Reports {
     });
   }
 
+  reportStatistic = this.host + "api/report/report_statistic_by_type_app";
+  getReportStatitic(token:string){
+    return new Promise((resolve, reject) => {
+
+      let headers = new Headers();
+      headers.append('Authorization', 'Bearer ' + token);
+      let options = new RequestOptions({headers: headers});
+
+      this.http.get(this.reportStatistic, options).map(res => res.json()).subscribe(data => {
+        resolve(data);
+      }, err => {
+        reject(err);
+      })
+    });
+  }
+
 }

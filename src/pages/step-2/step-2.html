@@ -1,5 +1,5 @@
 <!--
-  Generated template for the Step2 page.
+  Generated template for the Step3 page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
@@ -7,125 +7,100 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>ความประสงค์ในการดำเนินการ</ion-title>
+    <ion-title>เนื้อหาเรื่องร้องทุกข์ร้องเรียน</ion-title>
     <ion-buttons end>
-      <!-- <button ion-button [navPush]="step3Page">save</button> -->
-      <button ion-button (click)='saveData()'>save</button>
+      <!-- <button ion-button [navPush]="step4Page">save</button> -->
+      <button ion-button (click)="saveData()">save</button>
     </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
-
+<ion-card-content>
+  <ul class="breadcrumb">
+    <li><a href="#">step 1</a></li>
+    <li><a href="#" class="active">step 2</a></li>
+    <li><a href="#" class="disabled">step 3</a></li>
+    <li><a href="#" class="disabled">step 4</a></li>
+    <li><a href="#" class="disabled">step 5</a></li>
+  </ul>
+</ion-card-content>
 <ion-content padding>
   <form [formGroup]="complainForm">
     <ion-card-content>
       <ion-list-header>
-        ความประสงค์ในการดำเนินการ
+        เนื้อหาเรื่องร้องทุกข์ร้องเรียน
       </ion-list-header>
       <ion-item>
-        <ion-label floating>ประเภทเรื่อง</ion-label>
-        <ion-select [(ngModel)]="complain_type_id" formControlName="complain_type_id" [class.invalid]="!complainForm.controls.complain_type_id.valid && (complainForm.controls.complain_type_id.dirty || submitAttempt)"
-          (ionChange)="onChangeComplainType()">
-          <ion-option *ngFor="let complain of complain_type_id_sel" [value]="complain.id">{{complain.name}}</ion-option>
-          <!--<ion-option >test</ion-option>-->
+        <ion-label floating>วันเดือนปีที่เกิดเหตุ(ถ้ามี)</ion-label>
+        <ion-datetime [(ngModel)]="scene_date" name="scene_date" displayFormat="DD-MM-YYYY" [ngModelOptions]="{standalone: true}"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>สถานที่เกิดเหตุ</ion-label>
+        <ion-input type="text" [(ngModel)]="place_scene" formControlName="place_scene" [class.invalid]="!complainForm.controls.place_scene.valid && (complainForm.controls.place_scene.dirty || submitAttempt)"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="!complainForm.controls.place_scene.valid && (complainForm.controls.place_scene.dirty || submitAttempt)">
+        <p>กรุณากรอกสถานที่เกิดเหตุ</p>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>จังหวัด</ion-label>
+        <ion-select [(ngModel)]="province_id" (ionChange)="onChangeProvince()" formControlName="province_id" [class.invalid]="!complainForm.controls.province_id.valid && (complainForm.controls.province_id.dirty || submitAttempt)">
+          <ion-option *ngFor="let province of provinces" [value]="province.id">{{province.value}}</ion-option>
         </ion-select>
       </ion-item>
-      <span id="complain_type_1" class="complain_type_1">
+      <ion-item *ngIf="!complainForm.controls.province_id.valid && (complainForm.controls.province_id.dirty || submitAttempt)">
+        <p>กรุณาเลือกจังหวัด</p>
+      </ion-item>
       <ion-item>
-        <ion-label floating>ประเภทเรื่องย่อย</ion-label>
-        <ion-select [(ngModel)]="complain_type_id_1" [ngModelOptions]="{standalone: true}" (ionChange)="onChangeComplainType1()">
-          <ion-option *ngFor="let complain of complain_type_1" [value]="complain.id">{{complain.name}}</ion-option>
-          <!--<ion-option >test</ion-option>-->
+        <ion-label floating>อำเภอ</ion-label>
+        <ion-select [(ngModel)]="district_id" (ionChange)="onChangeDistrict()" formControlName="district_id" [class.invalid]="!complainForm.controls.district_id.valid && (complainForm.controls.district_id.dirty || submitAttempt)">
+          <ion-option *ngFor="let district of districts" [value]="district.id">{{district.value}}</ion-option>
         </ion-select>
       </ion-item>
-      </span>
-      <span id="complain_type_2" class="complain_type_2">
+      <ion-item *ngIf="!complainForm.controls.district_id.valid && (complainForm.controls.district_id.dirty || submitAttempt)">
+        <p>กรุณาเลือกอำเภอ</p>
+      </ion-item>
       <ion-item>
-        <ion-label floating>ประเภทเรื่องย่อย</ion-label>
-        <ion-select [(ngModel)]="complain_type_id_2" [ngModelOptions]="{standalone: true}">
-          <ion-option *ngFor="let complain of complain_type_2" [value]="complain.id">{{complain.name}}</ion-option>
-          <!--<ion-option >test</ion-option>-->
+        <ion-label floating>ตำบล</ion-label>
+        <ion-select [(ngModel)]="address_id" formControlName="address_id" [class.invalid]="!complainForm.controls.address_id.valid && (complainForm.controls.address_id.dirty || submitAttempt)">
+          <ion-option *ngFor="let sub_district of sub_districts" [value]="sub_district.id">{{sub_district.value}}</ion-option>
         </ion-select>
       </ion-item>
-      </span>
-      <ion-item *ngIf="!complainForm.controls.complain_type_id.valid && (complainForm.controls.complain_type_id.dirty || submitAttempt)">
-        <p>กรุณาเลือกประเภทเรื่อง</p>
+      <ion-item *ngIf="!complainForm.controls.address_id.valid && (complainForm.controls.address_id.dirty || submitAttempt)">
+        <p>กรุณาเลือกตำบล</p>
       </ion-item>
       <ion-item>
-        <ion-label floating>หัวข้อเรื่อง</ion-label>
-        <ion-input [(ngModel)]="complain_name" formControlName="complain_name" name="complain_name" type="text" [class.invalid]="!complainForm.controls.complain_name.valid && (complainForm.controls.complain_name.dirty || submitAttempt)"></ion-input>
-      </ion-item>
-      <ion-item *ngIf="!complainForm.controls.complain_name.valid && (complainForm.controls.complain_name.dirty || submitAttempt)">
-        <p>กรุณากรอกหัวข้อเรื่อง</p>
+        <ion-label>รายละเอียดการร้องเรียน/ร้องทุกข์</ion-label>
       </ion-item>
       <ion-item>
-        <ion-label floating>ช่องทางรับเรื่อง</ion-label>
-        <ion-select [(ngModel)]="channel_id" formControlName="channel_id" [class.invalid]="!complainForm.controls.channel_id.valid && (complainForm.controls.channel_id.dirty || submitAttempt)">
-          <ion-option *ngFor="let channel of channel_id_sel" [value]="channel.id">{{channel.name}}</ion-option>
-          <!--<ion-option >test</ion-option>-->
-        </ion-select>
+        <textarea [(ngModel)]="complaint_detail" formControlName="complaint_detail" [class.invalid]="!complainForm.controls.complaint_detail.valid && (complainForm.controls.complaint_detail.dirty || submitAttempt)"></textarea>
       </ion-item>
-      <ion-item *ngIf="!complainForm.controls.channel_id.valid && (complainForm.controls.channel_id.dirty || submitAttempt)">
-        <p>กรุณาเลือกช่องทางรับเรื่อง</p>
+      <ion-item *ngIf="!complainForm.controls.complaint_detail.valid && (complainForm.controls.complaint_detail.dirty || submitAttempt)">
+        <p>กรุณากรอกรายละเอียดการร้องเรียน/ร้องทุกข์</p>
+      </ion-item>
+      <ion-list-header>
+        จุดเกิดเหตุ
+      </ion-list-header>
+      <ion-item>
+        <ion-label floating>ละติจูด</ion-label>
+        <ion-input type="text" [(ngModel)]="latitude" formControlName="latitude" [class.invalid]="!complainForm.controls.latitude.valid && (complainForm.controls.latitude.dirty || submitAttempt)"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label floating>ลักษณะเรื่อง</ion-label>
-        <ion-select [(ngModel)]="subject_id" formControlName="subject_id" [class.invalid]="!complainForm.controls.subject_id.valid && (complainForm.controls.subject_id.dirty || submitAttempt)">
-          <ion-option *ngFor="let subject of subject_id_sel" [value]="subject.id">{{subject.name}}</ion-option>
-          <!--<ion-option >test</ion-option>-->
-        </ion-select>
+        <ion-label floating>ลองติจูด</ion-label>
+        <ion-input type="text" [(ngModel)]="longitude" formControlName="longitude" [class.invalid]="!complainForm.controls.longitude.valid && (complainForm.controls.longitude.dirty || submitAttempt)"></ion-input>
       </ion-item>
-      <ion-item *ngIf="!complainForm.controls.subject_id.valid && (complainForm.controls.subject_id.dirty || submitAttempt)">
-        <p>กรุณาเลือกลักษณะเรื่อง</p>
+      <ion-item *ngIf="(!complainForm.controls.latitude.valid && (complainForm.controls.latitude.dirty || submitAttempt)) || (!complainForm.controls.longitude.valid && (complainForm.controls.longitude.dirty || submitAttempt))">
+        <p>กรุณาเลือกจุดเกิดเหตุ</p>
       </ion-item>
       <ion-item>
-        <ion-label floating>หน่วยงานหรือผู้ถูกร้องเรียนร้องทุกข์</ion-label>
-        <ion-select [(ngModel)]="accused_type_id" formControlName="accused_type_id" [class.invalid]="!complainForm.controls.accused_type_id.valid && (complainForm.controls.accused_type_id.dirty || submitAttempt)"
-          (ionChange)="onChangeAccusedType()">
-          <ion-option *ngFor="let complain of accused_type_id_sel" [value]="complain.id">{{complain.name}}</ion-option>
-          <!--<ion-option >test</ion-option>-->
-        </ion-select>
-      </ion-item>
-      <span id="accused_type_1" class="accused_type_1">
-      <ion-item>
-        <ion-label floating>หน่วยงานหรือผู้ถูกร้องเรียนร้องทุกข์ย่อย</ion-label>
-        <ion-select [(ngModel)]="accused_type_id_1" [ngModelOptions]="{standalone: true}" (ionChange)="onChangeAccusedType1()">
-          <ion-option *ngFor="let complain of accused_type_1" [value]="complain.id">{{complain.name}}</ion-option>
-          <!--<ion-option >test</ion-option>-->
-        </ion-select>
-      </ion-item>
-      </span>
-      <span id="accused_type_2" class="accused_type_2">
-      <ion-item>
-        <ion-label floating>หน่วยงานหรือผู้ถูกร้องเรียนร้องทุกข์ย่อย</ion-label>
-        <ion-select [(ngModel)]="accused_type_id_2" [ngModelOptions]="{standalone: true}">
-          <ion-option *ngFor="let complain of accused_type_2" [value]="complain.id">{{complain.name}}</ion-option>
-          <!--<ion-option >test</ion-option>-->
-        </ion-select>
-      </ion-item>
-      </span>
-      <ion-item *ngIf="!complainForm.controls.accused_type_id.valid && (complainForm.controls.accused_type_id.dirty || submitAttempt)">
-        <p>กรุณาเลือกหน่วยงานหรือผู้ถูกร้องเรียนร้องทุกข์</p>
-      </ion-item>
-      <ion-item>
-        <ion-label floating>ชื่อผู้ถูกร้องเรียน</ion-label>
-        <ion-input [(ngModel)]="accused_name" name="accused_name" type="text" [ngModelOptions]="{standalone: true}"></ion-input>
-      </ion-item>
-      <ion-list>
-        <ion-list-header>
-          ความประสงค์
-        </ion-list-header>
-        <ion-item *ngFor="let complain of wish_id_sel;">
-          <ion-label>{{complain.name}}</ion-label>
-          <ion-checkbox></ion-checkbox>
-        </ion-item>
-      </ion-list>
-      <ion-item>
-        <ion-label>ความประสงค์อื่น</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-textarea [(ngModel)]="wish_detail" [ngModelOptions]="{standalone: true}"></ion-textarea>
+        <div>
+          <ion-buttons>
+            <button ion-button (click)="goToMap()">
+            <ion-icon name="pin"></ion-icon>&nbsp;&nbsp;จุดเกิดเหตุ
+          </button>
+          </ion-buttons>
+        </div>
+        <div #map id="map" class="map"></div>
       </ion-item>
     </ion-card-content>
   </form>
