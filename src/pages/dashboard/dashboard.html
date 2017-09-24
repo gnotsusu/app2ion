@@ -18,9 +18,11 @@
   <ion-list>
     <ion-item-sliding *ngFor="let complaint of complaints">
 
-      <ion-item [ngSwitch]="complaint.current_status_id">
-        <ion-card *ngSwitchCase="1" style="border:2px solid #DD4B39;">
-          <ion-icon *ngSwitchCase="1" name="bookmark" style="font-size: 3.0em !important; position: relative; top:-10px; left:15px; color: #DD4B39;"></ion-icon>
+      <ion-item [ngSwitch]="complaint.current_status_id" style="background-color: whitesmoke;">
+        <ion-card *ngSwitchCase="1" style="border-top:2px solid #DD4B39; box-shadow: 0px 0px 10px #888888;">
+          <ion-icon *ngSwitchCase="1" name="bookmark" style="font-size: 4.0em !important; position: relative; top:-10px; left:15px; color: #DD4B39;"></ion-icon>
+          <ion-icon ios="ios-trash-outline" md="md-trash" style="font-size: 24pt; float: right; padding: 12px;"></ion-icon>
+          <ion-icon ios="ios-list-outline" md="md-list" style="font-size: 24pt; float: right; padding: 12px;" (click)="goToDetail(complaint.keyin_id,complaint.step)"></ion-icon>
           <ion-item>
             <ion-grid>
               <ion-row>
@@ -45,22 +47,14 @@
               <ion-note>
                 แจ้งเมื่อ : {{complaint.complain_date}}
               </ion-note>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col center text-right>
-              <button ion-button color="dark" clear>
-                <ion-icon ios="ios-construct" md="md-construct" style="font-size: 18pt" (click)="goToDetail(complaint.keyin_id,complaint.step)"></ion-icon>
-              </button>
-              <button ion-button color="dark" clear>
-                <ion-icon ios="ios-trash" md="md-trash" style="font-size: 18pt"></ion-icon>
-              </button>
             </ion-col>
           </ion-row>
 
         </ion-card>
-        <ion-card *ngSwitchCase="2" style="border:2px solid #F39C12;">
-          <ion-icon *ngSwitchCase="2" name="bookmark" style="font-size: 3.0em !important; position: relative; top:-10px; left:15px; color: #F39C12;"></ion-icon>
+        <ion-card *ngSwitchCase="2" style="border-top:2px solid #F39C12">
+          <ion-icon *ngSwitchCase="2" name="bookmark" style="font-size: 4.0em !important; position: relative; top:-10px; left:15px; color: #F39C12;"></ion-icon>
+          <ion-icon ios="ios-trash-outline" md="md-trash" style="font-size: 24pt; float: right; padding: 12px;"></ion-icon>
+          <ion-icon ios="ios-list-outline" md="md-list" style="font-size: 24pt; float: right; padding: 12px;" (click)="goToDetail(complaint.keyin_id,complaint.step)"></ion-icon>
           <ion-item>
             <ion-grid>
               <ion-row>
@@ -85,22 +79,14 @@
               <ion-note>
                 แจ้งเมื่อ : {{complaint.complain_date}}
               </ion-note>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col center text-right>
-              <button ion-button color="dark" clear>
-                <ion-icon ios="ios-construct" md="md-construct" style="font-size: 18pt" (click)="goToDetail(complaint.keyin_id,complaint.step)"></ion-icon>
-              </button>
-              <button ion-button color="dark" clear>
-                <ion-icon ios="ios-trash" md="md-trash" style="font-size: 18pt"></ion-icon>
-              </button>
             </ion-col>
           </ion-row>
 
         </ion-card>
-        <ion-card *ngSwitchCase="3" style="border:2px solid #0073B7;">
-          <ion-icon *ngSwitchCase="3" name="bookmark" style="font-size: 3.0em !important; position: relative; top:-10px; left:15px; color: #0073B7;"></ion-icon>
+        <ion-card *ngSwitchCase="3" style="border-top:2px solid #0073B7">
+          <ion-icon *ngSwitchCase="3" name="bookmark" style="font-size: 4.0em !important; position: relative; top:-10px; left:15px; color: #0073B7;"></ion-icon>
+          <ion-icon ios="ios-trash-outline" md="md-trash" style="font-size: 24pt; float: right; padding: 12px;"></ion-icon>
+          <ion-icon ios="ios-list-outline" md="md-list" style="font-size: 24pt; float: right; padding: 12px;" (click)="goToDetail(complaint.keyin_id,complaint.step)"></ion-icon>
           <ion-item>
             <ion-grid>
               <ion-row>
@@ -125,22 +111,14 @@
               <ion-note>
                 แจ้งเมื่อ : {{complaint.complain_date}}
               </ion-note>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col center text-right>
-              <button ion-button color="dark" clear>
-                <ion-icon ios="ios-construct" md="md-construct" style="font-size: 18pt" (click)="goToDetail(complaint.keyin_id,complaint.step)"></ion-icon>
-              </button>
-              <button ion-button color="dark" clear>
-                <ion-icon ios="ios-trash" md="md-trash" style="font-size: 18pt"></ion-icon>
-              </button>
             </ion-col>
           </ion-row>
 
         </ion-card>
-        <ion-card *ngSwitchCase="4" style="border:2px solid #009551;">
-          <ion-icon *ngSwitchCase="4" name="bookmark" style="font-size: 3.0em !important; position: relative; top:-10px; left:15px; color: #009551;"></ion-icon>
+        <ion-card *ngSwitchCase="4" style="border-top:2px solid #009551">
+          <ion-icon *ngSwitchCase="4" name="bookmark" style="font-size: 4.0em !important; position: relative; top:-10px; left:15px; color: #009551;"></ion-icon>
+          <ion-icon ios="ios-trash-outline" md="md-trash" style="font-size: 24pt; float: right; padding: 12px;"></ion-icon>
+          <ion-icon ios="ios-list-outline" md="md-list" style="font-size: 24pt; float: right; padding: 12px;" (click)="goToDetail(complaint.keyin_id,complaint.step)"></ion-icon>
           <ion-item>
             <ion-grid>
               <ion-row>
@@ -165,22 +143,14 @@
               <ion-note>
                 แจ้งเมื่อ : {{complaint.complain_date}}
               </ion-note>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col center text-right>
-              <button ion-button color="dark" clear>
-                <ion-icon ios="ios-construct" md="md-construct" style="font-size: 18pt" (click)="goToDetail(complaint.keyin_id,complaint.step)"></ion-icon>
-              </button>
-              <button ion-button color="dark" clear>
-                <ion-icon ios="ios-trash" md="md-trash" style="font-size: 18pt"></ion-icon>
-              </button>
             </ion-col>
           </ion-row>
 
         </ion-card>
-        <ion-card *ngSwitchDefault style="border:2px solid #C8CBCE;">
-          <ion-icon *ngSwitchDefault name="bookmark" style="font-size: 3.0em !important; position: relative; top:-10px; left:15px; color: #C8CBCE;"></ion-icon>
+        <ion-card *ngSwitchDefault style="border-top:2px solid #C8CBCE">
+          <ion-icon *ngSwitchDefault name="bookmark" style="font-size: 4.0em !important; position: relative; top:-10px; left:15px; color: #C8CBCE;"></ion-icon>
+          <ion-icon ios="ios-trash-outline" md="md-trash" style="font-size: 24pt; float: right; padding: 12px;"></ion-icon>
+          <ion-icon ios="ios-list-outline" md="md-list" style="font-size: 24pt; float: right; padding: 12px;" (click)="goToDetail(complaint.keyin_id,complaint.step)"></ion-icon>
           <ion-item>
             <ion-grid>
               <ion-row>
@@ -205,16 +175,6 @@
               <ion-note>
                 แจ้งเมื่อ : {{complaint.complain_date}}
               </ion-note>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col center text-right>
-              <button ion-button color="dark" clear>
-                <ion-icon ios="ios-construct" md="md-construct" style="font-size: 18pt" (click)="goToDetail(complaint.keyin_id,complaint.step)"></ion-icon>
-              </button>
-              <button ion-button color="dark" clear>
-                <ion-icon ios="ios-trash" md="md-trash" style="font-size: 18pt"></ion-icon>
-              </button>
             </ion-col>
           </ion-row>
 

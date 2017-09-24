@@ -167,8 +167,6 @@ export class ComplaintData {
   templateUrl: 'step-5.html',
 })
 
-
-
 export class Step5 {
   homePage = HomePage;
   loading: any;
@@ -191,6 +189,7 @@ export class Step5 {
 
   ) {
     //console.log('test_data = ' + this.token);
+    this.tabs = "tab1";
   }
 
   ionViewDidLoad() {
