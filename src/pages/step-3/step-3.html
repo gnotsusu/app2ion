@@ -18,6 +18,15 @@
 
 
 <ion-content padding>
+  <ion-card-content>
+    <ul class="breadcrumb">
+      <li><a href="#">step 1</a></li>
+      <li><a href="#">step 2</a></li>
+      <li><a href="#" class="active">step 3</a></li>
+      <li><a href="#" class="disabled">step 4</a></li>
+      <li><a href="#" class="disabled">step 5</a></li>
+    </ul>
+  </ion-card-content>
   <form [formGroup]="complainForm">
     <ion-card-content>
       <ion-list-header>
@@ -124,7 +133,7 @@
       <ion-item>
         <ion-label floating>ความประสงค์</ion-label>
         <ion-select [(ngModel)]="wish" [ngModelOptions]="{standalone: true}" multiple="true" cancelText="ยกเลิก" okText="ตกลง!">
-          <ion-option *ngFor="let complain of wish_id_sel;" value="{{complain.id}}">{{complain.name}}</ion-option>
+          <ion-option *ngFor="let wish of wish_id_sel;" value="{{wish.id}}">{{wish.name}}</ion-option>
         </ion-select>
       </ion-item>
       <ion-item>

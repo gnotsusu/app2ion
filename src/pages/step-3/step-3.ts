@@ -55,7 +55,7 @@ export class Step3 {
   public accused_type_1: any = '';
   public accused_type_2: any = '';
   public accused_name: string = '';
-  public wish: Array<any> = [];
+  public wish: any = '';
   public wish_detail: string = '';
   public host = 'http://123.242.172.133/sysdamrongdham';
   public api_keyin = this.host + '/api/complaint/key_in';
@@ -200,9 +200,15 @@ export class Step3 {
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         let body = new URLSearchParams();
 
-        // if (typeof this.wish != undefined) {
-        //   body.set('wish', this.wish);
-        // }
+        if (typeof this.wish != undefined) {
+          for (var i = 0; i < this.wish.length; i++) {
+            body.append('wish[]', this.wish[i]);
+          }
+          // body.set('wish', test);
+          // console.log('wish data');
+          // console.log('type = ' + typeof this.wish);
+          // console.log(this.wish);
+        }
         body.set('complain_type_id', Complaint_data.complain_type_id);
         body.set('complain_name', Complaint_data.complain_name);
         body.set('channel_id', Complaint_data.channel_id);
