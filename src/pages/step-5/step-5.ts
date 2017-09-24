@@ -167,8 +167,6 @@ export class ComplaintData {
   templateUrl: 'step-5.html',
 })
 
-
-
 export class Step5 {
   homePage = HomePage;
   loading: any;
@@ -177,6 +175,7 @@ export class Step5 {
   public host = 'http://123.242.172.133/sysdamrongdham';
   public api_keyin = this.host + '/api/complaint/key_in';
   public complain_data: Array<any> = [];
+  public tabs: any;
 
   keyInId: any;
 
@@ -191,6 +190,7 @@ export class Step5 {
 
   ) {
     //console.log('test_data = ' + this.token);
+    this.tabs = "tab1";
   }
 
   ionViewDidLoad() {
