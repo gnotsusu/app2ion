@@ -99,17 +99,26 @@ export class Step2 {
         this.dashboardService.getComplainData(this.keyin_id).then((data) => {
           console.log('data');
           console.log(data);
-          if (data['scene_date'] != '' && data['scene_date'] != '0000-00-00 00:00:00') {
+          if (data['scene_date'] != '' && data['scene_date'] !== null && data['scene_date'] != '0000-00-00 00:00:00') {
             let sd_tmp = data['scene_date'].toString().split(' ');
             let sd_tmp_splt = sd_tmp[0].split('-');
             this.scene_date = new Date(sd_tmp_splt[0] + '-' + sd_tmp_splt[1] + '-' + sd_tmp_splt[2]).toISOString();
           }
           this.place_scene = data['place_scene'];
-          this.province_id = data['address_id'].substring(0, 2) + '000000';
-          this.onChangeProvince();
-          this.district_id = data['address_id'].substring(0, 4) + '0000';
-          this.onChangeDistrict();
-          this.address_id = data['address_id'].substring(0, 6) + '00';
+          if (data['address_id'] !== null && data['address_id'] != '' && typeof data['address_id'] != undefined) {
+            this.province_id = data['address_id'].substring(0, 2) + '000000';
+            this.onChangeProvince();
+          }
+
+          if (data['address_id'] !== null && data['address_id'] != '' && typeof data['address_id'] != undefined) {
+            this.district_id = data['address_id'].substring(0, 4) + '0000';
+            this.onChangeDistrict();
+          }
+
+          if (data['address_id'] !== null && data['address_id'] != '' && typeof data['address_id'] != undefined) {
+            this.address_id = data['address_id'].substring(0, 6) + '00';
+          }
+
           this.complaint_detail = data['complaint_detail'];
           this.latitude = data['latitude'];
           this.longitude = data['longitude'];
@@ -187,13 +196,22 @@ export class Step2 {
     if (this.complainForm.valid) {
       return new Promise((resolve, reject) => {
         let headers = new Headers();
+        let scene_date_ex: string[] = [];
         headers.append('Authorization', 'Bearer ' + token_data);
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         let body = new URLSearchParams();
         body.set('step', '2');
         body.set('keyin_id', this.keyin_id.toString());
-        body.set('scene_date', this.scene_date);
+
         //body.set('scene_date', '27/07/2560');
+        if (this.scene_date != "") {
+          scene_date_ex = this.scene_date.split("-");
+          console.log('scence date');
+          console.log(scene_date_ex);
+          //body.set('complain_date', this.scene_date[2] + "/" + this.scene_date[1] + "/" + (parseInt(this.scene_date[0]) + 543) + " 00:00:00");
+          body.set('scene_date', scene_date_ex[2] + "/" + scene_date_ex[1] + "/" + (parseInt(scene_date_ex[0]) + 543) + " 00:00:00");
+          console.log(scene_date_ex[2] + "/" + scene_date_ex[1] + "/" + (parseInt(scene_date_ex[0]) + 543) + " 00:00:00");
+        }
         body.set('place_scene', this.place_scene);
         body.set('address_id', this.address_id);
         body.set('complaint_detail', this.complaint_detail);

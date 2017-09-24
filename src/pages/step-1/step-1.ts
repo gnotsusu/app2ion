@@ -439,6 +439,9 @@ export class Step1 {
 
         if (keyin_id != undefined && keyin_id != '') {
           body.set('keyin_id', keyin_id);
+        } else {
+          let date_data = new Date();
+          body.set('complain_date', date_data.getDate() + "/" + ("0" + (date_data.getMonth() + 1)).slice(-2) + "/" + (date_data.getFullYear() + 543) + " 00:00:00");
         }
 
         /*body.set('recipient', Complaint_data.recipient);
