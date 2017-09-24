@@ -16,16 +16,17 @@
 
 </ion-header>
 
-<ion-card-content>
-  <ul class="breadcrumb">
-    <li><a href="#">step 1</a></li>
-    <li><a href="#" class="active">step 2</a></li>
-    <li><a href="#" class="disabled">step 3</a></li>
-    <li><a href="#" class="disabled">step 4</a></li>
-    <li><a href="#" class="disabled">step 5</a></li>
-  </ul>
-</ion-card-content>
+
 <ion-content padding>
+  <ion-card-content>
+    <ul class="breadcrumb">
+      <li><a href="#" (click)='goTo(1,keyin_id)'>step 1</a></li>
+      <li><a href="#" class="active">step 2</a></li>
+      <li><a href="#" class="disabled" (click)='goTo(3,keyin_id)'>step 3</a></li>
+      <li><a href="#" class="disabled" (click)='goTo(4,keyin_id)'>step 4</a></li>
+      <li><a href="#" class="disabled" (click)='goTo(5,keyin_id)'>step 5</a></li>
+    </ul>
+  </ion-card-content>
   <form [formGroup]="complainForm">
     <ion-card-content>
       <ion-list-header>

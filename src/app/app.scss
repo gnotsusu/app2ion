@@ -110,6 +110,159 @@ ion-content{
 	}
 
   }
+  .breadcrumb { 
+    list-style: none; 
+    overflow: hidden; 
+    font: 12px Sans-Serif;
+    padding: 0px;
+  }
+  .breadcrumb li { 
+    float: left; 
+  }
+  .breadcrumb li a {
+    color: white;
+    text-decoration: none; 
+    padding: 1px 0 1px 12px;
+    //background: brown; /* fallback color */
+    background: #3BCA89; 
+    position: relative; 
+    display: block;
+    float: left;
+  }
+  .breadcrumb li a::after { 
+    content: " "; 
+    display: block; 
+    width: 0; 
+    height: 0;
+    border-top: 10px solid transparent; /* Go big on the size, and let overflow hide */
+    border-bottom: 10px solid transparent;
+    border-left: 10px solid #3BCA89;
+    position: absolute;
+    top: 50%;
+    margin-top: -10px; 
+    left: 100%;
+    z-index: 2; 
+  }
+  .breadcrumb li a::before { 
+    content: " "; 
+    display: block; 
+    width: 0; 
+    height: 0;
+    border-top: 10px solid transparent;       
+    border-bottom: 10px solid transparent;
+    border-left: 10px solid white;
+    position: absolute;
+    top: 50%;
+    margin-top: -10px; 
+    margin-left: 1px;
+    left: 100%;
+    z-index: 1; 
+  }
+  .breadcrumb li:first-child a {
+    padding-left: 10px;
+  }
+
+  .breadcrumb li a:hover { 
+    background: #3BCA89; 
+  }
+  .breadcrumb li a:hover:after { 
+    border-left-color: #3BCA89 !important; 
+  }
+
+  .breadcrumb li a.active {
+    color: white;
+    text-decoration: none; 
+    padding: 1px 0 1px 12px;
+    //background: brown; /* fallback color */
+    background: #FFC107; 
+    position: relative; 
+    display: block;
+    float: left;
+  }
+  .breadcrumb li a.active::after { 
+    content: " "; 
+    display: block; 
+    width: 0; 
+    height: 0;
+    border-top: 10px solid transparent; /* Go big on the size, and let overflow hide */
+    border-bottom: 10px solid transparent;
+    border-left: 10px solid #FFC107;
+    position: absolute;
+    top: 50%;
+    margin-top: -10px; 
+    left: 100%;
+    z-index: 2; 
+  }
+  .breadcrumb li a.active::before { 
+    content: " "; 
+    display: block; 
+    width: 0; 
+    height: 0;
+    border-top: 10px solid transparent;       
+    border-bottom: 10px solid transparent;
+    border-left: 10px solid white;
+    position: absolute;
+    top: 50%;
+    margin-top: -10px; 
+    margin-left: 1px;
+    left: 100%;
+    z-index: 1; 
+  }
+
+  .breadcrumb li a.active:hover { 
+    background: #FFC107; 
+  }
+  .breadcrumb li a.active:hover:after { 
+    border-left-color: #FFC107 !important; 
+  }
+
+  //un active
+  .breadcrumb li a.disabled {
+    color: white;
+    text-decoration: none; 
+    padding: 1px 0 1px 12px;
+    //background: brown; /* fallback color */
+    background: #D4D4D4; 
+    position: relative; 
+    display: block;
+    float: left;
+  }
+  .breadcrumb li a.disabled::after { 
+    content: " "; 
+    display: block; 
+    width: 0; 
+    height: 0;
+    border-top: 10px solid transparent; /* Go big on the size, and let overflow hide */
+    border-bottom: 10px solid transparent;
+    border-left: 10px solid #D4D4D4;
+    position: absolute;
+    top: 50%;
+    margin-top: -10px; 
+    left: 100%;
+    z-index: 2; 
+  }
+  .breadcrumb li a.disabled::before { 
+    content: " "; 
+    display: block; 
+    width: 0; 
+    height: 0;
+    border-top: 10px solid transparent;       
+    border-bottom: 10px solid transparent;
+    border-left: 10px solid white;
+    position: absolute;
+    top: 50%;
+    margin-top: -10px; 
+    margin-left: 1px;
+    left: 100%;
+    z-index: 1; 
+  }
+
+  .breadcrumb li a.disabled:hover { 
+    background: #D4D4D4; 
+  }
+  .breadcrumb li a.disabled:hover:after { 
+    border-left-color: #D4D4D4 !important; 
+  }
 }
 
 ion-navbar{

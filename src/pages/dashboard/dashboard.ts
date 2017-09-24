@@ -87,7 +87,7 @@ export class Dashboard {
     } else if (step == '2') {
       this.navCtrl.push(Step3, { param1: keyin_id });
     } else if (step == '3') {
-      this.navCtrl.push(Step3, { param1: keyin_id });
+      this.navCtrl.push(Step4, { param1: keyin_id });
     } else if (step == '4') {
       this.navCtrl.push(Step5, { param1: keyin_id });
     } else {

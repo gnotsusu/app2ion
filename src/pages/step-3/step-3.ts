@@ -1,3 +1,6 @@
+import { Step5 } from './../step-5/step-5';
+import { Step2 } from './../step-2/step-2';
+import { Step1 } from './../step-1/step-1';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Login } from './../login/login';
 import { Auth } from './../../providers/auth';
@@ -7,6 +10,7 @@ import { Step4 } from './../step-4/step-4';
 import { RequestOptions, Http, Headers, URLSearchParams } from '@angular/http';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { DashboardService } from "../../providers/dashboard-service";
 
 
 
@@ -32,10 +36,12 @@ export class ComplaintType {
 @Component({
   selector: 'page-step-3',
   templateUrl: 'step-3.html',
+  providers: [DashboardService]
 })
 export class Step3 {
   step4Page = Step4;
   keyin_id: string;
+  complaints: object[] = [];
   public complain_type_id_sel: any;
   public accused_type_id_sel: any;
   public channel_id_sel: any;
@@ -73,7 +79,8 @@ export class Step3 {
     public SelectorComplaint: SelectorComplaint,
     public auth: Auth,
     public loadCtrl: LoadingController,
-    public formBuilder: FormBuilder
+    public formBuilder: FormBuilder,
+    public dashboardService: DashboardService
   ) {
     this.keyin_id = this.navParams.get('param1');
     console.log('keyin_id = ' + this.keyin_id);
@@ -108,6 +115,7 @@ export class Step3 {
     });
 
     this.SelectorComplaint.getWishList().then((data) => {
+      console.log(data);
       this.wish_id_sel = data;
     });
     //  this.getComplainType().then((data:ComplaintType[]) => {
@@ -133,6 +141,44 @@ export class Step3 {
       } else {
         this.loading.dismiss();
       }
+    }).then((data) => {
+      if (this.keyin_id != undefined) {
+        this.dashboardService.getComplainData(this.keyin_id).then((data) => {
+          console.log(data);
+          // this.complain_type_id
+          // this.complain_type_id_1
+          // this.complain_type_id_2
+          this.complain_name = data['complain_name'];
+          this.channel_id = data['channel_id'];
+          this.subject_id = data['subject_id'];
+          // this.accused_type_id
+          // this.accused_type_1
+          // this.accused_type_2
+          this.accused_name = data['accused_name'];
+          console.log(data['wish']);
+          let wish_select = [];
+          // Object.keys(data['wish']).forEach((key) => {
+          //   wish_select.push(data['wish'][key]['']);
+          // });
+          for (let wish_data in data['wish']) {
+            //console.log(data['wish'][wish_data]['wish_id']);
+            wish_select.push(data['wish'][wish_data]['wish_id']);
+          }
+          //console.log('data length');
+          //console.log(data['wish'].length);
+          console.log(wish_select);
+          this.wish = wish_select;
+          this.wish_detail = data['wish_detail'];
+          this.complaints.push(data);
+          // Object.keys(data).forEach((key) => {
+          //   this.complaints.push(data[key]);
+          // });
+        });
+        // console.log('complain data');
+        // console.log(this.complaints);
+      } else {
+        return this.complaints;
+      }
     }).catch(err => {
       this.loading.dismiss();
       console.error(err.message);
@@ -157,6 +203,21 @@ export class Step3 {
         resolve(complainType);
       })
     });
+  }
+
+
+  goTo(page, id) {
+    if (typeof id != undefined && id != '') {
+      if (page == 1) {
+        this.navCtrl.push(Step1, { param1: id });
+      } else if (page == 2) {
+        this.navCtrl.push(Step2, { param1: id });
+      } else if (page == 4 && this.complaints[0]['step'] >= 4) {
+        this.navCtrl.push(Step4, { param1: id });
+      } else if (page == 5 && this.complaints[0]['step'] >= 5) {
+        this.navCtrl.push(Step5, { param1: id });
+      }
+    }
   }
 
   saveData() {

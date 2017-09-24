@@ -1,3 +1,6 @@
+import { Step3 } from './../step-3/step-3';
+import { Step5 } from './../step-5/step-5';
+import { Step4 } from './../step-4/step-4';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Login } from './../login/login';
 import { Auth } from './../../providers/auth';
@@ -184,6 +187,7 @@ export class Step1 {
   loading: any;
   complainForm: FormGroup;
   submitAttempt: boolean = false;
+  step_max: any;
   public keyin_id: any;
   public complain_data: Array<any> = [];
 
@@ -253,6 +257,7 @@ export class Step1 {
         this.recipient = data[0]['recipient'];
         this.doc_receive_no = data[0]['doc_receive_no'];
         this.doc_send_no = data[0]['doc_send_no'];*/
+        this.step_max = data[0]['step'];
         this.user_complain_type_id = data[0]['user_complain_type_id'];
       }
       return data;
@@ -260,6 +265,20 @@ export class Step1 {
       this.loading.dismiss();
       console.error(err.message);
     });
+  }
+
+  goTo(page, id) {
+    if (typeof id != undefined && id != '') {
+      if (page == 2 && this.step_max >= 2) {
+        this.navCtrl.push(Step2, { param1: id });
+      } else if (page == 3 && this.step_max >= 3) {
+        this.navCtrl.push(Step3, { param1: id });
+      } else if (page == 4 && this.step_max >= 4) {
+        this.navCtrl.push(Step4, { param1: id });
+      } else if (page == 5 && this.step_max >= 5) {
+        this.navCtrl.push(Step5, { param1: id });
+      }
+    }
   }
 
   ionViewDidLoad() {

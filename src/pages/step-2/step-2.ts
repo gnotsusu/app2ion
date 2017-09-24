@@ -1,3 +1,6 @@
+import { Step5 } from './../step-5/step-5';
+import { Step4 } from './../step-4/step-4';
+import { Step1 } from './../step-1/step-1';
 import { Step3 } from '../step-3/step-3';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -7,6 +10,7 @@ import { SelectAddress } from "../../providers/select-address";
 import { Login } from '../login/login';
 import { Auth } from '../../providers/auth';
 import { RequestOptions, Http, Headers, URLSearchParams } from '@angular/http';
+import { DashboardService } from "../../providers/dashboard-service";
 
 /**
  * Generated class for the Step3 page.
@@ -18,10 +22,11 @@ import { RequestOptions, Http, Headers, URLSearchParams } from '@angular/http';
 @Component({
   selector: 'page-step-2',
   templateUrl: 'step-2.html',
-  providers: [SelectAddress]
+  providers: [SelectAddress, DashboardService]
 })
 export class Step2 {
   step3Page = Step3;
+  complaints: object[] = [];
   keyin_id: number;
   scene_date: any = '';
   place_scene: any = '';
@@ -50,7 +55,8 @@ export class Step2 {
     public loadCtrl: LoadingController,
     public auth: Auth,
     public http: Http,
-    public formBuilder: FormBuilder
+    public formBuilder: FormBuilder,
+    public dashboardService: DashboardService
   ) {
     this.keyin_id = this.navParams.get('param1');
     this.complainForm = formBuilder.group({
@@ -88,6 +94,30 @@ export class Step2 {
       } else {
         this.loading.dismiss();
       }
+    }).then((data) => {
+      if (this.keyin_id != undefined) {
+        this.dashboardService.getComplainData(this.keyin_id).then((data) => {
+          console.log('data');
+          console.log(data);
+          if (data['scene_date'] != '' && data['scene_date'] != '0000-00-00 00:00:00') {
+            let sd_tmp = data['scene_date'].toString().split(' ');
+            let sd_tmp_splt = sd_tmp[0].split('-');
+            this.scene_date = new Date(sd_tmp_splt[0] + '-' + sd_tmp_splt[1] + '-' + sd_tmp_splt[2]).toISOString();
+          }
+          this.place_scene = data['place_scene'];
+          this.province_id = data['address_id'].substring(0, 2) + '000000';
+          this.onChangeProvince();
+          this.district_id = data['address_id'].substring(0, 4) + '0000';
+          this.onChangeDistrict();
+          this.address_id = data['address_id'].substring(0, 6) + '00';
+          this.complaint_detail = data['complaint_detail'];
+          this.latitude = data['latitude'];
+          this.longitude = data['longitude'];
+          this.complaints.push(data);
+        });
+      } else {
+        return this.complaints;
+      }
     }).catch(err => {
       this.loading.dismiss();
       console.error(err.message);
@@ -111,6 +141,20 @@ export class Step2 {
       this.longitude = data.longitude;
     });
     modal.present();
+  }
+
+  goTo(page, id) {
+    if (typeof id != undefined && id != '') {
+      if (page == 1) {
+        this.navCtrl.push(Step1, { param1: id });
+      } else if (page == 3) {
+        this.navCtrl.push(Step3, { param1: id });
+      } else if (page == 4 && this.complaints[0]['step'] >= 4) {
+        this.navCtrl.push(Step4, { param1: id });
+      } else if (page == 5 && this.complaints[0]['step'] >= 5) {
+        this.navCtrl.push(Step5, { param1: id });
+      }
+    }
   }
 
   onChangeProvince() {
