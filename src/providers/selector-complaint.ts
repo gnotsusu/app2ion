@@ -89,6 +89,10 @@ export class SelectorComplaint {
   channelList: string = this.host + "/api/dropdown/channel_lists";
   wishList: string = this.host + "/api/dropdown/wish_lists";
   titleNameList: string = this.host + "/api/dropdown/title_name_lists";
+  complainTypeParent: string = this.host + "/api/dropdown/complain_type_parent";
+  accusedTypeParent: string = this.host + "/api/dropdown/accused_type_parent";
+
+
 
   complaintType: Array<any> = [];
   accusedType: Array<any> = [];
@@ -216,6 +220,22 @@ export class SelectorComplaint {
     });
   }
 
+  getComplaintTypeListById(id: string) {
+    let url = this.complainTypeParent + '/' + id;
+    return new Promise((resolve, reject) => {
+      this.http.get(url).map((res) => res.json()).subscribe((data) => {
+        this.complaintType = [];
+        for (let index in data) {
+          this.complaintType.push(new ComplaintType(data[index], data[index]));
+        }
+        resolve(this.complaintType);
+      }, err => {
+        reject(err);
+      });
+
+    });
+  }
+
   getAccusedTypeListByParent(parent_id: string) {
     let url = this.accusedTypeList + '/' + parent_id;
     return new Promise((resolve, reject) => {
@@ -224,6 +244,24 @@ export class SelectorComplaint {
           this.accusedType = [];
           for (let i in data) {
             this.accusedType.push(new AccusedType(i, data[i]));
+          }
+          resolve(this.accusedType);
+        },
+        (err) => {
+          reject(err);
+        });
+
+    });
+  }
+
+  getAccusedTypeListById(id: string) {
+    let url = this.accusedTypeParent + '/' + id;
+    return new Promise((resolve, reject) => {
+      this.http.get(url).map(res => res.json()).subscribe(
+        (data) => {
+          this.accusedType = [];
+          for (let i in data) {
+            this.accusedType.push(new AccusedType(data[i], data[i]));
           }
           resolve(this.accusedType);
         },

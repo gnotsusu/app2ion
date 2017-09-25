@@ -145,12 +145,68 @@ export class Step3 {
       if (this.keyin_id != undefined) {
         this.dashboardService.getComplainData(this.keyin_id).then((data) => {
           console.log(data);
+          this.SelectorComplaint.getComplaintTypeListById(data['complain_type_id']).then((cpl_data) => {
+            //let data_test: Array<any> = [];
+            for (let index_cpl in cpl_data) {
+              //console.log(data['wish'][wish_data]['wish_id']);
+              //data_test.push(cpl_data[data_test2]['id']);
+              // console.log('id');
+              // console.log(data_test2);
+              if (index_cpl == '0') {
+                this.complain_type_id = cpl_data[index_cpl]['id'];
+                this.onChangeComplainType();
+              } else if (index_cpl == '1') {
+                this.complain_type_id_1 = cpl_data[index_cpl]['id'];
+                this.onChangeComplainType1();
+              } else {
+                this.complain_type_id_2 = cpl_data[index_cpl]['id'];
+              }
+            }
+            // console.log('cpl data');
+            // console.log(cpl_data);
+            // console.log(data_test.length);
+            // console.log(data_test);
+          });
           // this.complain_type_id
           // this.complain_type_id_1
           // this.complain_type_id_2
           this.complain_name = data['complain_name'];
           this.channel_id = data['channel_id'];
           this.subject_id = data['subject_id'];
+          this.SelectorComplaint.getAccusedTypeListById(data['accused_type_id']).then((acl_data) => {
+            console.log('acl_data');
+            console.log(acl_data);
+            //let data_test: Array<any> = [];
+            for (let index_acl in acl_data) {
+              //console.log(data['wish'][wish_data]['wish_id']);
+              //data_test.push(cpl_data[data_test2]['id']);
+              console.log('id');
+              console.log(index_acl);
+              if (index_acl == '0') {
+                this.accused_type_id = acl_data[index_acl]['id'];
+                this.onChangeAccusedType();
+              }
+              else if (index_acl == '1') {
+                // setTimeout(function () {
+                //   console.log('data1')
+                //   console.log(acl_data[index_acl]['id']);
+                //   console.log(this.accused_type_1);
+                //   this.accused_type_1 = acl_data[index_acl]['id'];
+                // }, 5000);
+
+                //this.accused_type_1 = '21';//acl_data[index_acl]['id'];
+                //this.onChangeAccusedType1();
+              } else {
+                this.accused_type_2 = acl_data[index_acl]['id'];
+              }
+            }
+            // console.log('cpl data');
+            // console.log(cpl_data);
+            // console.log(data_test.length);
+            // console.log(data_test);
+          }, function (err) {
+            console.log('sad');
+          });
           // this.accused_type_id
           // this.accused_type_1
           // this.accused_type_2
