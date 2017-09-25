@@ -107,6 +107,7 @@ export class SelectorComplaint {
 
     return new Promise((resolve, reject) => {
       this.http.get(this.complaintTypeList).map((res) => res.json()).subscribe((data) => {
+        this.complaintType = [];
         for (let index in data) {
           this.complaintType.push(new ComplaintType(index, data[index]));
         }
@@ -122,7 +123,7 @@ export class SelectorComplaint {
     return new Promise((resolve, reject) => {
       this.http.get(this.accusedTypeList).map(res => res.json()).subscribe(
         (data) => {
-
+          this.accusedType = [];
           for (let i in data) {
             this.accusedType.push(new AccusedType(i, data[i]));
           }
@@ -139,6 +140,7 @@ export class SelectorComplaint {
     return new Promise((resolve, reject) => {
       this.http.get(this.channelList).map(res => res.json()).subscribe(
         (data) => {
+          this.channel = [];
           for (let index in data) {
             this.channel.push(new ComplaintType(index, data[index]));
           }
@@ -154,6 +156,7 @@ export class SelectorComplaint {
     return new Promise((resolve, reject) => {
       this.http.get(this.wishList).map(res => res.json()).subscribe(
         (data) => {
+          this.wish = [];
           for (let index in data) {
             this.wish.push(new ComplaintType(index, data[index]));
           }
@@ -169,6 +172,7 @@ export class SelectorComplaint {
     return new Promise((resolve, reject) => {
       this.http.get(this.subjectList).map(res => res.json()).subscribe(
         (data) => {
+          this.subject = [];
           for (let index in data) {
             this.subject.push(new ComplaintType(index, data[index]));
           }
@@ -184,6 +188,7 @@ export class SelectorComplaint {
     return new Promise((resolve, reject) => {
       this.http.get(this.titleNameList).map(res => res.json()).subscribe(
         (data) => {
+          this.titleName = [];
           for (let index in data) {
             this.titleName.push(new ComplaintType(index, data[index]));
           }

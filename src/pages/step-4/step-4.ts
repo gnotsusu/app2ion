@@ -1,3 +1,6 @@
+import { Step2 } from './../step-2/step-2';
+import { Step3 } from './../step-3/step-3';
+import { Step1 } from './../step-1/step-1';
 import { Login } from './../login/login';
 import { Step5 } from './../step-5/step-5';
 import { Component } from '@angular/core';
@@ -6,6 +9,7 @@ import { Camera } from '@ionic-native/camera';
 import { AddPhoto } from '../add-photo/add-photo';
 import { Auth } from '../../providers/auth';
 import { RequestOptions, Http, Headers, URLSearchParams } from '@angular/http';
+import { DashboardService } from "../../providers/dashboard-service";
 
 /**
  * Generated class for the Step4 page.
@@ -17,6 +21,7 @@ import { RequestOptions, Http, Headers, URLSearchParams } from '@angular/http';
 @Component({
   selector: 'page-step-4',
   templateUrl: 'step-4.html',
+  providers: [DashboardService]
 })
 export class Step4 {
   step5Page = Step5;
@@ -27,13 +32,23 @@ export class Step4 {
   public keyin_id = '';
   public host = 'http://123.242.172.133/sysdamrongdham';
   public api_keyin = this.host + '/api/complaint/key_in';
+  step_max: any;
 
 
   public imageURL;
   public base64Image: any;
   public icons: string[];
   public items: Array<{ id: string, src: string }>;
-  constructor(private alertCtrl: AlertController, public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, public camera: Camera, public http: Http, public auth: Auth, public loadCtrl: LoadingController) {
+  constructor(
+    private alertCtrl: AlertController,
+    public modalCtrl: ModalController,
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public camera: Camera,
+    public http: Http,
+    public auth: Auth,
+    public loadCtrl: LoadingController,
+    public dashboardService: DashboardService) {
 
   }
 
@@ -75,6 +90,14 @@ export class Step4 {
       } else {
         this.loading.dismiss();
       }
+    }).then((data) => {
+      if (this.keyin_id != undefined) {
+        this.dashboardService.getComplainData(this.keyin_id).then((data) => {
+          console.log('data');
+          console.log(data);
+          this.step_max = data['step'];
+        });
+      }
     }).catch(err => {
       this.loading.dismiss();
       console.error(err.message);
@@ -86,6 +109,20 @@ export class Step4 {
       content: 'กำลังยื่นยันตัวตน...'
     });
     this.loading.present();
+  }
+
+  goTo(page, id) {
+    if (typeof id != undefined && id != '') {
+      if (page == 1) {
+        this.navCtrl.push(Step1, { param1: id });
+      } else if (page == 2) {
+        this.navCtrl.push(Step2, { param1: id });
+      } else if (page == 3) {
+        this.navCtrl.push(Step3, { param1: id });
+      } else if (page == 5 && this.step_max >= 5) {
+        this.navCtrl.push(Step5, { param1: id });
+      }
+    }
   }
 
   openModal() {

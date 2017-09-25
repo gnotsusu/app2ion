@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar hideBackButton="true">
     <ion-title>หลักฐานประกอบเรื่องร้องเรียน/ร้องทุกข์</ion-title>
     <ion-buttons end>
       <!-- <button ion-button [navPush]="step5Page">ถัดไป</button> -->
@@ -17,6 +17,15 @@
 </ion-header>
 
 <ion-content>
+  <ion-card-content>
+    <ul class="breadcrumb">
+      <li><a href="#" (click)='goTo(1,keyin_id)'>step 1</a></li>
+      <li><a href="#" (click)='goTo(2,keyin_id)'>step 2</a></li>
+      <li><a href="#" (click)='goTo(3,keyin_id)'>step 3</a></li>
+      <li><a href="#" class="active">step 4</a></li>
+      <li><a href="#" (click)='goTo(5,keyin_id)' class="disabled">step 5</a></li>
+    </ul>
+  </ion-card-content>
   <div>
     <ion-buttons>
       <button ion-button block (click)="openModal()">เลือกภาพหลักฐาน</button>

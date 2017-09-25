@@ -1,3 +1,6 @@
+import { Step3 } from './../step-3/step-3';
+import { Step5 } from './../step-5/step-5';
+import { Step4 } from './../step-4/step-4';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Login } from './../login/login';
 import { Auth } from './../../providers/auth';
@@ -184,6 +187,7 @@ export class Step1 {
   loading: any;
   complainForm: FormGroup;
   submitAttempt: boolean = false;
+  step_max: any;
   public keyin_id: any;
   public complain_data: Array<any> = [];
 
@@ -201,8 +205,8 @@ export class Step1 {
     public loadCtrl: LoadingController,
     public formBuilder: FormBuilder) {
     this.complainForm = formBuilder.group({
-      complain_date: ['', Validators.required],
-      recipient: ['', Validators.required]
+      // complain_date: ['', Validators.required],
+      // recipient: ['', Validators.required]
     });
     this.keyin_id = this.navParams.get('param1');
 
@@ -233,7 +237,7 @@ export class Step1 {
     }).then((data) => {
       console.log(data);
       if (data != undefined && data != '') {
-        if (data[0]['complain_date'] != '') {
+        /*if (data[0]['complain_date'] != '') {
           let cd_tmp = data[0]['complain_date'].toString().split(' ');
           let cd_tmp_splt = cd_tmp[0].split('-');
           this.complain_date = new Date(cd_tmp_splt[0] + '-' + cd_tmp_splt[1] + '-' + cd_tmp_splt[2]).toISOString();
@@ -252,7 +256,8 @@ export class Step1 {
         }
         this.recipient = data[0]['recipient'];
         this.doc_receive_no = data[0]['doc_receive_no'];
-        this.doc_send_no = data[0]['doc_send_no'];
+        this.doc_send_no = data[0]['doc_send_no'];*/
+        this.step_max = data[0]['step'];
         this.user_complain_type_id = data[0]['user_complain_type_id'];
       }
       return data;
@@ -260,6 +265,20 @@ export class Step1 {
       this.loading.dismiss();
       console.error(err.message);
     });
+  }
+
+  goTo(page, id) {
+    if (typeof id != undefined && id != '') {
+      if (page == 2 && this.step_max >= 2) {
+        this.navCtrl.push(Step2, { param1: id });
+      } else if (page == 3 && this.step_max >= 3) {
+        this.navCtrl.push(Step3, { param1: id });
+      } else if (page == 4 && this.step_max >= 4) {
+        this.navCtrl.push(Step4, { param1: id });
+      } else if (page == 5 && this.step_max >= 5) {
+        this.navCtrl.push(Step5, { param1: id });
+      }
+    }
   }
 
   ionViewDidLoad() {
@@ -362,12 +381,12 @@ export class Step1 {
     let Complaint_data;
     if (this.user_complain_type_id == '2') {
       Complaint_data = {
-        complain_date: this.complain_date,
+        /*complain_date: this.complain_date,
         recipient: this.recipient,
         doc_receive_date: this.doc_receive_date,
         doc_receive_no: this.doc_receive_no,
         doc_send_date: this.doc_send_date,
-        doc_send_no: this.doc_send_no,
+        doc_send_no: this.doc_send_no,*/
         user_complain_type_id: this.user_complain_type_id,
         id_card: this.user_data.user.idcard,
         first_name: this.user_data.user.first_name,
@@ -376,12 +395,12 @@ export class Step1 {
       }
     } else {
       Complaint_data = {
-        complain_date: this.complain_date,
+        /*complain_date: this.complain_date,
         recipient: this.recipient,
         doc_receive_date: this.doc_receive_date,
         doc_receive_no: this.doc_receive_no,
         doc_send_date: this.doc_send_date,
-        doc_send_no: this.doc_send_no,
+        doc_send_no: this.doc_send_no,*/
         user_complain_type_id: this.user_complain_type_id,
         id_card: "",
         first_name: "",
@@ -403,7 +422,7 @@ export class Step1 {
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
 
         let body = new URLSearchParams();
-        if (Complaint_data.complain_date != "") {
+        /*if (Complaint_data.complain_date != "") {
           complain_date_ex = Complaint_data.complain_date.split("-");
           body.set('complain_date', complain_date_ex[2] + "/" + complain_date_ex[1] + "/" + (parseInt(complain_date_ex[0]) + 543) + " 00:00:00");
         }
@@ -416,15 +435,18 @@ export class Step1 {
         if (Complaint_data.doc_send_date != "") {
           doc_send_date_ex = Complaint_data.doc_send_date.split("-");
           body.set('doc_send_date', doc_send_date_ex[2] + "/" + doc_send_date_ex[1] + "/" + (parseInt(doc_send_date_ex[0]) + 543) + " 00:00:00");
-        }
+        }*/
 
         if (keyin_id != undefined && keyin_id != '') {
           body.set('keyin_id', keyin_id);
+        } else {
+          let date_data = new Date();
+          body.set('complain_date', date_data.getDate() + "/" + ("0" + (date_data.getMonth() + 1)).slice(-2) + "/" + (date_data.getFullYear() + 543) + " 00:00:00");
         }
 
-        body.set('recipient', Complaint_data.recipient);
+        /*body.set('recipient', Complaint_data.recipient);
         body.set('doc_receive_no', Complaint_data.doc_receive_no);
-        body.set('doc_send_no', Complaint_data.doc_send_no);
+        body.set('doc_send_no', Complaint_data.doc_send_no);*/
         body.set('user_complain_type_id', Complaint_data.user_complain_type_id);
         body.set('id_card', Complaint_data.id_card);
         body.set('first_name', Complaint_data.first_name);

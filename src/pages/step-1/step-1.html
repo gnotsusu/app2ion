@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar hideBackButton="true">
     <ion-title>บันทึกเรื่องราวร้องทุกข์</ion-title>
     <ion-buttons end>
       <!-- <button ion-button [navPush]="step2Page">save</button> -->
@@ -17,8 +17,17 @@
 </ion-header>
 
 <ion-content class="outer-content">
+  <ion-card-content>
+    <ul class="breadcrumb">
+      <li><a href="#" class="active">step 1</a></li>
+      <li><a href="#" class="disabled" (click)='goTo(2,keyin_id)'>step 2</a></li>
+      <li><a href="#" class="disabled" (click)='goTo(3,keyin_id)'>step 3</a></li>
+      <li><a href="#" class="disabled" (click)='goTo(4,keyin_id)'>step 4</a></li>
+      <li><a href="#" class="disabled" (click)='goTo(5,keyin_id)'>step 5</a></li>
+    </ul>
+  </ion-card-content>
   <form [formGroup]="complainForm">
-    <ion-list>
+    <!-- <ion-list>
       <ion-item-group>
         <ion-list-header>
           <ion-icon item-start name="filing"></ion-icon>
@@ -62,7 +71,7 @@
         </ion-item>
         <ion-item></ion-item>
       </ion-item-group>
-    </ion-list>
+    </ion-list> -->
     <ion-list radio-group [(ngModel)]="user_complain_type_id" [ngModelOptions]="{standalone: true}">
       <ion-item-group>
         <ion-list-header>

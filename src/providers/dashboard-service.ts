@@ -17,19 +17,21 @@ export class DashboardService {
   apiComplaint: string = this.host + "/api/complaint/dashboard_mobile/";
   dashboardApi: string = this.host + "/api/complaint/dashboard/1";
   dashboardCountApi: string = this.host + "/api/complaint/total_status_row";
+  apiKeyin = this.host + '/api/complaint/key_in';
   token: string;
   complaints: object[] = [];
   countComplaints: object[] = [];
   countComplaintsStatus: object[] = [];
+  complaintDataKeyin: object[] = [];
 
   constructor(public http: Http, public storage: Storage) {
     //console.log('Hello DashboardService Provider');
   }
 
-  ComplaintData(page,status=null) {
-    let currentStatus:string = '';
-    if(status !== null){
-      currentStatus = '?current_status='+status;
+  ComplaintData(page, status = null) {
+    let currentStatus: string = '';
+    if (status !== null) {
+      currentStatus = '?current_status=' + status;
     }
     return new Promise((resolve, reject) => {
       this.storage.get('token').then((data: string) => {
@@ -39,7 +41,7 @@ export class DashboardService {
         let headers = new Headers();
         headers.append('Authorization', 'Bearer ' + token);
         let options = new RequestOptions({ headers: headers });
-        this.http.get(this.apiComplaint + page+currentStatus, options).map(res => res.json()).subscribe(
+        this.http.get(this.apiComplaint + page + currentStatus, options).map(res => res.json()).subscribe(
           (data) => {
             this.complaints = data;
             resolve(this.complaints);
@@ -73,6 +75,28 @@ export class DashboardService {
           (data) => {
             this.countComplaintsStatus = data;
             resolve(this.countComplaintsStatus);
+          }, (err) => {
+            reject({});
+          });
+      }).catch((err: string) => {
+        reject(err);
+      });
+    });
+  }
+
+  getComplainData(id) {
+    return new Promise((resolve, reject) => {
+      this.storage.get('token').then((data: string) => {
+        this.token = data;
+        return data;
+      }).then((token: string) => {
+        let headers = new Headers();
+        headers.append('Authorization', 'Bearer ' + token);
+        let options = new RequestOptions({ headers: headers });
+        this.http.get(this.apiKeyin + '/' + id, options).map(res => res.json()).subscribe(
+          (data) => {
+            this.complaintDataKeyin = data;
+            resolve(this.complaintDataKeyin);
           }, (err) => {
             reject({});
           });

@@ -7,7 +7,7 @@
     .ios, .md{
         page-step-5 {
             ion-content{
-                background: url('../../assets/images/bg.jpg'); 
+                //background: url('../../assets/images/bg.jpg');
                 -webkit-background-size: cover;
                 -moz-background-size: cover;
                 background-size: 100% 100%;
@@ -32,6 +32,7 @@
             }
             ion-list{
                 display: inline;
+                background-color: #CCCCCC;
             }
 
             .item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner, .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner{

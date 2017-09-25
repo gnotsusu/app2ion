@@ -36,6 +36,8 @@ import {ResultState} from "../pages/result-state/result-state";
 import { Camera } from '@ionic-native/camera';
 import {SelectAddress} from "../providers/select-address";
 import {SelectorComplaint} from "../providers/selector-complaint";
+import {Reports} from "../providers/reports";
+import {ReportStatistic} from "../pages/report-statistic/report-statistic";
 
 @NgModule({
   declarations: [
@@ -57,9 +59,8 @@ import {SelectorComplaint} from "../providers/selector-complaint";
     Step2,
     Step3,
     Step4,
-    Step5
-
-
+    Step5,
+    ReportStatistic,
   ],
   imports: [
     BrowserModule,
@@ -88,7 +89,8 @@ import {SelectorComplaint} from "../providers/selector-complaint";
     Step2,
     Step3,
     Step4,
-    Step5
+    Step5,
+    ReportStatistic,
   ],
   providers: [
     StatusBar,
@@ -100,6 +102,7 @@ import {SelectorComplaint} from "../providers/selector-complaint";
     ResultService,
     SelectorComplaint,
     SelectAddress,
+    Reports,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

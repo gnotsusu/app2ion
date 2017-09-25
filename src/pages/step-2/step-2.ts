@@ -1,29 +1,19 @@
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Login } from './../login/login';
-import { Auth } from './../../providers/auth';
-import { SelectorComplaint } from './../../providers/selector-complaint';
-import { Complaint } from './../complaint/complaint';
-import { Step3 } from './../step-3/step-3';
-import { RequestOptions, Http, Headers, URLSearchParams } from '@angular/http';
+import { Step5 } from './../step-5/step-5';
+import { Step4 } from './../step-4/step-4';
+import { Step1 } from './../step-1/step-1';
+import { Step3 } from '../step-3/step-3';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
-
-
-
-export class ComplaintType {
-
-  id: number;
-  name: string;
-
-  public constructor(id: number, name: string) {
-    this.id = id;
-    this.name = name;
-  }
-
-}
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { IonicPage, NavController, NavParams, ModalController, LoadingController } from 'ionic-angular';
+import { Location } from '../location/location';
+import { SelectAddress } from "../../providers/select-address";
+import { Login } from '../login/login';
+import { Auth } from '../../providers/auth';
+import { RequestOptions, Http, Headers, URLSearchParams } from '@angular/http';
+import { DashboardService } from "../../providers/dashboard-service";
 
 /**
- * Generated class for the Step2 page.
+ * Generated class for the Step3 page.
  *
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
@@ -32,87 +22,59 @@ export class ComplaintType {
 @Component({
   selector: 'page-step-2',
   templateUrl: 'step-2.html',
+  providers: [SelectAddress, DashboardService]
 })
 export class Step2 {
   step3Page = Step3;
-  keyin_id: string;
-  public complain_type_id_sel: any;
-  public accused_type_id_sel: any;
-  public channel_id_sel: any;
-  public subject_id_sel: any;
-  public wish_id_sel: any;
-  public complain_type_id: any;
-  public complain_type_id_1: any;
-  public complain_type_id_2: any;
-  public complain_type_1: any;
-  public complain_type_2: any;
-  public complain_name: string = '';
-  public channel_id: any = '';
-  public subject_id: string = '';
-  public accused_type_id: any = '';
-  public accused_type_id_1: any = '';
-  public accused_type_id_2: any = '';
-  public accused_type_1: any = '';
-  public accused_type_2: any = '';
-  public accused_name: string = '';
-  public wish_detail: string = '';
-  public host = 'http://123.242.172.133/sysdamrongdham';
-  public api_keyin = this.host + '/api/complaint/key_in';
-  public complain_type = this.host + '/api/complaint/key_in';
-  public token: any;
-  public selectOptions: any;
+  complaints: object[] = [];
+  keyin_id: number;
+  scene_date: any = '';
+  place_scene: any = '';
+  province_id: any = '';
+  district_id: any = '';
+  address_id: any = '';
+  complaint_detail: string = '';
+  latitude: any = '';
+  longitude: any = '';
+  provinces: any;
+  districts: any;
+  sub_districts: any;
+  myForm: any;
+  token: any;
   loading: any;
   complainForm: FormGroup;
   submitAttempt: boolean = false;
-  constructor(
-    public navCtrl: NavController,
+  public host = 'http://123.242.172.133/sysdamrongdham';
+  public api_keyin = this.host + '/api/complaint/key_in';
+  public complain_type = this.host + '/api/complaint/key_in';
+
+  constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    public RequestOptions: RequestOptions,
-    public http: Http,
-    public SelectorComplaint: SelectorComplaint,
-    public auth: Auth,
+    public modalCtrl: ModalController,
+    public selectAddress: SelectAddress,
     public loadCtrl: LoadingController,
-    public formBuilder: FormBuilder
+    public auth: Auth,
+    public http: Http,
+    public formBuilder: FormBuilder,
+    public dashboardService: DashboardService
   ) {
     this.keyin_id = this.navParams.get('param1');
-    console.log('keyin_id = ' + this.keyin_id);
     this.complainForm = formBuilder.group({
-      complain_type_id: ['', Validators.required],
-      complain_name: ['', Validators.required],
-      channel_id: ['', Validators.required],
-      subject_id: ['', Validators.required],
-      accused_type_id: ['', Validators.required]
+      place_scene: ['', Validators.required],
+      province_id: ['', Validators.required],
+      district_id: ['', Validators.required],
+      address_id: ['', Validators.required],
+      complaint_detail: ['', Validators.required],
+      latitude: ['', Validators.required],
+      longitude: ['', Validators.required]
     });
   }
 
-
-
   ionViewDidLoad() {
-    console.log('ionViewDidLoad Step2');
     this.authen();
-    this.SelectorComplaint.getComplaintTypeListByParent('0').then((data) => {
-      this.complain_type_id_sel = data;
+    this.selectAddress.Province().then((data) => {
+      this.provinces = data;
     });
-
-    this.SelectorComplaint.getAccusedTypeListByParent('0').then((data) => {
-      this.accused_type_id_sel = data;
-    });
-
-    this.SelectorComplaint.getChannelList().then((data) => {
-      this.channel_id_sel = data;
-    });
-
-    this.SelectorComplaint.getSubjectList().then((data) => {
-      this.subject_id_sel = data;
-    });
-
-    this.SelectorComplaint.getWishList().then((data) => {
-      this.wish_id_sel = data;
-    });
-    //  this.getComplainType().then((data:ComplaintType[]) => {
-    //      this.complain_type_id = data;
-    //   });
-
   }
 
   authen() {
@@ -132,6 +94,39 @@ export class Step2 {
       } else {
         this.loading.dismiss();
       }
+    }).then((data) => {
+      if (this.keyin_id != undefined) {
+        this.dashboardService.getComplainData(this.keyin_id).then((data) => {
+          console.log('data');
+          console.log(data);
+          if (data['scene_date'] != '' && data['scene_date'] !== null && data['scene_date'] != '0000-00-00 00:00:00') {
+            let sd_tmp = data['scene_date'].toString().split(' ');
+            let sd_tmp_splt = sd_tmp[0].split('-');
+            this.scene_date = new Date(sd_tmp_splt[0] + '-' + sd_tmp_splt[1] + '-' + sd_tmp_splt[2]).toISOString();
+          }
+          this.place_scene = data['place_scene'];
+          if (data['address_id'] !== null && data['address_id'] != '' && typeof data['address_id'] != undefined) {
+            this.province_id = data['address_id'].substring(0, 2) + '000000';
+            this.onChangeProvince();
+          }
+
+          if (data['address_id'] !== null && data['address_id'] != '' && typeof data['address_id'] != undefined) {
+            this.district_id = data['address_id'].substring(0, 4) + '0000';
+            this.onChangeDistrict();
+          }
+
+          if (data['address_id'] !== null && data['address_id'] != '' && typeof data['address_id'] != undefined) {
+            this.address_id = data['address_id'].substring(0, 6) + '00';
+          }
+
+          this.complaint_detail = data['complaint_detail'];
+          this.latitude = data['latitude'];
+          this.longitude = data['longitude'];
+          this.complaints.push(data);
+        });
+      } else {
+        return this.complaints;
+      }
     }).catch(err => {
       this.loading.dismiss();
       console.error(err.message);
@@ -145,16 +140,42 @@ export class Step2 {
     this.loading.present();
   }
 
-  getComplainType() {
-    return new Promise((resolve, reject) => {
-      this.http.get(this.complain_type).map(res => res.json()).subscribe((data) => {
-        let complainType: ComplaintType[];
-        for (let comp of data) {
-          complainType.push(new ComplaintType(comp.id, comp.name));
-        }
+  goToMap() {
+    let modal = this.modalCtrl.create(Location, {
+      latitude: this.latitude,
+      longitude: this.longitude
+    });
+    modal.onDidDismiss(data => {
+      this.latitude = data.latitude;
+      this.longitude = data.longitude;
+    });
+    modal.present();
+  }
 
-        resolve(complainType);
-      })
+  goTo(page, id) {
+    if (typeof id != undefined && id != '') {
+      if (page == 1) {
+        this.navCtrl.push(Step1, { param1: id });
+      } else if (page == 3) {
+        this.navCtrl.push(Step3, { param1: id });
+      } else if (page == 4 && this.complaints[0]['step'] >= 4) {
+        this.navCtrl.push(Step4, { param1: id });
+      } else if (page == 5 && this.complaints[0]['step'] >= 5) {
+        this.navCtrl.push(Step5, { param1: id });
+      }
+    }
+  }
+
+  onChangeProvince() {
+    this.selectAddress.District(this.province_id).then((data) => {
+      this.districts = data;
+      this.sub_districts = [];
+    });
+  }
+
+  onChangeDistrict() {
+    this.selectAddress.SubDistrict(this.district_id).then((data) => {
+      this.sub_districts = data;
     });
   }
 
@@ -162,58 +183,48 @@ export class Step2 {
     this.submitAttempt = true;
     let token_data = this.token;
     let keyin_id = this.keyin_id;
-    let complain_type_id;
-    let accused_type_id;
-    if (this.complain_type_id_2 != '' && this.complain_type_id_2 != undefined) {
-      complain_type_id = this.complain_type_id_2;
-    } else if (this.complain_type_id_1 != '' && this.complain_type_id_1 != undefined) {
-      complain_type_id = this.complain_type_id_1;
-    } else {
-      complain_type_id = this.complain_type_id;
-    }
-    if (this.accused_type_id_2 != '' && this.accused_type_id_2 != undefined) {
-      accused_type_id = this.accused_type_id_2;
-    } else if (this.accused_type_id_1 != '' && this.accused_type_id_1 != undefined) {
-      accused_type_id = this.accused_type_id_1;
-    } else {
-      accused_type_id = this.accused_type_id;
-    }
     let Complaint_data = {
-      complain_type_id: complain_type_id,
-      complain_name: this.complain_name,
-      channel_id: this.channel_id,
-      subject_id: this.subject_id,
-      accused_type_id: accused_type_id,
-      accused_name: this.accused_name,
-      wish_detail: this.wish_detail
-    }
+      scene_date: this.scene_date,
+      place_scene: this.place_scene,
+      address_id: this.address_id,
+      complaint_detail: this.complaint_detail,
+      latitude: this.latitude,
+      longitude: this.longitude,
+    };
     console.log(Complaint_data);
+
     if (this.complainForm.valid) {
       return new Promise((resolve, reject) => {
-
         let headers = new Headers();
+        let scene_date_ex: string[] = [];
         headers.append('Authorization', 'Bearer ' + token_data);
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         let body = new URLSearchParams();
-        body.set('complain_type_id', Complaint_data.complain_type_id);
-        body.set('complain_name', Complaint_data.complain_name);
-        body.set('channel_id', Complaint_data.channel_id);
-        body.set('subject_id', Complaint_data.subject_id);
-        body.set('accused_type_id', Complaint_data.accused_type_id);
-        body.set('accused_name', Complaint_data.accused_name);
-        body.set('wish_detail', Complaint_data.wish_detail);
         body.set('step', '2');
-        body.set('keyin_id', keyin_id);
-        // let body = "complain_type_id=" + Complaint_data.complain_type_id + "&complain_name=" + Complaint_data.complain_name + "&channel_id=" + Complaint_data.channel_id + "&subject_id=" + Complaint_data.subject_id + "&accused_type_id=" + Complaint_data.accused_type_id + "&accused_name=" + Complaint_data.accused_name + "&wish_detail=" + Complaint_data.wish_detail + "&step=2&keyin_id=" + keyin_id;
-        let options = new RequestOptions({ headers: headers });
+        body.set('keyin_id', this.keyin_id.toString());
 
+        //body.set('scene_date', '27/07/2560');
+        if (this.scene_date != "") {
+          scene_date_ex = this.scene_date.split("-");
+          console.log('scence date');
+          console.log(scene_date_ex);
+          //body.set('complain_date', this.scene_date[2] + "/" + this.scene_date[1] + "/" + (parseInt(this.scene_date[0]) + 543) + " 00:00:00");
+          body.set('scene_date', scene_date_ex[2] + "/" + scene_date_ex[1] + "/" + (parseInt(scene_date_ex[0]) + 543) + " 00:00:00");
+          console.log(scene_date_ex[2] + "/" + scene_date_ex[1] + "/" + (parseInt(scene_date_ex[0]) + 543) + " 00:00:00");
+        }
+        body.set('place_scene', this.place_scene);
+        body.set('address_id', this.address_id);
+        body.set('complaint_detail', this.complaint_detail);
+        body.set('latitude', this.latitude);
+        body.set('longitude', this.longitude);
+
+        let options = new RequestOptions({ headers: headers });
         this.http.put(this.api_keyin, body, options).map(res => res).subscribe(
           data => {
             console.log(data['_body']);
             this.navCtrl.push(Step3, { param1: data['_body'] });
           },
           err => {
-            console.log(body);
             console.log('Http Error');
             reject(err);
           }
@@ -223,60 +234,4 @@ export class Step2 {
     }
 
   }
-
-  onChangeComplainType() {
-    this.SelectorComplaint.getComplaintTypeListByParent(this.complain_type_id).then((data) => {
-      var link = document.getElementById('complain_type_1');
-      link.style.display = 'block';
-      var link2 = document.getElementById('complain_type_2');
-      link2.style.display = 'none';
-      this.complain_type_1 = data;
-      this.complain_type_2 = [];
-    }, function (err) {
-      var link = document.getElementById('complain_type_1');
-      link.style.display = 'none';
-      var link2 = document.getElementById('complain_type_2');
-      link2.style.display = 'none';
-    });
-  }
-  onChangeComplainType1() {
-    this.SelectorComplaint.getComplaintTypeListByParent(this.complain_type_id_1).then((data) => {
-      var link2 = document.getElementById('complain_type_2');
-      link2.style.display = 'block';
-      this.complain_type_2 = data;
-    }, function (err) {
-      var link2 = document.getElementById('complain_type_2');
-      link2.style.display = 'none';
-    });
-  }
-
-  onChangeAccusedType() {
-    this.SelectorComplaint.getAccusedTypeListByParent(this.accused_type_id).then((data) => {
-      var link = document.getElementById('accused_type_1');
-      link.style.display = 'block';
-      var link2 = document.getElementById('accused_type_2');
-      link2.style.display = 'none';
-      this.accused_type_1 = data;
-      this.accused_type_2 = [];
-    }, function (err) {
-      var link = document.getElementById('accused_type_1');
-      link.style.display = 'none';
-      var link2 = document.getElementById('accused_type_2');
-      link2.style.display = 'none';
-    });
-  }
-
-  onChangeAccusedType1() {
-    this.SelectorComplaint.getAccusedTypeListByParent(this.accused_type_id_1).then((data) => {
-      var link2 = document.getElementById('accused_type_2');
-      link2.style.display = 'block';
-      this.accused_type_2 = data;
-    }, function (err) {
-      var link2 = document.getElementById('accused_type_2');
-      link2.style.display = 'none';
-    });
-  }
-
-
 }
-
