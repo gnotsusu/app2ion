@@ -11,22 +11,30 @@
       <button ion-button [navPush]="homePage">เสร็จสิ้น</button>
     </ion-buttons>
   </ion-navbar>
-
+</ion-header>
+<ion-content>
+  <ion-card-content center>
+    <ul class="breadcrumb">
+      <li><a href="#" (click)='goTo(1,keyin_id)'>step 1</a></li>
+      <li><a href="#" (click)='goTo(2,keyin_id)'>step 2</a></li>
+      <li><a href="#" (click)='goTo(3,keyin_id)'>step 3</a></li>
+      <li><a href="#" (click)='goTo(4,keyin_id)'>step 4</a></li>
+      <li><a href="#" class="active">step 5</a></li>
+    </ul>
+  </ion-card-content>
   <ion-toolbar no-border-top>
     <ion-segment [(ngModel)]="tabs">
       <ion-segment-button value="tab1">
         เรืองร้องทุกข์/ร้องรียน
       </ion-segment-button>
-      <ion-segment-button value="tab2">
-        ความประสงค์ในการดำเนินการ
-      </ion-segment-button>
       <ion-segment-button value="tab3">
         เนื้อหาเรื่องร้องทุกข์ร้องเรียน
       </ion-segment-button>
+      <ion-segment-button value="tab2">
+        ความประสงค์ในการดำเนินการ
+      </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
-</ion-header>
-<ion-content>
   <div [ngSwitch]="tabs">
     <ion-list *ngSwitchCase="'tab1'">
       <ion-card-content *ngFor="let comp of complain_data">
@@ -45,7 +53,7 @@
         <ion-item>
           <p>{{ comp.complain_date }}</p>
         </ion-item>
-        <ion-item>
+        <!--ion-item>
           <ion-label>ผู้รับแจ้ง</ion-label>
         </ion-item>
         <ion-item>
@@ -80,7 +88,7 @@
         </ion-item>
         <ion-item>
           <p></p>
-        </ion-item>
+        </ion-item-->
         <ion-item>
           <ion-label>ผู้ร้องทุกข์</ion-label>
         </ion-item>
