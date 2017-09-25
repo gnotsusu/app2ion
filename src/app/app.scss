@@ -128,6 +128,7 @@ ion-content{
     position: relative; 
     display: block;
     float: left;
+    font-size: 12pt;
   }
   .breadcrumb li a::after { 
     content: " "; 
@@ -141,7 +142,8 @@ ion-content{
     top: 50%;
     margin-top: -10px; 
     left: 100%;
-    z-index: 2; 
+    z-index: 2;
+    font-size: 12pt;
   }
   .breadcrumb li a::before { 
     content: " "; 
