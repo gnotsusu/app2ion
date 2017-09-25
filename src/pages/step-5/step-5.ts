@@ -1,3 +1,7 @@
+import { Step2 } from './../step-2/step-2';
+import { Step3 } from './../step-3/step-3';
+import { Step1 } from './../step-1/step-1';
+import { Step4 } from './../step-4/step-4';
 import { SelectAddress } from './../../providers/select-address';
 import { Subject, Channel, Wish, ComplaintType, SelectorComplaint } from './../../providers/selector-complaint';
 
@@ -176,7 +180,7 @@ export class Step5 {
   public api_keyin = this.host + '/api/complaint/key_in';
   public complain_data: Array<any> = [];
   public tabs: any;
-
+  step_max: any;
   keyInId: any;
 
   constructor(
@@ -303,6 +307,20 @@ export class Step5 {
       content: 'กำลังยื่นยันตัวตน...'
     });
     this.loading.present();
+  }
+
+  goTo(page, id) {
+    if (typeof id != undefined && id != '') {
+      if (page == 1) {
+        this.navCtrl.push(Step1, { param1: id });
+      } else if (page == 2) {
+        this.navCtrl.push(Step2, { param1: id });
+      } else if (page == 3) {
+        this.navCtrl.push(Step3, { param1: id });
+      } else if (page == 4) {
+        this.navCtrl.push(Step4, { param1: id });
+      }
+    }
   }
 
   getComplainData(token: string) {
