@@ -25,7 +25,7 @@ export class Reports {
     });
   }
 
-  reportStatisticByType = this.host + "api/report/report_statistic_by_type";
+  reportStatisticByType = this.host + "api/report/report_statistic_by_type_app";
   getReportStatitic(token:string){
     return new Promise((resolve, reject) => {
 
@@ -41,7 +41,7 @@ export class Reports {
     });
   }
 
-  reportStatisticByStatus = this.host + "api/report/report_statistic_by_status";
+  reportStatisticByStatus = this.host + "api/report/report_statistic_by_status_app";
   getReportStatiticByStatus(token:string){
     return new Promise((resolve, reject) => {
 
