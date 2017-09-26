@@ -44,7 +44,7 @@ export class Dashboard {
     this.dashboardService.ComplaintData(this.page, this.status_id).then((data) => {
       Object.keys(data).forEach((key) => {
         let now = moment(data[key].complain_date);
-        data[key].complain_date = now.format('d MMM ') + (now.get('year') + 543) + now.format(' เวลา h:mm:ss น.');
+        data[key].complain_date = now.format('D MMM ') + (now.get('year') + 543) + now.format(' เวลา h:mm:ss น.');
         this.complaints.push(data[key]);
       });
     });
