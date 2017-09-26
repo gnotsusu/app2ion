@@ -316,7 +316,8 @@ export class Step5 {
       } else if (page == 2) {
         this.navCtrl.push(Step2, { param1: id });
       } else if (page == 3) {
-        this.navCtrl.push(Step3, { param1: id });
+        let page_data3: Array<any> = [{ page: Step3, params: { param1: id } }];
+        this.navCtrl.setPages(page_data3);
       } else if (page == 4) {
         this.navCtrl.push(Step4, { param1: id });
       }
@@ -348,23 +349,23 @@ export class Step5 {
         }
         console.log('debug channel_arr :' + channel);
 
-         for (let i in wishList) {
-           wish.push(new Wish(wishList[i].wish_id, wishList[i].wish_name));
-         }
+        for (let i in wishList) {
+          wish.push(new Wish(wishList[i].wish_id, wishList[i].wish_name));
+        }
         console.log('debug wish_arr :' + wish);
         this.keyInId = data.keyin_id;
         let user_complain: any;
         if (data.user_complain_type_id == '1') {
           user_complain = 'ไม่ประสงค์ออกนาม';
         } else {
-          user_complain = data.title_name + data.first_name + ' ' + data.last_name;
+          user_complain = data.first_name + ' ' + data.last_name;
         }
         let now = moment(data.complain_date);
         data.complain_date = now.format('D MMM ') + (now.get('year') + 543) + now.format(' เวลา h:mm:ss น.');
-        if(data.scene_date!='0000-00-00 00:00:00') {
+        if (data.scene_date != '0000-00-00 00:00:00') {
           let now2 = moment(data.scene_date);
           data.scene_date = now2.format('D MMM ') + (now2.get('year') + 543) + now2.format(' เวลา h:mm:ss น.');
-        }else{
+        } else {
           data.scene_date = '';
         }
 

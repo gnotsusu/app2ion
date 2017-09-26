@@ -120,7 +120,7 @@ export class Step4 {
       } else if (page == 3) {
         let page_data3: Array<any> = [{ page: Step3, params: { param1: id } }];
         this.navCtrl.setPages(page_data3);
-      } else if (page == 5 && this.step_max >= 5) {
+      } else if (page == 5 && this.step_max >= 4) {
         this.navCtrl.push(Step5, { param1: id });
       }
     }

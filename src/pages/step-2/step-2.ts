@@ -162,7 +162,7 @@ export class Step2 {
         this.navCtrl.setPages(page_data3);
       } else if (page == 4 && this.complaints[0]['step'] >= 4) {
         this.navCtrl.push(Step4, { param1: id });
-      } else if (page == 5 && this.complaints[0]['step'] >= 5) {
+      } else if (page == 5 && this.complaints[0]['step'] >= 4) {
         this.navCtrl.push(Step5, { param1: id });
       }
     }
