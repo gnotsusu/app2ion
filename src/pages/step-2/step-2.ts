@@ -1,3 +1,4 @@
+import { Pages } from './../../app/app.component';
 import { Step5 } from './../step-5/step-5';
 import { Step4 } from './../step-4/step-4';
 import { Step1 } from './../step-1/step-1';
@@ -157,7 +158,8 @@ export class Step2 {
       if (page == 1) {
         this.navCtrl.push(Step1, { param1: id });
       } else if (page == 3) {
-        this.navCtrl.push(Step3, { param1: id });
+        let page_data3: Array<any> = [{ page: Step3, params: { param1: id } }];
+        this.navCtrl.setPages(page_data3);
       } else if (page == 4 && this.complaints[0]['step'] >= 4) {
         this.navCtrl.push(Step4, { param1: id });
       } else if (page == 5 && this.complaints[0]['step'] >= 5) {
