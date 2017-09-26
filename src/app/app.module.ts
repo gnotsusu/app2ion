@@ -37,7 +37,9 @@ import { Camera } from '@ionic-native/camera';
 import {SelectAddress} from "../providers/select-address";
 import {SelectorComplaint} from "../providers/selector-complaint";
 import {Reports} from "../providers/reports";
-import {ReportStatistic} from "../pages/report-statistic/report-statistic";
+import {ReportStatisticByType} from "../pages/report-statistic-by-type/report-statistic-by-type";
+import {ReportAllComplaint} from "../pages/report-all-complaint/report-all-complaint";
+import {ReportStatisticByStatus} from "../pages/report-statistic-by-status/report-statistic-by-status";
 
 @NgModule({
   declarations: [
@@ -60,7 +62,9 @@ import {ReportStatistic} from "../pages/report-statistic/report-statistic";
     Step3,
     Step4,
     Step5,
-    ReportStatistic,
+    ReportStatisticByType,
+    ReportAllComplaint,
+    ReportStatisticByStatus,
   ],
   imports: [
     BrowserModule,
@@ -90,7 +94,9 @@ import {ReportStatistic} from "../pages/report-statistic/report-statistic";
     Step3,
     Step4,
     Step5,
-    ReportStatistic,
+    ReportStatisticByType,
+    ReportAllComplaint,
+    ReportStatisticByStatus,
   ],
   providers: [
     StatusBar,
