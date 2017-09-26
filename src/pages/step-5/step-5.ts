@@ -12,7 +12,7 @@ import { Complaint } from './../complaint/complaint';
 import { HomePage } from './../home/home';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
-
+import * as moment from 'moment';
 /**
  * Generated class for the Step5 page.
  *
@@ -340,20 +340,18 @@ export class Step5 {
         let wishList = data.wish;
         let complain_type = '';
         for (let i in subjectList) {
-          console.log('debug :' + subjectList[i].subject_name);
           subject.push(new Subject(subjectList[i].subject_id, subjectList[i].subject_name));
         }
 
         for (let i in channelList) {
-          console.log('debug :' + channelList[i].channel_name);
           channel.push(new Channel(channelList[i].channel_id, channelList[i].channel_name));
         }
+        console.log('debug channel_arr :' + channel);
 
-        // for (let i of wishList) {
-        //   console.log('debug :' + wishList[i].wish_name);
-        //   wish.push(new Wish(wishList[i].wish_id, channelList[i].wish_name));
-        // }
-
+         for (let i in wishList) {
+           wish.push(new Wish(wishList[i].wish_id, wishList[i].wish_name));
+         }
+        console.log('debug wish_arr :' + wish);
         this.keyInId = data.keyin_id;
         let user_complain: any;
         if (data.user_complain_type_id == '1') {
@@ -361,6 +359,15 @@ export class Step5 {
         } else {
           user_complain = data.title_name + data.first_name + ' ' + data.last_name;
         }
+        let now = moment(data.complain_date);
+        data.complain_date = now.format('D MMM ') + (now.get('year') + 543) + now.format(' เวลา h:mm:ss น.');
+        if(data.scene_date!='0000-00-00 00:00:00') {
+          let now2 = moment(data.scene_date);
+          data.scene_date = now2.format('D MMM ') + (now2.get('year') + 543) + now2.format(' เวลา h:mm:ss น.');
+        }else{
+          data.scene_date = '';
+        }
+
         this.complain_data.push(new ComplaintData(
           data.keyin_id,
           data.create_user_id,
