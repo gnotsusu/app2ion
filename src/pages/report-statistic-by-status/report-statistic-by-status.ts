@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {IonicPage, NavController} from 'ionic-angular';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Auth} from "../../providers/auth";
 import {Reports} from "../../providers/reports";
 import {BaseChartDirective} from "ng2-charts";
@@ -44,9 +44,11 @@ export class ReportStatisticByStatus {
 
   public reportChartsOptions: any = {responsive: true};
   public reportsChartType: string = "line";
+  private title: any;
 
-  constructor(public nav: NavController, public auth: Auth, public report: Reports) {
+  constructor(public nav: NavController, public navParams: NavParams, public auth: Auth, public report: Reports) {
     console.log("constructor ReportStatisticByStatus");
+    this.title = navParams.get('title');
   }
 
   ionViewWillEnter() {
@@ -94,7 +96,10 @@ export class ReportStatisticByStatus {
     if (this._chart && this._chart.chart && this._chart.chart.config) {
       this._chart.chart.config.data.labels = this.reportChartsLabels;
       this._chart.chart.config.data.datasets = this.reportChartsData;
-      this._chart.chart.update();
+      this._chart.chart.update({
+        duration: 800,
+        easing: 'easeOutBounce'
+      });
     }
   }
 }

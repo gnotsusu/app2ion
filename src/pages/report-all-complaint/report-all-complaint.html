@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Report All Complaint Charts</ion-title>
+    <ion-title>{{title}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -12,6 +12,7 @@
           [datasets]="reportChartsData"
           [labels]="reportChartsLabels"
           [legend]=true
+          [colors]="reportChartsColors"
           [chartType]="reportsChartType"
           [options]="reportChartsOptions"
           (chartHover)="chartsOnHover($event)"

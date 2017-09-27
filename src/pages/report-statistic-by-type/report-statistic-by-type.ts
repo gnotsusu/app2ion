@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {IonicPage, NavController} from 'ionic-angular';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Auth} from "../../providers/auth";
 import {Reports} from "../../providers/reports";
 import {BaseChartDirective} from "ng2-charts";
@@ -44,10 +44,12 @@ export class ReportStatisticByType {
 
   public reportChartsOptions: any = {responsive: true};
   public reportsChartType: string = "line";
+  private title: any;
 
 
-  constructor(public nav: NavController, public auth: Auth, public report: Reports) {
+  constructor(public nav: NavController, public navParams: NavParams,public auth: Auth, public report: Reports) {
     console.log("constructor ReportStatistic");
+    this.title = navParams.get('title');
   }
 
   ionViewWillEnter() {
@@ -83,6 +85,15 @@ export class ReportStatisticByType {
       this.reportChartsData = new Array(data.report.datasets.length);
       this.reportChartsLabels = new Array(data.report.labels.length);
       this.reportChartsData = data.report.datasets;
+
+      for(let i=0; i < this.reportChartsData.length; i++){
+        this.reportChartsData[i].backgroundColor = this.reportChartsColors[i].backgroundColor;
+        this.reportChartsData[i].borderColor = this.reportChartsColors[i].borderColor;
+        this.reportChartsData[i].pointBackgroundColor = this.reportChartsColors[i].pointBackgroundColor;
+        this.reportChartsData[i].pointBorderColor = this.reportChartsColors[i].pointBorderColor;
+        this.reportChartsData[i].pointHoverBackgroundColor = this.reportChartsColors[i].pointHoverBackgroundColor;
+        this.reportChartsData[i].pointHoverBorderColor = this.reportChartsColors[i].pointHoverBorderColor;
+      }
       this.reportChartsLabels = data.report.labels;
 
       this.refreshCharts();
@@ -96,7 +107,10 @@ export class ReportStatisticByType {
     if (this._chart && this._chart.chart && this._chart.chart.config) {
       this._chart.chart.config.data.labels = this.reportChartsLabels;
       this._chart.chart.config.data.datasets = this.reportChartsData;
-      this._chart.chart.update();
+      this._chart.chart.render({
+        duration: 800,
+        easing: 'easeOutBounce'
+      });
     }
   }
 }

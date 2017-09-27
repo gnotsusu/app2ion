@@ -52,10 +52,13 @@ export class LineCharts {
       pointHoverBorderColor: 'rgba(237, 17, 21, 0.2)'
     }
   ];
+
+  public title:string = '';
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public reports: Reports,
               public auth: Auth) {
+    this.title = this.navParams.get('title');
   }
 
   ionViewDidEnter(){
@@ -118,9 +121,11 @@ export class LineCharts {
     if (this._chart && this._chart.chart && this._chart.chart.config) {
       this._chart.chart.config.data.labels = this.doughnutChartLabels;
       this._chart.chart.config.data.datasets = this.doughnutChartData;
-      this._chart.chart.config.data.colors = this.lineChartColors;
+      this._chart.colors = this.lineChartColors;
       this._chart.chart.update();
     }
+
+
   }
 
 

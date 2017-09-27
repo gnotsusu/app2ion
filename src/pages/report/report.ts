@@ -33,7 +33,7 @@ export class Report {
   }
 
   OpenReports(report:ReportDataSet): void{
-    this.navCtrl.push(report.component);
+    this.navCtrl.push(report.component, { title : report.name });
   }
 
 }

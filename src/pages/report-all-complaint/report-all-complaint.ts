@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {IonicPage, NavController} from 'ionic-angular';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Auth} from "../../providers/auth";
 import {Reports} from "../../providers/reports";
 import {BaseChartDirective} from "ng2-charts";
@@ -18,7 +18,7 @@ export class ReportAllComplaint {
   public reportChartsLabels: Array<any> = ["ไม่มีข้อมูล"];
   public reportChartsColors: Array<any> = [
     { // first color
-      backgroundColor: 'rgba(104, 224, 228, 0)',
+      backgroundColor: 'rgba(104, 224, 228, 0.1)',
       borderColor: 'rgba(104, 224, 228, 0.6)',
       pointBackgroundColor: 'rgba(104, 224, 228, 0.2)',
       pointBorderColor: '#fff',
@@ -44,10 +44,13 @@ export class ReportAllComplaint {
 
   public reportChartsOptions: any = {responsive: true};
   public reportsChartType: string = "line";
-
-
-  constructor(public nav: NavController, public auth: Auth, public report: Reports) {
+  public title:string = '';
+  constructor(public nav: NavController,
+              public navParams: NavParams,
+              public auth: Auth,
+              public report: Reports) {
     console.log("constructor ReportAllComplaint");
+    this.title = navParams.get('title');
   }
 
   ionViewWillEnter() {
@@ -83,8 +86,16 @@ export class ReportAllComplaint {
       this.reportChartsData = new Array(data.report.datasets.length);
       this.reportChartsLabels = new Array(data.report.labels.length);
       this.reportChartsData = data.report.datasets;
+      for(let i=0; i < this.reportChartsData.length; i++){
+        this.reportChartsData[i].backgroundColor = this.reportChartsColors[i].backgroundColor;
+        this.reportChartsData[i].borderColor = this.reportChartsColors[i].borderColor;
+        this.reportChartsData[i].pointBackgroundColor = this.reportChartsColors[i].pointBackgroundColor;
+        this.reportChartsData[i].pointBorderColor = this.reportChartsColors[i].pointBorderColor;
+        this.reportChartsData[i].pointHoverBackgroundColor = this.reportChartsColors[i].pointHoverBackgroundColor;
+        this.reportChartsData[i].pointHoverBorderColor = this.reportChartsColors[i].pointHoverBorderColor;
+      }
       this.reportChartsLabels = data.report.labels;
-
+      console.log(this.reportChartsData);
       this.refreshCharts();
 
     }).catch((err) => {
@@ -97,6 +108,7 @@ export class ReportAllComplaint {
       this._chart.chart.config.data.labels = this.reportChartsLabels;
       this._chart.chart.config.data.datasets = this.reportChartsData;
       this._chart.chart.update();
+
     }
   }
 }

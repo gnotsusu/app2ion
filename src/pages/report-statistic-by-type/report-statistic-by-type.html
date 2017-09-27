@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Report Statistic Charts</ion-title>
+    <ion-title>{{title}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -11,7 +11,8 @@
           baseChart
           [datasets]="reportChartsData"
           [labels]="reportChartsLabels"
-          [legend]=true
+          [legend]=false
+          [colors]="[]"
           [chartType]="reportsChartType"
           [options]="reportChartsOptions"
           (chartHover)="chartsOnHover($event)"
