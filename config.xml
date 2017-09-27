@@ -88,4 +88,5 @@
     <plugin name="cordova-plugin-camera" spec="^2.4.1" />
     <plugin name="com.synconset.ImagePickerExt" spec="https://github.com/ratkop/-cordova-imagePickerEx.git" />
     <engine name="ios" spec="~4.4.0" />
+    <engine name="android" spec="~6.2.3" />
 </widget>
