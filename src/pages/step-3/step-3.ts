@@ -146,26 +146,47 @@ export class Step3 {
         this.dashboardService.getComplainData(this.keyin_id).then((data) => {
           console.log(data);
           this.SelectorComplaint.getComplaintTypeListById(data['complain_type_id']).then((cpl_data) => {
-            //let data_test: Array<any> = [];
+            console.log('cpl data');
+            console.log(cpl_data);
+            let cpl_data_tmp: Array<any> = [];
             for (let index_cpl in cpl_data) {
-              //console.log(data['wish'][wish_data]['wish_id']);
-              //data_test.push(cpl_data[data_test2]['id']);
-              // console.log('id');
-              // console.log(data_test2);
               if (index_cpl == '0') {
                 this.complain_type_id = cpl_data[index_cpl]['id'];
                 this.onChangeComplainType();
-              } else if (index_cpl == '1') {
-                this.complain_type_id_1 = cpl_data[index_cpl]['id'];
-                this.onChangeComplainType1();
+                console.log('change type');
               } else {
-                this.complain_type_id_2 = cpl_data[index_cpl]['id'];
+                cpl_data_tmp.push(cpl_data[index_cpl]['id']);
               }
             }
-            // console.log('cpl data');
-            // console.log(cpl_data);
-            // console.log(data_test.length);
-            // console.log(data_test);
+            return cpl_data_tmp;
+          }).then((data) => {
+            console.log('cpl data 2');
+            console.log(data);
+            let cpl_data_tmp: Array<any> = [];
+            if (typeof data != undefined && data !== null && data.length != 0) {
+              for (let index_cpl in data) {
+                if (index_cpl == '0') {
+                  this.complain_type_id_1 = data[index_cpl];
+                  this.onChangeComplainType1();
+                } else {
+                  cpl_data_tmp.push(data[index_cpl]);
+                }
+              }
+            } else {
+              console.log('cpl2 false');
+            }
+            return cpl_data_tmp;
+          }).then((data) => {
+            let cpl_data_tmp: Array<any> = [];
+            if (typeof data != undefined && data !== null && data.length != 0) {
+              for (let index_cpl in data) {
+                if (index_cpl == '0') {
+                  this.complain_type_id_2 = data[index_cpl];
+                }
+              }
+            }
+          }).catch(err => {
+
           });
           // this.complain_type_id
           // this.complain_type_id_1
@@ -174,38 +195,42 @@ export class Step3 {
           this.channel_id = data['channel_id'];
           this.subject_id = data['subject_id'];
           this.SelectorComplaint.getAccusedTypeListById(data['accused_type_id']).then((acl_data) => {
-            console.log('acl_data');
-            console.log(acl_data);
-            //let data_test: Array<any> = [];
+            let alc_data_temp: Array<any> = [];
             for (let index_acl in acl_data) {
-              //console.log(data['wish'][wish_data]['wish_id']);
-              //data_test.push(cpl_data[data_test2]['id']);
-              console.log('id');
-              console.log(index_acl);
               if (index_acl == '0') {
                 this.accused_type_id = acl_data[index_acl]['id'];
                 this.onChangeAccusedType();
-              }
-              else if (index_acl == '1') {
-                // setTimeout(function () {
-                //   console.log('data1')
-                //   console.log(acl_data[index_acl]['id']);
-                //   console.log(this.accused_type_1);
-                //   this.accused_type_1 = acl_data[index_acl]['id'];
-                // }, 5000);
-
-                //this.accused_type_1 = '21';//acl_data[index_acl]['id'];
-                //this.onChangeAccusedType1();
               } else {
-                this.accused_type_2 = acl_data[index_acl]['id'];
+                alc_data_temp.push(acl_data[index_acl]['id']);
               }
             }
-            // console.log('cpl data');
-            // console.log(cpl_data);
-            // console.log(data_test.length);
-            // console.log(data_test);
-          }, function (err) {
-            console.log('sad');
+            return alc_data_temp;
+          }).then((data) => {
+            this.onChangeAccusedType();
+            let alc_data_temp: Array<any> = [];
+            if (typeof data != undefined && data !== null && data.length != 0) {
+              for (let index_acl in data) {
+                if (index_acl == '0') {
+                  this.accused_type_id_1 = data[index_acl];
+                  this.onChangeAccusedType1();
+                } else {
+                  alc_data_temp.push(data[index_acl]);
+                }
+              }
+            }
+            return alc_data_temp;
+
+
+          }).then((data) => {
+            if (typeof data != undefined && data !== null && data.length != 0) {
+              for (let index_acl in data) {
+                if (index_acl == '0') {
+                  this.accused_type_id_2 = data[index_acl];
+                }
+              }
+            }
+          }).catch(err => {
+
           });
           // this.accused_type_id
           // this.accused_type_1
@@ -270,7 +295,7 @@ export class Step3 {
         this.navCtrl.push(Step2, { param1: id });
       } else if (page == 4 && this.complaints[0]['step'] >= 4) {
         this.navCtrl.push(Step4, { param1: id });
-      } else if (page == 5 && this.complaints[0]['step'] >= 5) {
+      } else if (page == 5 && this.complaints[0]['step'] >= 4) {
         this.navCtrl.push(Step5, { param1: id });
       }
     }
@@ -357,14 +382,23 @@ export class Step3 {
   }
 
   onChangeComplainType() {
+    console.log('on change type');
+    console.log(this.complain_type_id);
     this.SelectorComplaint.getComplaintTypeListByParent(this.complain_type_id).then((data) => {
+      console.log('on change data true');
+      console.log(data);
       var link = document.getElementById('complain_type_1');
+      console.log('link');
+      console.log(link);
       link.style.display = 'block';
       var link2 = document.getElementById('complain_type_2');
       link2.style.display = 'none';
+      console.log('link2');
+      console.log(link2);
       this.complain_type_1 = data;
       this.complain_type_2 = [];
     }, function (err) {
+      console.log('on change data false');
       var link = document.getElementById('complain_type_1');
       link.style.display = 'none';
       var link2 = document.getElementById('complain_type_2');
