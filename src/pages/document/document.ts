@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import {IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
-import {Login} from "../login/login";
-import {Auth} from "../../providers/auth";
+import { IonicPage, LoadingController, NavController, NavParams } from 'ionic-angular';
+import { Login } from "../login/login";
+import { Auth } from "../../providers/auth";
 
 /**
  * Generated class for the Document page.
@@ -18,9 +18,9 @@ export class Document {
   private loading: any;
 
   constructor(public nav: NavController,
-              public navParams: NavParams,
-              public auth: Auth,
-              public loadingCtrl: LoadingController) {
+    public navParams: NavParams,
+    public auth: Auth,
+    public loadingCtrl: LoadingController) {
     this.signOut();
   }
 
@@ -51,3 +51,4 @@ export class Document {
 
 
   }
+}

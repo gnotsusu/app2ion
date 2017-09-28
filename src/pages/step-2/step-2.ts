@@ -104,10 +104,15 @@ export class Step2 {
             let sd_tmp = data['scene_date'].toString().split(' ');
             let sd_tmp_splt = sd_tmp[0].split('-');
             this.scene_date = new Date(sd_tmp_splt[0] + '-' + sd_tmp_splt[1] + '-' + sd_tmp_splt[2]).toISOString();
+          } else {
+            this.scene_date = new Date().toISOString();
           }
           this.place_scene = data['place_scene'];
           if (data['address_id'] !== null && data['address_id'] != '' && typeof data['address_id'] != undefined) {
             this.province_id = data['address_id'].substring(0, 2) + '000000';
+            this.onChangeProvince();
+          } else {
+            this.province_id = '20000000';
             this.onChangeProvince();
           }
 
