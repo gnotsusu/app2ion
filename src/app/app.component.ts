@@ -57,17 +57,17 @@ export class MyApp {
 
     this.initializeApp();
     this.pages = [
-      new Pages('หน้าหลัก', 'home', Tabs)
+      new Pages('หน้าหลัก', 'home', Tabs),
       // new Pages('หน้าหลัก', 'home', HomePage),
-      // new Pages('บันทึกเรื่องราวร้องทุกข์', 'filing', Step1),
+      new Pages('บันทึกเรื่องราวร้องทุกข์', 'filing', Step1),
       // new Pages('ผลการดำเนินงาน', 'clipboard', Dashboard),
-      // new Pages('รายงาน', 'paper', Report)
+      new Pages('รายงาน', 'paper', Report),
       //new Pages('ออกจากระบบ', 'lock', Login)
     ];
     this.authen();
     //this.test = this.auth.getUserProfile();
     //console.log('a');
-    console.log(this.test);
+    //console.log(this.test);
 
   }
 

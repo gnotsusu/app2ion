@@ -45,12 +45,13 @@
         <ion-col>
           <ion-list inset>
             <ion-item class="input-login">
-              <ion-input border [(ngModel)]="username" type="text" placeholder="Username" name="username" required></ion-input>
+              <ion-input border [(ngModel)]="username" type="text" placeholder="ชื่อผู้ใช้" name="username" required></ion-input>
             </ion-item>
 
             <ion-item class="input-login">
-              <ion-input [(ngModel)]="password"  type="password" placeholder="Password" name="password" required></ion-input>
+              <ion-input [(ngModel)]="password" type="password" placeholder="รหัสผ่าน" name="password" required></ion-input>
             </ion-item>
+
 
           </ion-list>
         </ion-col>
@@ -58,6 +59,11 @@
     </form>
   </div>
   <div padding>
-    <button ion-button outline type="submit" [disabled]="!registerForm.form.valid" (click)="signIn()" block>ล๊อกอิน</button>
+    <button ion-button outline type="submit" [disabled]="!registerForm.form.valid" (click)="signIn()" block>เข้าสู่ระบบ</button>
+  </div>
+  <div text-center>
+    <p>
+      <a (click)="forgetPass()">ลืมรหัสผ่าน ?</a>
+    </p>
   </div>
 </ion-content>

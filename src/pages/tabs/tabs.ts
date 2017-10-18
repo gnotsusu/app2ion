@@ -24,4 +24,6 @@ export class Tabs {
 
   constructor(public navCtrl: NavController) {}
 
+  
+
 }

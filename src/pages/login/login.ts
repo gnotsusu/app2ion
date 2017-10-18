@@ -1,9 +1,9 @@
-import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams, LoadingController, AlertController} from 'ionic-angular';
-import {Auth} from '../../providers/auth';
-import {Http} from '@angular/http';
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
+import { Auth } from '../../providers/auth';
+import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
-import {Tabs} from "../tabs/tabs";
+import { Tabs } from "../tabs/tabs";
 /**
  * Generated class for the Login page.
  *
@@ -19,15 +19,15 @@ export class Login {
 
   public username: string;
   public password: string;
-  loading : any;
-  token:string = "";
+  loading: any;
+  token: string = "";
 
   constructor(public navCtrl: NavController,
-              public http: Http,
-              public navParams: NavParams,
-              public auth: Auth,
-              public loadCtrl : LoadingController,
-              public alertCtrl : AlertController) {
+    public http: Http,
+    public navParams: NavParams,
+    public auth: Auth,
+    public loadCtrl: LoadingController,
+    public alertCtrl: AlertController) {
   }
 
   ionViewDidLoad() {
@@ -35,16 +35,16 @@ export class Login {
     this.authen();
   }
 
-  authen(){
+  authen() {
 
     this.showLoading();
 
     this.auth.isCheck().then((data) => {
-        return data;
-    }).then( (token:string) => {
-        return this.auth.isExpire(token);
-    }).then((isExpire:Boolean) => {
-      if (isExpire ) {
+      return data;
+    }).then((token: string) => {
+      return this.auth.isExpire(token);
+    }).then((isExpire: Boolean) => {
+      if (isExpire) {
         this.loading.dismiss();
         this.presentAlert();
       } else {
@@ -71,19 +71,23 @@ export class Login {
       this.navCtrl.push(Tabs);
     }).catch((err) => {
       this.loading.dismiss();
-      alert('username or password failure!');
+      let alert = this.alertCtrl.create({
+        title: "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง",
+        buttons: ['ตกลง']
+      });
+      alert.present();
     });
 
   }
 
-  showLoading(){
+  showLoading() {
     this.loading = this.loadCtrl.create({
-      content : 'กำลังยื่นยันตัวตน...'
+      content: 'กำลังยื่นยันตัวตน...'
     });
     this.loading.present();
   }
 
-  presentAlert(){
+  presentAlert() {
     let alert = this.alertCtrl.create({
       title: "ระยะเวลาอยู่ในระบบของคุณหมดอายุ",
       subTitle: "กรุณาเข้าสู่ระบบอีกครั้ง",
@@ -92,4 +96,18 @@ export class Login {
     alert.present();
   }
 
+  forgetPass() {
+    let alert = this.alertCtrl.create({
+      title: "ลืมรหัสผ่าน",
+      subTitle: "กรุณากรอกอีเมล์",
+      inputs: [{ name: 'email', placeholder: 'อีเมล์' }],
+      buttons: [{ text: 'ตกลง', handler: (data) => { this.sendEmail(data) } }, { text: 'ยกเลิก' }]
+    });
+    alert.present();
+  }
+
+  sendEmail(email) {
+    alert('กรุณาตรวจสอบอีเมล์');
+
+  }
 }
