@@ -113,7 +113,12 @@ export class Login {
       if(this.userDataId!=''){
         this.rePassword(this.userDataId);
       }else{
-        alert('ไม่พบข้อมูล');
+        let alert = this.alertCtrl.create({
+          title: "เกิดข้อผิดพลาด",
+          subTitle: "ไม่พบข้อมูล",
+          buttons: [{ text: 'ตกลง' }]
+        });
+        alert.present();
       }
     });
 
@@ -131,11 +136,21 @@ export class Login {
 
   rePasswordSave(data){
     if(data.repassword != data.repassword2){
-      alert('กรุณากรอกรหัสผ่านให้ตรงกัน');
+      let alert = this.alertCtrl.create({
+        title: "เกิดข้อผิดพลาด",
+        subTitle: "กรุณากรอกรหัสผ่านให้ตรงกัน",
+        buttons: [{ text: 'ตกลง' }]
+      });
+      alert.present();
     }else{
       this.auth.saveRepassword(data.userId, data.repassword).then((dataUser) => {
         this.userDataId = dataUser;
-          alert('เปลี่ยนรหัสผ่านเรียบร้อยแล้ว');
+        let alert = this.alertCtrl.create({
+          title: "สำเร็จ",
+          subTitle: "เปลี่ยนรหัสผ่านเรียบร้อยแล้ว",
+          buttons: [{ text: 'ตกลง' }]
+        });
+        alert.present();
       });
     }
   }
