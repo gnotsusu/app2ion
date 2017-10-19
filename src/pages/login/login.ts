@@ -21,6 +21,7 @@ export class Login {
   public password: string;
   loading: any;
   token: string = "";
+  userDataId : any;
 
   constructor(public navCtrl: NavController,
     public http: Http,
@@ -99,15 +100,43 @@ export class Login {
   forgetPass() {
     let alert = this.alertCtrl.create({
       title: "ลืมรหัสผ่าน",
-      subTitle: "กรุณากรอกอีเมล์",
-      inputs: [{ name: 'email', placeholder: 'อีเมล์' }],
-      buttons: [{ text: 'ตกลง', handler: (data) => { this.sendEmail(data) } }, { text: 'ยกเลิก' }]
+      subTitle: "กรุณากรอกชื่อผู้ใช้ อีเมล์และเลขประจำตัวประชาชน",
+      inputs: [{ name: 'username', placeholder: 'ชื่อผู้ใช้' },{ name: 'email', placeholder: 'อีเมล์' },{ name: 'id_card', placeholder: 'เลขประจำตัวประชาชน' }],
+      buttons: [{ text: 'ตกลง', handler: (data) => { this.checkUserData(data) } }, { text: 'ยกเลิก' }]
     });
     alert.present();
   }
 
-  sendEmail(email) {
-    alert('กรุณาตรวจสอบอีเมล์');
+  checkUserData(data) {
+    this.auth.getUserData(data.username, data.email, data.id_card).then((dataUser) => {
+      this.userDataId = dataUser;
+      if(this.userDataId!=''){
+        this.rePassword(this.userDataId);
+      }else{
+        alert('ไม่พบข้อมูล');
+      }
+    });
 
+  }
+
+  rePassword(userId) {
+    let alert = this.alertCtrl.create({
+      title: "กรอกรหัสผ่านใหม่",
+      subTitle: "กรุณากรอกรหัสผ่านที่ท่านต้องการ",
+      inputs: [{ name: 'userId', value: userId, type:'hidden' },{ name: 'repassword', placeholder: 'รหัสผ่านใหม่', type:'password' },{ name: 'repassword2', placeholder: 'ยืนยันรหัสผ่าน' , type:'password'}],
+      buttons: [{ text: 'ตกลง', handler: (data) => { this.rePasswordSave(data) } }, { text: 'ยกเลิก' }]
+    });
+    alert.present();
+  }
+
+  rePasswordSave(data){
+    if(data.repassword != data.repassword2){
+      alert('กรุณากรอกรหัสผ่านให้ตรงกัน');
+    }else{
+      this.auth.saveRepassword(data.userId, data.repassword).then((dataUser) => {
+        this.userDataId = dataUser;
+          alert('เปลี่ยนรหัสผ่านเรียบร้อยแล้ว');
+      });
+    }
   }
 }

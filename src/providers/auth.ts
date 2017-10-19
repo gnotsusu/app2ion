@@ -70,7 +70,10 @@ export class Auth {
   public auth = this.host + '/api/authen/token';
   public info = this.host + '/api/authen/token_info';
   public user = this.host + '/api/user/user';
+  public re_password_info = this.host + "/api/authen/repassword_info";
+  public re_password_save = this.host + "/api/authen/repassword";
   public token: string;
+  public userDataId : any;
 
   public userInfo: User;
   public groups: Array<any> = [];
@@ -193,5 +196,44 @@ export class Auth {
         })
     })
   }
+  public getUserData(username: string, email: string, idcard: string) {
+    let body = "username=" + username + "&email=" + email + "&idcard=" + idcard;
+    let url = this.re_password_info;
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    let options = new RequestOptions({ headers: headers });
 
+    console.log(url);
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, options).map(res => res.json()).subscribe(
+        (data) => {
+          this.userDataId = data;
+          resolve(this.userDataId);
+        },
+        (err) => {
+          reject(err);
+        });
+
+    });
+  }
+  public saveRepassword(userId: string, repassword: string) {
+    let body = "id=" + userId + "&repassword=" + repassword;
+    let url = this.re_password_save;
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    let options = new RequestOptions({ headers: headers });
+
+    console.log(url);
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, options).map(res => res.json()).subscribe(
+        (data) => {
+          this.userDataId = data;
+          resolve(this.userDataId);
+        },
+        (err) => {
+          reject(err);
+        });
+
+    });
+  }
 }
