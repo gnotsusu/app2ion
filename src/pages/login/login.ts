@@ -135,23 +135,23 @@ export class Login {
   }
 
   rePasswordSave(data){
-    if(data.repassword != data.repassword2){
-      let alert = this.alertCtrl.create({
-        title: "เกิดข้อผิดพลาด",
-        subTitle: "กรุณากรอกรหัสผ่านให้ตรงกัน",
-        buttons: [{ text: 'ตกลง' }]
-      });
-      alert.present();
-    }else{
-      this.auth.saveRepassword(data.userId, data.repassword).then((dataUser) => {
+      this.auth.saveRepassword(data.userId, data.repassword, data.repassword2).then((dataUser) => {
         this.userDataId = dataUser;
+        let txt_title = '';
+        let txt_subTitle = '';
+        if(dataUser=='error'){
+            txt_title = 'เกิดข้อผิดพลาด';
+            txt_subTitle = 'กรุณากรอกรหัสผ่านให้ตรงกัน'
+        }else{
+            txt_title = 'สำเร็จ';
+            txt_subTitle = 'เปลี่ยนรหัสผ่านเรียบร้อยแล้ว'
+        }
         let alert = this.alertCtrl.create({
-          title: "สำเร็จ",
-          subTitle: "เปลี่ยนรหัสผ่านเรียบร้อยแล้ว",
-          buttons: [{ text: 'ตกลง' }]
+          title: txt_title,
+          subTitle: txt_subTitle,
+          buttons: [{ text: 'ตกลง',  }]
         });
         alert.present();
       });
-    }
   }
 }

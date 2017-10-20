@@ -216,7 +216,7 @@ export class Auth {
 
     });
   }
-  public saveRepassword(userId: string, repassword: string) {
+  public saveRepassword(userId: string, repassword: string, repassword2: string) {
     let body = "id=" + userId + "&repassword=" + repassword;
     let url = this.re_password_save;
     let headers = new Headers();
