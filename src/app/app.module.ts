@@ -29,7 +29,7 @@ import {ChartsModule} from "ng2-charts";
 import {Report} from "../pages/report/report";
 import {Result} from "../pages/result/result";
 import {DonusCharts} from "../pages/donus-charts/donus-charts";
-import {LineCharts} from "../pages/line-charts/line-charts";
+import {LineCharts, PopoverLineChart} from "../pages/line-charts/line-charts";
 import {ReportService} from "../providers/report-service";
 import {ResultService} from "../providers/result-service";
 import {ResultState} from "../pages/result-state/result-state";
@@ -65,6 +65,7 @@ import {ReportStatisticByStatus} from "../pages/report-statistic-by-status/repor
     ReportStatisticByType,
     ReportAllComplaint,
     ReportStatisticByStatus,
+    PopoverLineChart,
   ],
   imports: [
     BrowserModule,
@@ -97,6 +98,7 @@ import {ReportStatisticByStatus} from "../pages/report-statistic-by-status/repor
     ReportStatisticByType,
     ReportAllComplaint,
     ReportStatisticByStatus,
+    PopoverLineChart
   ],
   providers: [
     StatusBar,
