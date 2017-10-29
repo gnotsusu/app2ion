@@ -45,7 +45,7 @@
       </ion-item>
       <ion-item>
         <ion-label floating>จังหวัด</ion-label>
-        <ion-select [(ngModel)]="province_id" (ionChange)="onChangeProvince()" formControlName="province_id" [class.invalid]="!complainForm.controls.province_id.valid && (complainForm.controls.province_id.dirty || submitAttempt)">
+        <ion-select interface="popover" [(ngModel)]="province_id" (ionChange)="onChangeProvince()" formControlName="province_id" [class.invalid]="!complainForm.controls.province_id.valid && (complainForm.controls.province_id.dirty || submitAttempt)">
           <ion-option *ngFor="let province of provinces" [value]="province.id">{{province.value}}</ion-option>
         </ion-select>
       </ion-item>
@@ -54,7 +54,7 @@
       </ion-item>
       <ion-item>
         <ion-label floating>อำเภอ</ion-label>
-        <ion-select [(ngModel)]="district_id" (ionChange)="onChangeDistrict()" formControlName="district_id" [class.invalid]="!complainForm.controls.district_id.valid && (complainForm.controls.district_id.dirty || submitAttempt)">
+        <ion-select interface="popover" [(ngModel)]="district_id" (ionChange)="onChangeDistrict()" formControlName="district_id" [class.invalid]="!complainForm.controls.district_id.valid && (complainForm.controls.district_id.dirty || submitAttempt)">
           <ion-option *ngFor="let district of districts" [value]="district.id">{{district.value}}</ion-option>
         </ion-select>
       </ion-item>
@@ -63,7 +63,7 @@
       </ion-item>
       <ion-item>
         <ion-label floating>ตำบล</ion-label>
-        <ion-select [(ngModel)]="address_id" formControlName="address_id" [class.invalid]="!complainForm.controls.address_id.valid && (complainForm.controls.address_id.dirty || submitAttempt)">
+        <ion-select interface="popover" [(ngModel)]="address_id" formControlName="address_id" [class.invalid]="!complainForm.controls.address_id.valid && (complainForm.controls.address_id.dirty || submitAttempt)">
           <ion-option *ngFor="let sub_district of sub_districts" [value]="sub_district.id">{{sub_district.value}}</ion-option>
         </ion-select>
       </ion-item>
