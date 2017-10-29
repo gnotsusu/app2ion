@@ -34,7 +34,7 @@
       </ion-list-header>
       <ion-item>
         <ion-label floating>ประเภทเรื่อง</ion-label>
-        <ion-select [(ngModel)]="complain_type_id" formControlName="complain_type_id" [class.invalid]="!complainForm.controls.complain_type_id.valid && (complainForm.controls.complain_type_id.dirty || submitAttempt)"
+        <ion-select interface="popover" [(ngModel)]="complain_type_id" formControlName="complain_type_id" [class.invalid]="!complainForm.controls.complain_type_id.valid && (complainForm.controls.complain_type_id.dirty || submitAttempt)"
           (ionChange)="onChangeComplainType()">
           <ion-option *ngFor="let complain of complain_type_id_sel" [value]="complain.id">{{complain.name}}</ion-option>
           <!--<ion-option >test</ion-option>-->
@@ -43,7 +43,7 @@
       <span id="complain_type_1" class="complain_type_1">
       <ion-item>
         <ion-label floating>ประเภทเรื่องย่อย</ion-label>
-        <ion-select [(ngModel)]="complain_type_id_1" [ngModelOptions]="{standalone: true}" (ionChange)="onChangeComplainType1()">
+        <ion-select interface="popover" [(ngModel)]="complain_type_id_1" [ngModelOptions]="{standalone: true}" (ionChange)="onChangeComplainType1()">
           <ion-option *ngFor="let complain of complain_type_1" [value]="complain.id">{{complain.name}}</ion-option>
           <!--<ion-option >test</ion-option>-->
         </ion-select>
@@ -52,7 +52,7 @@
       <span id="complain_type_2" class="complain_type_2">
       <ion-item>
         <ion-label floating>ประเภทเรื่องย่อย</ion-label>
-        <ion-select [(ngModel)]="complain_type_id_2" [ngModelOptions]="{standalone: true}">
+        <ion-select interface="popover" [(ngModel)]="complain_type_id_2" [ngModelOptions]="{standalone: true}">
           <ion-option *ngFor="let complain of complain_type_2" [value]="complain.id">{{complain.name}}</ion-option>
           <!--<ion-option >test</ion-option>-->
         </ion-select>
@@ -70,7 +70,7 @@
       </ion-item>
       <ion-item>
         <ion-label floating>ช่องทางรับเรื่อง</ion-label>
-        <ion-select [(ngModel)]="channel_id" formControlName="channel_id" [class.invalid]="!complainForm.controls.channel_id.valid && (complainForm.controls.channel_id.dirty || submitAttempt)">
+        <ion-select interface="popover" [(ngModel)]="channel_id" formControlName="channel_id" [class.invalid]="!complainForm.controls.channel_id.valid && (complainForm.controls.channel_id.dirty || submitAttempt)">
           <ion-option *ngFor="let channel of channel_id_sel" [value]="channel.id">{{channel.name}}</ion-option>
           <!--<ion-option >test</ion-option>-->
         </ion-select>
@@ -80,7 +80,7 @@
       </ion-item>
       <ion-item>
         <ion-label floating>ลักษณะเรื่อง</ion-label>
-        <ion-select [(ngModel)]="subject_id" formControlName="subject_id" [class.invalid]="!complainForm.controls.subject_id.valid && (complainForm.controls.subject_id.dirty || submitAttempt)">
+        <ion-select interface="popover" [(ngModel)]="subject_id" formControlName="subject_id" [class.invalid]="!complainForm.controls.subject_id.valid && (complainForm.controls.subject_id.dirty || submitAttempt)">
           <ion-option *ngFor="let subject of subject_id_sel" [value]="subject.id">{{subject.name}}</ion-option>
           <!--<ion-option >test</ion-option>-->
         </ion-select>
@@ -90,7 +90,7 @@
       </ion-item>
       <ion-item>
         <ion-label floating>หน่วยงานหรือผู้ถูกร้องเรียนร้องทุกข์</ion-label>
-        <ion-select [(ngModel)]="accused_type_id" formControlName="accused_type_id" [class.invalid]="!complainForm.controls.accused_type_id.valid && (complainForm.controls.accused_type_id.dirty || submitAttempt)"
+        <ion-select interface="popover" [(ngModel)]="accused_type_id" formControlName="accused_type_id" [class.invalid]="!complainForm.controls.accused_type_id.valid && (complainForm.controls.accused_type_id.dirty || submitAttempt)"
           (ionChange)="onChangeAccusedType()">
           <ion-option *ngFor="let complain of accused_type_id_sel" [value]="complain.id">{{complain.name}}</ion-option>
           <!--<ion-option >test</ion-option>-->
@@ -99,7 +99,7 @@
       <span id="accused_type_1" class="accused_type_1">
       <ion-item>
         <ion-label floating>หน่วยงานหรือผู้ถูกร้องเรียนร้องทุกข์ย่อย</ion-label>
-        <ion-select [(ngModel)]="accused_type_id_1" [ngModelOptions]="{standalone: true}" (ionChange)="onChangeAccusedType1()">
+        <ion-select interface="popover" [(ngModel)]="accused_type_id_1" [ngModelOptions]="{standalone: true}" (ionChange)="onChangeAccusedType1()">
           <ion-option *ngFor="let complain of accused_type_1" [value]="complain.id">{{complain.name}}</ion-option>
           <!--<ion-option >test</ion-option>-->
         </ion-select>
@@ -108,7 +108,7 @@
       <span id="accused_type_2" class="accused_type_2">
       <ion-item>
         <ion-label floating>หน่วยงานหรือผู้ถูกร้องเรียนร้องทุกข์ย่อย</ion-label>
-        <ion-select [(ngModel)]="accused_type_id_2" [ngModelOptions]="{standalone: true}">
+        <ion-select interface="popover" [(ngModel)]="accused_type_id_2" [ngModelOptions]="{standalone: true}">
           <ion-option *ngFor="let complain of accused_type_2" [value]="complain.id">{{complain.name}}</ion-option>
           <!--<ion-option >test</ion-option>-->
         </ion-select>
