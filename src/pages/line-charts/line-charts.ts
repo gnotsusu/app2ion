@@ -1,8 +1,9 @@
 import {Component, ViewChild} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, NavController, NavParams, PopoverController, ViewController} from 'ionic-angular';
 import {Auth} from "../../providers/auth";
 import {Reports} from "../../providers/reports";
-import {BaseChartDirective} from "ng2-charts";
+import {BaseChartDirective} from "ng2-charts"
+
 
 /**
  * Generated class for the DonusCharts page.
@@ -10,6 +11,32 @@ import {BaseChartDirective} from "ng2-charts";
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
+
+@Component({
+  template: `<ion-list>
+    <ion-item>
+      <ion-label>ปี : </ion-label>
+      <ion-select interface="popover" [(ngModel)]="year">
+        <ion-option *ngFor="let year of yearList;" value="{{year.value}}">{{year.name}}</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>`
+})
+export class PopoverLineChart{
+
+  public year:any;
+
+  public yearList:any = [
+    {value: "", name: "ไม่ระบุ"},
+    {value: "2558", name: "2558"},
+    {value: "2559", name: "2559"},
+    {value: "2560", name: "2560"},
+    {value: "2561", name: "2561"},
+  ];
+
+  constructor(private viewCtrl: ViewController){}
+
+}
 
 @IonicPage()
 @Component({
@@ -57,7 +84,8 @@ export class LineCharts {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public reports: Reports,
-              public auth: Auth) {
+              public auth: Auth,
+              private popoverCtrl: PopoverController) {
     this.title = this.navParams.get('title');
   }
 
@@ -70,6 +98,8 @@ export class LineCharts {
     console.log('ionViewDidLoad LineCharts');
     //this.loadCharts();
   }
+
+
 
   chartHovered(e: any): void {
     console.log(e);
@@ -125,8 +155,18 @@ export class LineCharts {
       this._chart.chart.update();
     }
 
-
   }
 
+  presentPopover(ev){
+    let popover = this.popoverCtrl.create(PopoverLineChart);
+    popover.present({
+      ev: ev
+    });
+
+    popover.onDidDismiss(data => {
+      console.log(data);
+    })
+
+  }
 
 }
