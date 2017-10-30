@@ -41,10 +41,10 @@ export class Tabs {
   ionViewDidLoad() {
     console.log('ionViewDidLoad Login');
     if (typeof this.pageParam != 'undefined') {
-      console.log('pages', this.pageParam);
+      //console.log('pages', this.pageParam);
       //this.navCtrl.setRoot(this.pageParam);
-      console.log('this.appCtrl.getRootNav()', this.appCtrl.getRootNav());
-      this.appCtrl.getRootNav().push(this.pageParam);
+      //console.log('this.appCtrl.getRootNav()', this.appCtrl.getRootNav());
+      //this.appCtrl.getRootNav().push(this.pageParam);
       //this.navCtrl.
     }
   }

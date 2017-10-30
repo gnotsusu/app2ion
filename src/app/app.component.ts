@@ -120,10 +120,10 @@ export class MyApp {
     // } else {
     //   this.nav.setRoot(page.component);
     // }
-    this.nav.setRoot(Tabs);
+    //this.nav.setRoot(Tabs);
     //this.nav.push(page.component);
     //this.app.getRootNav().push(page.component);
-    this.rootPage = Tabs;
+    //this.rootPage = Tabs;
     this.app.getRootNav().push(page.component);
 
   }
