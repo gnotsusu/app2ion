@@ -225,79 +225,91 @@ export class Step5 {
         return this.getComplainData(this.token)
       }).then((data2: any) => {
         let data_result: any;
-        let complain_type_data = this.SelectorComplaint.getComplaintTypeList().then((data) => {
-          for (let i in data) {
-            if (data[i].id == data2[0]['complain_type_id']) {
-              data_result = data[i].name;
-              return data_result;
-            }
+        if (data2[0]['complain_type_id'] !== null && typeof data2[0]['complain_type_id'] != 'undefined') {
+          let complain_type_data = this.SelectorComplaint.getComplaintTypeList().then((data) => {
+            for (let i in data) {
+              if (data[i].id == data2[0]['complain_type_id']) {
+                data_result = data[i].name;
+                return data_result;
+              }
 
-          }
-        }).then((data_result: any) => {
-          this.complain_data[0]['complain_type'] = data_result;
-          //return this.complain_data;
-        });
+            }
+          }).then((data_result: any) => {
+            this.complain_data[0]['complain_type'] = data_result;
+            //return this.complain_data;
+          });
+        }
+
         return this.complain_data;
       }).then((data2) => {
         let data_result: any;
-        let complain_type_data = this.SelectorComplaint.getAccusedTypeList().then((data) => {
-          for (let i in data) {
-            if (data[i].id == data2[0]['accused_type_id']) {
-              data_result = data[i].name;
-              return data_result;
+        if (data2[0]['accused_type_id'] !== null && typeof data2[0]['accused_type_id'] != 'undefined') {
+          let complain_type_data = this.SelectorComplaint.getAccusedTypeList().then((data) => {
+            for (let i in data) {
+              if (data[i].id == data2[0]['accused_type_id']) {
+                data_result = data[i].name;
+                return data_result;
+              }
             }
-          }
-        }).then((data_result: any) => {
-          this.complain_data[0]['accused_type_id'] = data_result;
-        });
+          }).then((data_result: any) => {
+            this.complain_data[0]['accused_type_id'] = data_result;
+          });
+        }
         return this.complain_data;
       }).then((data2) => {
-        let data_result: any;
-        let data_province = data2[0]['address_id'].substring(0, 2) + '000000';
-        let complain_type_data = this.selectAddress.Province().then((data) => {
-          for (let i in data) {
-            // console.log(data[i].id + '==' + data_province);
-            if (data[i].id == data_province) {
-              data_result = data[i].value;
-              return data_result;
+        console.log('data2', data2);
+        if (data2[0]['address_id'] !== null && typeof data2[0]['address_id'] != 'undefined' && data2[0]['address_id'] != '') {
+          let data_result: any;
+          let data_province = data2[0]['address_id'].substring(0, 2) + '000000';
+          let complain_type_data = this.selectAddress.Province().then((data) => {
+            for (let i in data) {
+              // console.log(data[i].id + '==' + data_province);
+              if (data[i].id == data_province) {
+                data_result = data[i].value;
+                return data_result;
+              }
             }
-          }
-        }).then((data_result: any) => {
-          this.complain_data[0]['province_data'] = data_result;
-        });
-        return this.complain_data;
+          }).then((data_result: any) => {
+            this.complain_data[0]['province_data'] = data_result;
+          });
+          return this.complain_data;
+        }
       }).then((data2) => {
         let data_result: any;
-        let data_district = data2[0]['address_id'].substring(0, 4) + '0000';
-        let complain_type_data = this.selectAddress.District(data2[0]['address_id']).then((data) => {
-          for (let i in data) {
-            // console.log(data[i].id + '==' + data_district);
-            if (data[i].id == data_district) {
-              data_result = data[i].value;
-              return data_result;
+        if (data2[0]['address_id'] !== null && typeof data2[0]['address_id'] != 'undefined' && data2[0]['address_id'] != '') {
+          let data_district = data2[0]['address_id'].substring(0, 4) + '0000';
+          let complain_type_data = this.selectAddress.District(data2[0]['address_id']).then((data) => {
+            for (let i in data) {
+              // console.log(data[i].id + '==' + data_district);
+              if (data[i].id == data_district) {
+                data_result = data[i].value;
+                return data_result;
+              }
             }
-          }
-        }).then((data_result: any) => {
-          this.complain_data[0]['district_data'] = data_result;
-        });
-        return this.complain_data;
+          }).then((data_result: any) => {
+            this.complain_data[0]['district_data'] = data_result;
+          });
+          return this.complain_data;
+        }
       }).then((data2) => {
         let data_result: any;
-        let data_subdistrict = data2[0]['address_id'].substring(0, 6) + '00';
-        let complain_type_data = this.selectAddress.SubDistrict(data2[0]['address_id']).then((data) => {
-          for (let i in data) {
-            // console.log(data[i].id + '==' + data_subdistrict);
-            if (data[i].id == data_subdistrict) {
-              data_result = data[i].value;
-              return data_result;
+        if (data2[0]['address_id'] !== null && typeof data2[0]['address_id'] != 'undefined' && data2[0]['address_id'] != '') {
+          let data_subdistrict = data2[0]['address_id'].substring(0, 6) + '00';
+          let complain_type_data = this.selectAddress.SubDistrict(data2[0]['address_id']).then((data) => {
+            for (let i in data) {
+              // console.log(data[i].id + '==' + data_subdistrict);
+              if (data[i].id == data_subdistrict) {
+                data_result = data[i].value;
+                return data_result;
+              }
             }
-          }
-        }).then((data_result: any) => {
-          this.complain_data[0]['subdistrict_data'] = data_result;
-        });
-        return this.complain_data;
+          }).then((data_result: any) => {
+            this.complain_data[0]['subdistrict_data'] = data_result;
+          });
+          return this.complain_data;
+        }
       }).catch(err => {
-        this.loading.dismiss();
+        //this.loading.dismiss();
         console.error(err.message);
       });
   }
@@ -364,11 +376,32 @@ export class Step5 {
         data.complain_date = now.format('D MMM ') + (now.get('year') + 543) + now.format(' เวลา h:mm:ss น.');
         if (data.scene_date != '0000-00-00 00:00:00') {
           let now2 = moment(data.scene_date);
-          data.scene_date = now2.format('D MMM ') + (now2.get('year') + 543) + now2.format(' เวลา h:mm:ss น.');
+          if (now.isValid) {
+            data.scene_date = '';
+          } else {
+            data.scene_date = now2.format('D MMM ') + (now2.get('year') + 543) + now2.format(' เวลา h:mm:ss น.');
+          }
+
         } else {
           data.scene_date = '';
         }
+        if (typeof data.complain_name == undefined) {
+          data.complain_name = '';
+        }
+        if (data.complain_name === null) {
+          data.complain_name = '';
+        }
+        if (typeof channel == undefined || channel[0] == null) {
+          channel.push(new Channel('0', ''));
+        }
 
+        if (typeof subject == undefined || subject[0] == null) {
+          subject.push(new Subject('0', ''));
+        }
+        console.log('data.scence_date', data.scene_date);
+        if (typeof data.scene_date == undefined || data.scene_date == 'Invalid dateNaNInvalid date') {
+          data.scene_date == '';
+        }
         this.complain_data.push(new ComplaintData(
           data.keyin_id,
           data.create_user_id,
@@ -418,6 +451,7 @@ export class Step5 {
         ));
 
         console.log("Log Complanit :" + this.complain_data[0].toString());
+        console.log(this.complain_data)
         resolve(this.complain_data);
       })
     });

@@ -81,7 +81,7 @@ export class Dashboard {
   }
 
   goToDetail(keyin_id, step) {
-    console.log(keyin_id);
+    /*console.log(keyin_id);
     if (step == '1') {
       this.navCtrl.push(Step2, { param1: keyin_id });
     } else if (step == '2') {
@@ -92,7 +92,8 @@ export class Dashboard {
       this.navCtrl.push(Step5, { param1: keyin_id });
     } else {
       this.navCtrl.push(Step5, { param1: keyin_id });
-    }
+    }*/
+    this.navCtrl.push(Step5, { param1: keyin_id });
 
 
   }
