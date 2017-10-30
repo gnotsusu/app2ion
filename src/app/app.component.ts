@@ -1,6 +1,6 @@
 import { User } from './../providers/auth';
 import { Component, ViewChild } from '@angular/core';
-import { MenuController, Nav, Platform, LoadingController } from 'ionic-angular';
+import { MenuController, Nav, Platform, LoadingController, App } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Auth } from '../providers/auth';
@@ -45,7 +45,7 @@ export class MyApp {
   rootPage: any = Login;
   pages: Array<Pages>;
   loading: any;
-  test: Array<any> = [];
+  profile: Array<any> = [];
   public token: any;
   constructor(
     public platform: Platform,
@@ -53,6 +53,7 @@ export class MyApp {
     public splashScreen: SplashScreen,
     public menu: MenuController,
     public auth: Auth,
+    public app: App,
     public loadingCtrl: LoadingController) {
 
     this.initializeApp();
@@ -65,9 +66,6 @@ export class MyApp {
       //new Pages('ออกจากระบบ', 'lock', Login)
     ];
     this.authen();
-    //this.test = this.auth.getUserProfile();
-    //console.log('a');
-    //console.log(this.test);
 
   }
 
@@ -96,18 +94,14 @@ export class MyApp {
           // console.log(data['user']);
           return data['user'];
         }).then((data) => {
-          this.test.push(new UserData(
+          this.profile.push(new UserData(
             data['id'],
             data['first_name'],
             '',
             data['photo']
           ));
-          console.log('sa');
-          console.log(this.test);
-          // return this.test
         });
-        //this.test = this.test[0];
-        return this.test;
+        return this.profile;
         // this.loading.dismiss();
       }
     }).catch(err => {
@@ -120,7 +114,18 @@ export class MyApp {
     // close the menu when clicking a link from the menu
     this.menu.close();
     // navigate to the new page if it is not the current page
-    this.nav.setRoot(page.component);
+    //console.log('page', page.icon);
+    // if (page.icon == 'filing' || page.icon == 'paper') {
+    //   this.nav.setRoot(Tabs, { page: page.component });
+    // } else {
+    //   this.nav.setRoot(page.component);
+    // }
+    this.nav.setRoot(Tabs);
+    //this.nav.push(page.component);
+    //this.app.getRootNav().push(page.component);
+    this.rootPage = Tabs;
+    this.app.getRootNav().push(page.component);
+
   }
 
   public signOut() {

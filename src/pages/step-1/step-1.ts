@@ -268,12 +268,13 @@ export class Step1 {
   }
 
   goTo(page, id) {
+    console.log('this.step_max', this.step_max);
     if (typeof id != undefined && id != '') {
-      if (page == 2 && this.step_max >= 2) {
+      if (page == 2 && this.step_max >= 1) {
         this.navCtrl.push(Step2, { param1: id });
       } else if (page == 3 && this.step_max >= 3) {
         let page_data3: Array<any> = [{ page: Step3, params: { param1: id } }];
-        this.navCtrl.setPages(page_data3);
+        this.navCtrl.push(Step3, { param1: id });
       } else if (page == 4 && this.step_max >= 4) {
         this.navCtrl.push(Step4, { param1: id });
       } else if (page == 5 && this.step_max >= 4) {

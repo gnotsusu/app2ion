@@ -162,9 +162,9 @@ export class Step2 {
     if (typeof id != undefined && id != '') {
       if (page == 1) {
         this.navCtrl.push(Step1, { param1: id });
-      } else if (page == 3) {
+      } else if (page == 3 && this.complaints[0]['step'] >= 3) {
         let page_data3: Array<any> = [{ page: Step3, params: { param1: id } }];
-        this.navCtrl.setPages(page_data3);
+        this.navCtrl.push(Step3, { param1: id });
       } else if (page == 4 && this.complaints[0]['step'] >= 4) {
         this.navCtrl.push(Step4, { param1: id });
       } else if (page == 5 && this.complaints[0]['step'] >= 4) {

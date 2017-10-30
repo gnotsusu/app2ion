@@ -1,5 +1,5 @@
-<ion-tabs color="primary">
+<ion-tabs color="primary" #myTabs>
   <ion-tab [root]="tab1Root" tabIcon="home"></ion-tab>
-  <ion-tab [root]="tab2Root" tabIcon="pie"></ion-tab>
-  <!-- <ion-tab [root]="tab3Root" tabIcon="unlock"></ion-tab> -->
+  <!-- <ion-tab [root]="tab2Root" tabIcon="pie"></ion-tab> -->
+  <ion-tab (ionSelect)="logout()" tabIcon="unlock"></ion-tab>
 </ion-tabs>
