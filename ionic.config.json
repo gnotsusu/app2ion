@@ -1,7 +1,8 @@
 {
-  "name": "damrongdham",
+  "name": "Damrongdham Chonburi",
   "app_id": "",
   "type": "ionic-angular",
-  "typescript": true,
-  "v2": true
+  "integrations": {
+    "cordova": {}
+  }
 }

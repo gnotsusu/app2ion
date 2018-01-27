@@ -1,8 +1,8 @@
 {
-    "name": "ionic-hello-world",
-    "version": "0.0.0",
-    "author": "Ionic Framework",
-    "homepage": "http://ionicframework.com/",
+    "name": "Damrongdham chonburi",
+    "version": "0.9.0",
+    "author": "Damrongdham chonburi",
+    "homepage": "http://damrongdham.chonburi.go.th/",
     "private": true,
     "scripts": {
         "clean": "ionic-app-scripts clean",
