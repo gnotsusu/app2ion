@@ -27,47 +27,39 @@
       <ion-icon name="filing" large item-start></ion-icon>
       <h2>แจ้งเรื่องร้องเรียน</h2>
       <ion-note item-end>
-        <span text-right><ion-icon name="add" large item-start></ion-icon></span>
+        <span text-right>
+          <ion-icon name="add" large item-start></ion-icon>
+        </span>
       </ion-note>
     </ion-item>
-    <ion-item (click)="goToAllComplaint()">
+    <ion-item *ngIf="dataStatus[9];else all_content" (click)="goToAllComplaint()">
       <ion-icon name="mail" large item-start></ion-icon>
       <h2>ทั้งหมด</h2>
       <ion-note item-end>
-        <span [ngSwitch]="dataStatus[6]>999">
-        <p *ngSwitchCase="true">
-          999+
-        </p>
-        <p *ngSwitchCase="false">
-          {{dataStatus[6]}}
-        </p>
-        <p *ngSwitchDefault>
-          {{dataStatus[6]}}
-        </p>
-        </span>
-      </ion-note>
-
-    </ion-item>
-    <ion-item (click)="goToAllComplaint(1)">
-      <ion-icon name="clock" large item-start></ion-icon>
-      <h2>อยู่ระหว่างรับเรื่อง</h2>
-      <ion-note item-end>
-        <span [ngSwitch]="dataStatus[0]>999">
+        <span [ngSwitch]="dataStatus[9]>999">
           <p *ngSwitchCase="true">
             999+
           </p>
           <p *ngSwitchCase="false">
-            {{dataStatus[0]}}
+            {{dataStatus[9]}}
           </p>
           <p *ngSwitchDefault>
-            {{dataStatus[0]}}
+            {{dataStatus[9]}}
           </p>
-          </span>
+        </span>
       </ion-note>
     </ion-item>
-    <ion-item (click)="goToAllComplaint(2)">
-      <ion-icon name="mail-open" large item-start></ion-icon>
-      <h2>รับเรื่อง</h2>
+    <ng-template #all_content>
+      <ion-item>
+        <ion-icon name="mail" large item-start></ion-icon>
+        <h2>ทั้งหมด</h2>
+      </ion-item>
+    </ng-template>
+
+
+    <ion-item *ngIf="dataStatus[1];else wait_content" (click)="goToAllComplaint(1)">
+      <ion-icon name="clock" large item-start></ion-icon>
+      <h2>อยู่ระหว่างรับเรื่อง 1{{dataStatus[1]}} 1</h2>
       <ion-note item-end>
         <span [ngSwitch]="dataStatus[1]>999">
           <p *ngSwitchCase="true">
@@ -79,12 +71,18 @@
           <p *ngSwitchDefault>
             {{dataStatus[1]}}
           </p>
-          </span>
+        </span>
       </ion-note>
     </ion-item>
-    <ion-item (click)="goToAllComplaint(3)">
-      <ion-icon name="paper-plane" large item-start></ion-icon>
-      <h2>ส่งต่อเรื่อง</h2>
+    <ng-template #wait_content>
+      <ion-item>
+        <ion-icon name="clock" large item-start></ion-icon>
+        <h2>อยู่ระหว่างรับเรื่อง </h2>
+      </ion-item>
+    </ng-template>
+    <ion-item *ngIf="dataStatus[2];else receive_content" (click)="goToAllComplaint(2)">
+      <ion-icon name="mail-open" large item-start></ion-icon>
+      <h2>รับเรื่อง</h2>
       <ion-note item-end>
         <span [ngSwitch]="dataStatus[2]>999">
           <p *ngSwitchCase="true">
@@ -96,12 +94,18 @@
           <p *ngSwitchDefault>
             {{dataStatus[2]}}
           </p>
-          </span>
+        </span>
       </ion-note>
     </ion-item>
-    <ion-item (click)="goToAllComplaint(4)">
-      <ion-icon name="checkbox" large item-start=""></ion-icon>
-      <h2>บันทึกผลเรียบร้อย</h2>
+    <ng-template #receive_content>
+      <ion-item>
+        <ion-icon name="mail-open" large item-start></ion-icon>
+        <h2>รับเรื่อง </h2>
+      </ion-item>
+    </ng-template>
+    <ion-item *ngIf="dataStatus[3];else send_content" (click)="goToAllComplaint(3)">
+      <ion-icon name="paper-plane" large item-start></ion-icon>
+      <h2>ส่งต่อเรื่อง</h2>
       <ion-note item-end>
         <span [ngSwitch]="dataStatus[3]>999">
           <p *ngSwitchCase="true">
@@ -113,9 +117,38 @@
           <p *ngSwitchDefault>
             {{dataStatus[3]}}
           </p>
-          </span>
+        </span>
       </ion-note>
     </ion-item>
+    <ng-template #send_content>
+      <ion-item>
+        <ion-icon name="paper-plane" large item-start></ion-icon>
+        <h2>ส่งต่อเรื่อง </h2>
+      </ion-item>
+    </ng-template>
+    <ion-item *ngIf="dataStatus[4];else check_result" (click)="goToAllComplaint(4)">
+      <ion-icon name="checkbox" large item-start=""></ion-icon>
+      <h2>บันทึกผลเรียบร้อย</h2>
+      <ion-note item-end>
+        <span [ngSwitch]="dataStatus[4]>999">
+          <p *ngSwitchCase="true">
+            999+
+          </p>
+          <p *ngSwitchCase="false">
+            {{dataStatus[4]}}
+          </p>
+          <p *ngSwitchDefault>
+            {{dataStatus[4]}}
+          </p>
+        </span>
+      </ion-note>
+    </ion-item>
+    <ng-template #check_result>
+      <ion-item>
+        <ion-icon name="checkbox" large item-start></ion-icon>
+        <h2>บันทึกผลเรียบร้อย </h2>
+      </ion-item>
+    </ng-template>
   </ion-list>
 
 </ion-content>

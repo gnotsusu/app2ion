@@ -47,6 +47,8 @@ export class Dashboard {
         data[key].complain_date = now.format('D MMM ') + (now.get('year') + 543) + now.format(' เวลา h:mm:ss น.');
         this.complaints.push(data[key]);
       });
+    }).catch((err)=>{
+      console.log('err',err)
     });
     this.page++;
   }
