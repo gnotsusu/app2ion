@@ -16,9 +16,21 @@ export class HomePage {
   public dataStatus: object[] = [];
   constructor(public navCtrl: NavController, dashboardService: DashboardService) {
     dashboardService.getDashboardCountlist().then((data) => {
-      console.log(data);
+      // console.log(data);
+      let success = 0;
       Object.keys(data).forEach((key) => {
-        this.dataStatus.push(data[key]['sum_complain']);
+        // this.dataStatus.push([data[key]['sum_complain'],data[key]['sum_complain']]);
+
+        if (data[key]['current_status_id'] == 'all') {
+          this.dataStatus['9'] = data[key]['sum_complain'];
+        } else if (data[key]['current_status_id'] == '4' || data[key]['current_status_id'] == '5' || data[key]['current_status_id'] == '6') {
+          // this.dataStatus['4'] += (parseInt(data[key]['sum_complain']));
+          success = success + parseInt(data[key]['sum_complain']);
+          this.dataStatus['4'] = success;
+          // console.log('sum_complain',success);
+        } else {
+          this.dataStatus[data[key]['current_status_id']] = data[key]['sum_complain'];
+        }
       });
       console.log(this.dataStatus);
     });
