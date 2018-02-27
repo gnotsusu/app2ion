@@ -33,8 +33,9 @@ export class User {
   photo: string;
   idcard: string;
   gender: string;
+  curentgroup: string;
 
-  constructor(id: string, username: string, email: string, first_name: string, last_name: string, company: string, phone: string, photo: string, idcard: string, gender: string) {
+  constructor(id: string, username: string, email: string, first_name: string, last_name: string, company: string, phone: string, photo: string, idcard: string, gender: string, curentgroup: string) {
     this.id = id;
     this.username = username;
     this.email = email;
@@ -45,6 +46,7 @@ export class User {
     this.photo = photo;
     this.idcard = idcard;
     this.gender = gender;
+    this.curentgroup = curentgroup;
   }
 }
 
@@ -73,7 +75,7 @@ export class Auth {
   public re_password_info = this.host + "/api/authen/repassword_info";
   public re_password_save = this.host + "/api/authen/repassword";
   public token: string;
-  public userDataId : any;
+  public userDataId: any;
 
   public userInfo: User;
   public groups: Array<any> = [];
@@ -177,13 +179,14 @@ export class Auth {
         data => {
           let user = data.user;
           let groups = data.groups;
-
-          ////console.log("User ");
-          ////console.log(user);
+          let curentgroup = data.currentGroups[0].name;
+          // console.log("User ");
+          // console.log(user);
           ////console.log("Group ");
           ////console.log(groups);
+          // console.log('curentgroup', curentgroup)
 
-          this.userInfo = new User(user.id, user.username, user.email, user.first_name, user.last_name, user.company, user.phone, user.register_photo, user.idcard, user.gender);
+          this.userInfo = new User(user.id, user.username, user.email, user.first_name, user.last_name, user.company, user.phone, user.register_photo, user.idcard, user.gender, curentgroup);
 
           for (let i in groups) {
             this.groups.push(new Groups(groups[i].id, groups[i].name, groups[i].description, groups[i].bgcolor))

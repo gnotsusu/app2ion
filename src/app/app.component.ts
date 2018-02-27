@@ -57,21 +57,24 @@ export class MyApp {
     public loadingCtrl: LoadingController) {
 
     this.initializeApp();
-    this.pages = [
-      new Pages('หน้าหลัก', 'home', Tabs),
-      // new Pages('หน้าหลัก', 'home', HomePage),
-      new Pages('บันทึกเรื่องราวร้องทุกข์', 'filing', Step1),
-      // new Pages('ผลการดำเนินงาน', 'clipboard', Dashboard),
-      new Pages('รายงาน', 'paper', Report),
-      //new Pages('ออกจากระบบ', 'lock', Login)
-    ];
+
     this.authen();
+    // console.log('token 1', this.token);
 
   }
 
   private initializeApp() {
 
     this.platform.ready().then(() => {
+      // console.log('token', this.token);
+      // this.pages = [
+      //   new Pages('หน้าหลัก', 'home', Tabs),
+      //   // new Pages('หน้าหลัก', 'home', HomePage),
+      //   new Pages('บันทึกเรื่องราวร้องทุกข์', 'filing', Step1),
+      //   // new Pages('ผลการดำเนินงาน', 'clipboard', Dashboard),
+      //   new Pages('รายงาน', 'paper', Report),
+      //   //new Pages('ออกจากระบบ', 'lock', Login)
+      // ];
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
@@ -81,19 +84,42 @@ export class MyApp {
     //this.showLoading();
     this.auth.isCheck().then((data) => {
       this.token = data;
+
       return data;
     }).then((token: string) => {
       return this.auth.isExpire(token);
     }).then((isExpire: Boolean) => {
       if (isExpire) {
         // this.loading.dismiss();
-        this.nav.pop(Login);
+        // this.nav.popToRoot();
       } else {
         this.auth.getUserProfile().then((data) => {
           // console.log('da');
-          // console.log(data['user']);
+          // console.log(data['user']);          
           return data['user'];
         }).then((data) => {
+          console.log('data', data.curentgroup);
+          if (data.curentgroup == 'admin') {
+            console.log('a');
+            this.pages = [
+              new Pages('หน้าหลัก', 'home', Tabs),
+              // new Pages('หน้าหลัก', 'home', HomePage),
+              new Pages('บันทึกเรื่องราวร้องทุกข์', 'filing', Step1),
+              // new Pages('ผลการดำเนินงาน', 'clipboard', Dashboard),
+              new Pages('รายงาน', 'paper', Report),
+              //new Pages('ออกจากระบบ', 'lock', Login)
+            ];
+          } else {
+            console.log('b');
+            this.pages = [
+              new Pages('หน้าหลัก', 'home', Tabs),
+              // new Pages('หน้าหลัก', 'home', HomePage),
+              new Pages('บันทึกเรื่องราวร้องทุกข์', 'filing', Step1),
+              // new Pages('ผลการดำเนินงาน', 'clipboard', Dashboard),
+              // new Pages('รายงาน', 'paper', Report),
+              //new Pages('ออกจากระบบ', 'lock', Login)
+            ];
+          }
           this.profile.push(new UserData(
             data['id'],
             data['first_name'],
