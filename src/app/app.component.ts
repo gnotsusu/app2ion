@@ -1,9 +1,8 @@
-import { User } from './../providers/auth';
-import { Component, ViewChild } from '@angular/core';
-import { MenuController, Nav, Platform, LoadingController, App } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { Auth } from '../providers/auth';
+import {Component, ViewChild} from '@angular/core';
+import {MenuController, Nav, Platform, LoadingController, App, Events} from 'ionic-angular';
+import {StatusBar} from '@ionic-native/status-bar';
+import {SplashScreen} from '@ionic-native/splash-screen';
+import {Auth} from '../providers/auth';
 
 export class Pages {
   title: string;
@@ -21,7 +20,7 @@ export class UserData {
   id: string;
   name: string;
   group: any;
-  image: any
+  image: any;
 
   constructor(id: string, name: string, group: any, image: any) {
     this.id = id;
@@ -31,12 +30,13 @@ export class UserData {
   }
 }
 
-import { Login } from '../pages/login/login';
-import { HomePage } from "../pages/home/home";
-import { Step1 } from './../pages/step-1/step-1';
-import { Report } from "../pages/report/report";
-import { Dashboard } from './../pages/dashboard/dashboard';
-import { Tabs } from "../pages/tabs/tabs";
+import {Login} from '../pages/login/login';
+// import { HomePage } from "../pages/home/home";
+import {Step1} from '../pages/step-1/step-1';
+import {Report} from "../pages/report/report";
+// import { Dashboard } from './../pages/dashboard/dashboard';
+import {Tabs} from "../pages/tabs/tabs";
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -47,19 +47,23 @@ export class MyApp {
   loading: any;
   profile: Array<any> = [];
   public token: any;
-  constructor(
-    public platform: Platform,
-    public statusBar: StatusBar,
-    public splashScreen: SplashScreen,
-    public menu: MenuController,
-    public auth: Auth,
-    public app: App,
-    public loadingCtrl: LoadingController) {
+
+  constructor(public platform: Platform,
+              public statusBar: StatusBar,
+              public splashScreen: SplashScreen,
+              public menu: MenuController,
+              public auth: Auth,
+              public app: App,
+              public loadingCtrl: LoadingController,
+              public events: Events) {
 
     this.initializeApp();
 
     this.authen();
     // console.log('token 1', this.token);
+    events.subscribe('user:logged-in', () => {
+      this.refreshMenu();
+    });
 
   }
 
@@ -80,7 +84,8 @@ export class MyApp {
     });
 
   }
-  authen() {
+
+  public authen() {
     //this.showLoading();
     this.auth.isCheck().then((data) => {
       this.token = data;
@@ -95,31 +100,54 @@ export class MyApp {
       } else {
         this.auth.getUserProfile().then((data) => {
           // console.log('da');
-          // console.log(data['user']);          
+          // console.log(data['user']);
           return data['user'];
         }).then((data) => {
-          console.log('data', data.curentgroup);
-          if (data.curentgroup == 'admin') {
-            console.log('a');
-            this.pages = [
-              new Pages('หน้าหลัก', 'home', Tabs),
-              // new Pages('หน้าหลัก', 'home', HomePage),
-              new Pages('บันทึกเรื่องราวร้องทุกข์', 'filing', Step1),
-              // new Pages('ผลการดำเนินงาน', 'clipboard', Dashboard),
-              new Pages('รายงาน', 'paper', Report),
-              //new Pages('ออกจากระบบ', 'lock', Login)
-            ];
-          } else {
-            console.log('b');
-            this.pages = [
-              new Pages('หน้าหลัก', 'home', Tabs),
-              // new Pages('หน้าหลัก', 'home', HomePage),
-              new Pages('บันทึกเรื่องราวร้องทุกข์', 'filing', Step1),
-              // new Pages('ผลการดำเนินงาน', 'clipboard', Dashboard),
-              // new Pages('รายงาน', 'paper', Report),
-              //new Pages('ออกจากระบบ', 'lock', Login)
-            ];
+          switch (data.curentgroup) {
+            case 'admin': {
+              this.pages = [
+                new Pages('หน้าหลัก', 'home', Tabs),
+                new Pages('บันทึกเรื่องราวร้องทุกข์', 'filing', Step1),
+                new Pages('รายงาน', 'paper', Report),
+              ];
+              break;
+            }
+            case 'manager': {
+              this.pages = [
+                new Pages('รายงาน', 'paper', Report)
+              ];
+              break;
+            }
+            default: {
+              this.pages = [
+                new Pages('หน้าหลัก', 'home', Tabs),
+                new Pages('บันทึกเรื่องราวร้องทุกข์', 'filing', Step1),
+              ];
+              break;
+            }
           }
+          // console.log('data', data.curentgroup);
+          // if (data.curentgroup == 'admin') {
+          //   // console.log('a');
+          //   this.pages = [
+          //     new Pages('หน้าหลัก', 'home', Tabs),
+          //     // new Pages('หน้าหลัก', 'home', HomePage),
+          //     new Pages('บันทึกเรื่องราวร้องทุกข์', 'filing', Step1),
+          //     // new Pages('ผลการดำเนินงาน', 'clipboard', Dashboard),
+          //     new Pages('รายงาน', 'paper', Report),
+          //     //new Pages('ออกจากระบบ', 'lock', Login)
+          //   ];
+          // } else {
+          //   // console.log('b');
+          //   this.pages = [
+          //     new Pages('หน้าหลัก', 'home', Tabs),
+          //     // new Pages('หน้าหลัก', 'home', HomePage),
+          //     new Pages('บันทึกเรื่องราวร้องทุกข์', 'filing', Step1),
+          //     // new Pages('ผลการดำเนินงาน', 'clipboard', Dashboard),
+          //     // new Pages('รายงาน', 'paper', Report),
+          //     //new Pages('ออกจากระบบ', 'lock', Login)
+          //   ];
+          // }
           this.profile.push(new UserData(
             data['id'],
             data['first_name'],
@@ -132,7 +160,7 @@ export class MyApp {
       }
     }).catch(err => {
       // this.loading.dismiss();
-      console.error(err.message);
+      console.error(err);
     });
   }
 
@@ -168,12 +196,49 @@ export class MyApp {
 
   }
 
-  showLoading() {
+  public showLoading() {
     this.loading = this.loadingCtrl.create({
       content: 'กำลังออกจากระบบ...'
     });
     this.loading.present();
   }
 
+  private refreshMenu() {
+    this.auth.getUserProfile().then((data) => {
+      return data['user'];
+    }).then((data) => {
+      switch (data.curentgroup) {
+        case 'admin': {
+          this.pages = [
+            new Pages('หน้าหลัก', 'home', Tabs),
+            new Pages('บันทึกเรื่องราวร้องทุกข์', 'filing', Step1),
+            new Pages('รายงาน', 'paper', Report),
+          ];
+          break;
+        }
+        case 'manager': {
+          this.pages = [
+            new Pages('รายงาน', 'paper', Report)
+          ];
+          break;
+        }
+        default: {
+          this.pages = [
+            new Pages('หน้าหลัก', 'home', Tabs),
+            new Pages('บันทึกเรื่องราวร้องทุกข์', 'filing', Step1),
+          ];
+          break;
+        }
+      }
+      this.profile.push(new UserData(
+        data['id'],
+        data['first_name'],
+        '',
+        data['photo']
+      ));
+    }).catch(err => {
+      console.error(err);
+    });
+  }
 }
 
