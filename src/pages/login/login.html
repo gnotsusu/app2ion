@@ -24,39 +24,46 @@
  </ion-content>-->
 
 <ion-content class="login-content" padding>
-  <ion-row class="logo-row">
-    <ion-col></ion-col>
-    <ion-col width-67>
-      <img src="http://www.damrongdhama.moi.go.th/images/logo-damrongdhama.jpg"/>
+  <ion-row>
+    <ion-col>
+      <div class="image-logo"></div>
     </ion-col>
-    <ion-col></ion-col>
   </ion-row>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
   <div class="login-box">
     <form #registerForm="ngForm">
       <ion-row>
         <ion-col>
           <ion-list inset>
-
-            <ion-item>
-              <ion-input [(ngModel)]="username" type="text" placeholder="Username" name="username" required></ion-input>
+            <ion-item class="input-login">
+              <ion-input border [(ngModel)]="username" type="text" placeholder="ชื่อผู้ใช้" name="username" required></ion-input>
             </ion-item>
 
-            <ion-item>
-              <ion-input [(ngModel)]="password"  type="password" placeholder="Password" name="password" required></ion-input>
+            <ion-item class="input-login">
+              <ion-input [(ngModel)]="password" type="password" placeholder="รหัสผ่าน" name="password" required></ion-input>
             </ion-item>
+
 
           </ion-list>
         </ion-col>
       </ion-row>
-
-      <ion-row>
-        <ion-col class="signup-col">
-          <button ion-button class="submit-btn" full type="submit" [disabled]="!registerForm.form.valid"
-                  (click)="signIn()">Login
-          </button>
-        </ion-col>
-      </ion-row>
-
     </form>
+  </div>
+  <div padding>
+    <button ion-button outline type="submit" [disabled]="!registerForm.form.valid" (click)="signIn()" block>เข้าสู่ระบบ</button>
+  </div>
+  <div text-center>
+    <p>
+      <a (click)="forgetPass()">ลืมรหัสผ่าน ?</a>
+    </p>
   </div>
 </ion-content>

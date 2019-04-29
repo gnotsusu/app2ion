@@ -1,0 +1,44 @@
+<!--
+  Generated template for the Step4 page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar hideBackButton="true">
+    <ion-title>หลักฐานประกอบเรื่องร้องเรียน/ร้องทุกข์</ion-title>
+    <ion-buttons end>
+      <!-- <button ion-button [navPush]="step5Page">ถัดไป</button> -->
+      <button ion-button (click)="saveData()">ต่อไป</button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+  <ion-card-content>
+    <ul class="breadcrumb">
+      <li><a href="#" (click)='goTo(1,keyin_id)'>step 1</a></li>
+      <li><a href="#" (click)='goTo(2,keyin_id)'>step 2</a></li>
+      <li><a href="#" (click)='goTo(3,keyin_id)'>step 3</a></li>
+      <li><a href="#" class="active">step 4</a></li>
+      <li><a href="#" (click)='goTo(5,keyin_id)' class="disabled">step 5</a></li>
+    </ul>
+  </ion-card-content>
+  <div>
+    <ion-buttons>
+      <button ion-button block (click)="openModal()">เลือกภาพหลักฐาน</button>
+    </ion-buttons>
+  </div>
+  <ion-row>
+    <ion-list ion-item *ngFor="let item of items">
+      <div class="avatar-content">
+        <img [src]="item.src" *ngIf="item.src">
+      </div>
+      <div style="text-align: right;margin-top: -50px;">
+        <button (click)="deleteImage(item.id)" style="right: 3%;padding: 4px 10px;background: #ffffff;border-radius: 100%;font-size: 1.5em;"><ion-icon name="trash"></ion-icon></button>
+      </div>
+    </ion-list>
+  </ion-row>
+</ion-content>

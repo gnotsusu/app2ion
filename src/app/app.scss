@@ -14,6 +14,290 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+//.content-md {
+//  background-color: #0000fe;
+//}
+
+@font-face {
+  font-family: 'SukhumvitSet';
+  src: url('../assets/fonts/SukhumvitSet-Bold.ttf') format('embedded-opentype'), url('../assets/fonts/SukhumvitSet-Light.ttf') format('woff'), url('../assets/fonts/SukhumvitSet-Medium.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+ion-app.ios,ion-app.md{
+  font-family: 'SukhumvitSet';
+}
+
+ion-content{
+  background-color: #ffffff !important;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  ion-card-content{
+    .list-header, .item-ios.item-block .item-inner, .item-md.item-block .item-inner,.list-ios > .item-block:last-child, .list-ios > .item-wrapper:last-child .item-block{
+      border-bottom: 0px;
+      border-top: 0px;
+    }
+    .item .item-block .item-inner{
+      border-bottom: 0px;
+    }
+    .list-header{
+      font-size: 16px;
+      font-weight: bold;
+    }
+    .list-header-md,.list-header-ios{
+      margin-bottom: 0px;
+      color: #333;
+    }
+
+    .item-ios,.item-md{
+	  background-color: #ffffff !important;
+    }
+    ion-list{
+      display: inline;
+    }
+
+    .item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner, .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner{
+      border-bottom-color: transparent;
+      box-shadow:inset 0 -1px 0 0 transparent;
+    }
+
+    p {
+      font-size: 0.8em;
+      color:$red !important;
+    }
+
+    .swiper-slide {
+      display: block;
+    }
+
+    ion-label, .select-text {
+      margin-left: 10px;
+    }
+
+    ion-input, ion-select, ion-textarea,ion-datetime {
+      border: 1px solid rgba(189, 189, 189, 0.51) !important;
+      -webkit-border-radius: 3px;
+      border-radius: 3px;
+      color: rgba(0,142,198,1);
+      -o-text-overflow: clip;
+      text-overflow: clip;
+      background: rgba(252,252,252,1);
+	  box-shadow: 0px 0px 5px rgba(136, 136, 136, 0.46) !important;
+    }
+
+    .item-input .label-md, .item-select .label-md, .item-datetime .label-md {
+      color: #1b1a1a;
+    }
+
+    .invalid {
+      border: 1px solid #ea6153;
+    }
+
+    .radio-ios .radio-checked{
+      border-color: #488aff !important;
+	  transform: scale3d(1, 1, 1);
+    }
+
+	.label-ios,.label-md{
+		padding-left: 4px !important;
+	}
+
+	.datetime-text {
+	  padding-left: 5px !important;
+	}
+
+  }
+  .breadcrumb { 
+    list-style: none; 
+    overflow: hidden; 
+    font: 12px Sans-Serif;
+    padding: 0px;
+  }
+  .breadcrumb li { 
+    float: left; 
+  }
+  .breadcrumb li a {
+    color: white;
+    text-decoration: none; 
+    padding: 1px 0 1px 12px;
+    //background: brown; /* fallback color */
+    background: #3BCA89; 
+    position: relative; 
+    display: block;
+    float: left;
+    font-size: 12pt;
+  }
+  .breadcrumb li a::after { 
+    content: " "; 
+    display: block; 
+    width: 0; 
+    height: 0;
+    border-top: 10px solid transparent; /* Go big on the size, and let overflow hide */
+    border-bottom: 10px solid transparent;
+    border-left: 10px solid #3BCA89;
+    position: absolute;
+    top: 50%;
+    margin-top: -10px; 
+    left: 100%;
+    z-index: 2;
+    font-size: 12pt;
+  }
+  .breadcrumb li a::before { 
+    content: " "; 
+    display: block; 
+    width: 0; 
+    height: 0;
+    border-top: 10px solid transparent;       
+    border-bottom: 10px solid transparent;
+    border-left: 10px solid white;
+    position: absolute;
+    top: 50%;
+    margin-top: -10px; 
+    margin-left: 1px;
+    left: 100%;
+    z-index: 1; 
+  }
+  .breadcrumb li:first-child a {
+    padding-left: 10px;
+  }
+
+  .breadcrumb li a:hover { 
+    background: #3BCA89; 
+  }
+  .breadcrumb li a:hover:after { 
+    border-left-color: #3BCA89 !important; 
+  }
+
+  .breadcrumb li a.active {
+    color: white;
+    text-decoration: none; 
+    padding: 1px 0 1px 12px;
+    //background: brown; /* fallback color */
+    background: #FFC107; 
+    position: relative; 
+    display: block;
+    float: left;
+  }
+  .breadcrumb li a.active::after { 
+    content: " "; 
+    display: block; 
+    width: 0; 
+    height: 0;
+    border-top: 10px solid transparent; /* Go big on the size, and let overflow hide */
+    border-bottom: 10px solid transparent;
+    border-left: 10px solid #FFC107;
+    position: absolute;
+    top: 50%;
+    margin-top: -10px; 
+    left: 100%;
+    z-index: 2; 
+  }
+  .breadcrumb li a.active::before { 
+    content: " "; 
+    display: block; 
+    width: 0; 
+    height: 0;
+    border-top: 10px solid transparent;       
+    border-bottom: 10px solid transparent;
+    border-left: 10px solid white;
+    position: absolute;
+    top: 50%;
+    margin-top: -10px; 
+    margin-left: 1px;
+    left: 100%;
+    z-index: 1; 
+  }
+
+  .breadcrumb li a.active:hover { 
+    background: #FFC107; 
+  }
+  .breadcrumb li a.active:hover:after { 
+    border-left-color: #FFC107 !important; 
+  }
+
+  //un active
+  .breadcrumb li a.disabled {
+    color: white;
+    text-decoration: none; 
+    padding: 1px 0 1px 12px;
+    //background: brown; /* fallback color */
+    background: #D4D4D4; 
+    position: relative; 
+    display: block;
+    float: left;
+  }
+  .breadcrumb li a.disabled::after { 
+    content: " "; 
+    display: block; 
+    width: 0; 
+    height: 0;
+    border-top: 10px solid transparent; /* Go big on the size, and let overflow hide */
+    border-bottom: 10px solid transparent;
+    border-left: 10px solid #D4D4D4;
+    position: absolute;
+    top: 50%;
+    margin-top: -10px; 
+    left: 100%;
+    z-index: 2; 
+  }
+  .breadcrumb li a.disabled::before { 
+    content: " "; 
+    display: block; 
+    width: 0; 
+    height: 0;
+    border-top: 10px solid transparent;       
+    border-bottom: 10px solid transparent;
+    border-left: 10px solid white;
+    position: absolute;
+    top: 50%;
+    margin-top: -10px; 
+    margin-left: 1px;
+    left: 100%;
+    z-index: 1; 
+  }
+
+  .breadcrumb li a.disabled:hover { 
+    background: #D4D4D4; 
+  }
+  .breadcrumb li a.disabled:hover:after { 
+    border-left-color: #D4D4D4 !important; 
+  }
+}
+
+ion-navbar{
+	.toolbar-background-md,.toolbar-background-ios{
+		border-color: #ffffff !important;
+		background: #ffffff !important;
+		background: rgba(76, 198, 241, 1.00) !important;
+	}
+
+	.toolbar-title-md,.toolbar-title-ios{
+		color: #ffffff !important;
+	}
+	.bar-button-default-md,.bar-button-default-ios{
+		color: #ffffff !important;
+	}
+}
+
+ion-tabs{
+  .tabbar {
+    border-color: #ffffff !important;
+    background: #ffffff !important;
+    background: rgba(76, 198, 241, 1.00) !important;
+  }
+}
+
+ion-toolbar{
+  .toolbar-background-md,.toolbar-background-ios,.toolbar-background{
+    background: rgba(255, 255, 255, 1.00) !important;
+  }
+  .item,.item-block,.item-md,.item-ios{
+    background: rgba(255, 255, 255, 1.00) !important;
+  }
+}
 
 .on-scroll .scroll-content{
   overflow: hidden;

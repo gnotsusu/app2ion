@@ -1,0 +1,22 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{title}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+  <canvas width="100%" min-height="100%" height="100%"
+          baseChart
+          [datasets]="reportChartsData"
+          [labels]="reportChartsLabels"
+          [legend]=true
+          [colors]="reportChartsColors"
+          [chartType]="reportsChartType"
+          [options]="reportChartsOptions"
+          (chartHover)="chartsOnHover($event)"
+          (chartClick)="chartsOnClick($event)"
+  >
+  </canvas>
+</ion-content>

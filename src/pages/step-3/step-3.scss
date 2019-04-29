@@ -1,0 +1,119 @@
+/*
+	.ios, .md{
+        page-step-2 {
+            ion-content{
+                background: url('../../assets/images/bg.jpg');
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                background-size: 100% 100%;
+                background-repeat: no-repeat;
+                ion-card-content{
+            .list-header, .item-ios.item-block .item-inner, .item-md.item-block .item-inner,.list-ios > .item-block:last-child, .list-ios > .item-wrapper:last-child .item-block{
+                    border-bottom: 0px;
+                    border-top: 0px;
+            }
+            .item .item-block .item-inner{
+                border-bottom: 0px;
+            }
+            .list-header{
+                font-size: 16px;
+                font-weight: bold;
+            }
+            .list-header-md{
+                margin-bottom: 0px;
+            }
+            .item-ios,.item-md{
+                background: rgba(188,224,238, 0.3)
+            }
+            ion-list{
+                display: inline;
+            }
+
+            .item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner, .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner{
+                border-bottom-color: transparent;
+                box-shadow:inset 0 -1px 0 0 transparent;
+            }
+
+            p {
+                font-size: 0.8em;
+                color: #f53e3e;
+            }
+
+            .swiper-slide {
+                display: block;
+            }
+
+            ion-label, .select-text {
+                margin-left: 10px;
+            }
+
+            ion-input, ion-select, ion-textarea,ion-datetime {
+                background-color: #f2f2f2;
+                padding: 5px 10px;
+                display: inline-block;
+                -webkit-box-sizing: content-box;
+                -moz-box-sizing: content-box;
+                box-sizing: content-box;
+                padding: 10px 20px;
+                border: 1px solid #b7b7b7;
+                -webkit-border-radius: 3px;
+                border-radius: 3px;
+                font: normal 16px/normal "Times New Roman", Times, serif;
+                color: rgba(0,142,198,1);
+                -o-text-overflow: clip;
+                text-overflow: clip;
+                background: rgba(252,252,252,1);
+            }
+            ion-input, ion-textarea,ion-datetime {
+                width: 80%;
+            }
+            ion-select{
+                width: 90%;
+                display: inherit;
+            }
+
+            .invalid {
+                border: 1px solid #ea6153;
+            }
+            .complain_type_1{
+              display: none;
+            }
+            .complain_type_2{
+              display: none;
+            }
+            .accused_type_1{
+              display: none;
+            }
+            .accused_type_2{
+              display: none;
+            }
+          }
+      }
+
+
+        }
+    }
+*/
+.ios , .md{
+    page-step-3{
+        .card-content{
+            padding: 0px;
+            font-size: 1.4rem;
+            line-height: 1.4;
+        }
+        .complain_type_1{
+          display: none ;
+        }
+        .complain_type_2{
+          display: none ;
+        }
+        .accused_type_1{
+          display: none ;
+        }
+        .accused_type_2{
+          display: none ;
+        }       
+        
+          
+    }
+}
